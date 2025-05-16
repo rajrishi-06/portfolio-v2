@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Site</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-      .navbar {
-          transition: height 0.3s ease-in-out;
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Site</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
+
+  <link rel="stylesheet" href="https://cdn.lineicons.com/1.0.1/LineIcons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600&amp;display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+  <script id="wkik-jquery" src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .navbar {
+        transition: height 0.3s ease-in-out;
+    }
+    
+    html, body {
+      border-top: 0.5vh solid #0c0d13;
+      border-left: 1vw solid #0c0d13;
+      border-right: 1vw solid #0c0d13;
+    }
+    html {
+      background-color: #0c0d13;
+    }
+    /* Creative divider + larger tabs + spacing */
+    .skills-main .nav-tabs {
+      border-bottom: none;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    .skills-main .nav-tabs::after {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, #4e54c8, #8f94fb, #4e54c8);
+      border-radius: 2px;
+      width: 80%;
+      margin: 0.25rem auto;
+    }
+    .skills-main .nav-tabs .nav-item {
+      margin: 0 .5rem;      /* responsive spacing */
+    }
+    .skills-main .nav-tabs .nav-link {
+      font-size: 1.25rem;
+      padding: 0.75rem 1.5rem;
+      color: #6c757d;
+    }
+    .skills-main .nav-tabs .nav-link.active {
+      background-color: #0c0d13 !important;
+      color: yellow !important;
+    }
+
+    /* Smaller logos & hover scale */
+    .skills-icon img,
+    .skills-icon i {
+      width: 48px;
+      height: 48px;
+      transition: transform .2s;
+    }
+    .skills-icon:hover img,
+    .skills-icon:hover i {
+      transform: scale(1.1);
+    }
   </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
 </head>
 <!--body style is temporary-->
-<body class="" style="background-color: #F5EFFF;">
+<body style="background-color: #F5EFFF;">
   <!--navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-" href="#">
-        <img src="images/icons8-wallet-64.png" alt="portfolio logo" height="24" class="d-inline-block align-text-top">
-        Portfolio
+        <img src="images/icons8-wallet-64.png" alt="portfolio logo" height="24" class="d-inline-block align-text-top"> <!-- Change the logo later -->
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt" aria-controls="navbarNavAlt" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,265 +148,336 @@
             <!-- Image Column -->
             <div class="col-md-5  order-1 order-md-2 mb-4 mb-md-0 text-center">
                 <img 
-                    src="images/solo.jpeg" 
+                    src="images/processed_cropped_image.png" 
                     alt="Hero Image" 
-                    class="img-fluid rounded-circle shadow"
+                    class="img-fluid rounded-circle shadow mt-lg-5"
                     style="max-width: 100%; height: auto; border-radius: 50px; border: 5px solid #CDC1FF;">
             </div>
             <!-- Text Column -->
             <div class="col-md-7 text-md-start order-2 order-md-1">
-                <h1 class="display-4 fw-bold hero-text">Hi,I'm<br />Raj Rishi Reddy</h1>
+                <h1 class="display-4 fw-bold hero-text">Raj Rishi Reddy</h1>
                 <p class="lead mb-4  description">
-                    a <span class="underline">Web Developer</span> and 
-                    <span class="underline">Problem Solver</span>. 
-                    Explore my projects, coding stats, and more as I showcase my journey in tech.
+                    <span>Programmer</span> | <span>Developer</span> | <span>Engineer</span>
                 </p>
-                <a href="#projects" class="btn btn-light btn-lg me-3">Explore Projects</a>
-                <a href="#contact" class="btn btn-outline-light btn-lg">Contact Me</a>
+                <!-- <a href="#projects" class="btn btn-light btn-lg me-3">Explore Projects</a>
+                <a href="#contact" class="btn btn-outline-light btn-lg">Contact Me</a> -->
             </div>
         </div>
     </div>
   </section>
-  
-  <div class="container main-content" style="z-index: 3;">
-    <!-- Experiences -->
-    <section id="experience" class="py-5">
-        <div class="container">
-            <h3 class="text-center display-4 fw-bold hero-text mb-5" style="letter-spacing: 5px;">EXPERIENCES</h3>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="main-timeline">
-                        <a href="#" class="timeline">
-                            <div class="timeline-icon"><i class="fa fa-globe"></i></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Designer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                </p>
-                            </div>
-                        </a>
-                        <a href="#" class="timeline">
-                            <div class="timeline-icon"><i class="fa fa-rocket"></i></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Developer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                </p>
-                            </div>
-                        </a>
-                        <a href="#" class="timeline">
-                            <div class="timeline-icon"><i class="fa fa-briefcase"></i></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Designer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                </p>
-                            </div>
-                        </a>
-                        <a href="#" class="timeline">
-                            <div class="timeline-icon"><i class="fa fa-mobile"></i></div>
-                            <div class="timeline-content">
-                                <h3 class="title">Web Developer</h3>
-                                <p class="description">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                                </p>
-                            </div>
-                        </a>
-                        <a href="#" class="timeline">
-                          <div class="timeline-icon"><i class="fa fa-bell-slash"></i></div>
-                          <div class="timeline-content">
-                              <h3 class="title">Web Designer</h3>
-                              <p class="description">
-                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                              </p>
-                          </div>
-                        </a>
-                        <a href="#" class="timeline">
-                          <div class="timeline-icon"><i class="fa fa-bookmark"></i></div>
-                          <div class="timeline-content">
-                              <h3 class="title">Web Developer</h3>
-                              <p class="description">
-                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate ducimus officiis quod! Aperiam eveniet nam nostrum odit quasi ullam voluptatum.
-                              </p>
-                          </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Stats -->
-    <section id="stats" class="py-5">
-      <div class="container py-5">
-          <h3 class="text-center display-4 fw-bold hero-text mb-5" style="letter-spacing: 5px;">LEETCODE & GITHUB</h3>
-          <div class="row justify-content-center">
-              <!-- LeetCode Stats -->
-              <div class="col-md-5 col-12 mb-4 d-flex">
-                  <div class="card w-100" data-bs-theme="dark">
-                      <div class="card-body text-center d-flex flex-column justify-content-center">
-                          <h5 class="card-title mb-3">LeetCode Stats</h5>
-                          <img 
-                              src="https://leetcard.jacoblin.cool/__rajrishi__" 
-                              alt="LeetCode Stats" 
-                              class="img-fluid" 
-                              style="max-height: 300px; object-fit: contain;">
-                      </div>
-                  </div>
-              </div>
-              <!-- GitHub Stats -->
-              <div class="col-md-5 col-12 mb-4 d-flex">
-                  <div class="card w-100" data-bs-theme="dark">
-                      <div class="card-body text-center d-flex flex-column justify-content-center">
-                          <h5 class="card-title mb-3">GitHub Stats</h5>
-                          <img 
-                              src="https://github-readme-stats.vercel.app/api?username=rajrishi-06&show_icons=true&theme=default" 
-                              alt="GitHub Stats" 
-                              class="img-fluid" 
-                              style="max-height: 300px; object-fit: contain;">
-                          <!-- Optional Streak Stats -->
-                          <img 
-                              src="https://github-readme-streak-stats.herokuapp.com/?user=rajrishi-06" 
-                              alt="GitHub Streak Stats" 
-                              class="img-fluid mt-3" 
-                              style="max-height: 200px; object-fit: contain;"> 
-                      </div>
-                  </div>
-              </div>
+  <section id="about">
+
+  </section>
+
+  <div class="container main-content" style="z-index: 3;">
+    <!-- skills -->
+    <section class="skills-main">
+      <!-- Tabs -->
+    <ul class="nav nav-tabs justify-content-center" id="categoryTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="skills-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#skills"
+                type="button"
+                role="tab"
+                aria-controls="skills"
+                aria-selected="true">
+          Skills
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="tools-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#tools"
+                type="button"
+                role="tab"
+                aria-controls="tools"
+                aria-selected="false">
+          Tools
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="frameworks-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#frameworks"
+                type="button"
+                role="tab"
+                aria-controls="frameworks"
+                aria-selected="false">
+          Frameworks
+        </button>
+      </li>
+    </ul>
+  
+    <!-- Panes -->
+    <div class="tab-content py-4" style="min-height: 350px;">
+  
+      <!-- Skills Pane -->
+      <div class="tab-pane fade show active" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+        <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Used in C DBMS file parsing">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" alt="C">
+            <h6 class="mt-2">C</h6>
           </div>
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Core of my C++ OOP layers">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg" alt="C++">
+            <h6 class="mt-2">C++</h6>
+          </div>
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Interactive UIs & fetch calls">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
+            <h6 class="mt-2">JavaScript</h6>
+          </div>
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Data analysis & scripting">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" alt="Python">
+            <h6 class="mt-2">Python</h6>
+          </div>
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Markup for all web pages">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" alt="HTML5">
+            <h6 class="mt-2">HTML5</h6>
+          </div>
+          <div class="col text-center skills-icon"
+               data-bs-toggle="tooltip"
+               title="Styling with modern CSS">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" alt="CSS3">
+            <h6 class="mt-2">CSS3</h6>
+          </div>
+          <!-- duplicates to fill -->
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More C practice">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" alt="C">
+            <h6 class="mt-2">C</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More JS apps">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
+            <h6 class="mt-2">JavaScript</h6>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Tools Pane -->
+      <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
+        <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Version control">
+            <i class="bi bi-git"></i>
+            <h6 class="mt-2">Git</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Daily IDE">
+            <i class="bi bi-code-slash"></i>
+            <h6 class="mt-2">VS Code</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Relational DB">
+            <i class="bi bi-database"></i>
+            <h6 class="mt-2">MySQL</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Remote file upload">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <h6 class="mt-2">FTP</h6>
+          </div>
+          <!-- fillouts -->
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="CLI tools">
+            <i class="bi bi-terminal-dash"></i>
+            <h6 class="mt-2">CLI</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Repo hosting">
+            <i class="bi bi-github"></i>
+            <h6 class="mt-2">GitHub</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Git ops">
+            <i class="bi bi-git"></i>
+            <h6 class="mt-2">Git</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More CLI use">
+            <i class="bi bi-terminal-dash"></i>
+            <h6 class="mt-2">CLI</h6>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Frameworks Pane -->
+      <div class="tab-pane fade" id="frameworks" role="tabpanel" aria-labelledby="frameworks-tab">
+        <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Portfolio in React">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" alt="React">
+            <h6 class="mt-2">React</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="SSR & API routes">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" alt="Next.js">
+            <h6 class="mt-2">Next.js</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Utility-first CSS">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" alt="Tailwind">
+            <h6 class="mt-2">Tailwind</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Rapid prototyping">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" alt="Bootstrap">
+            <h6 class="mt-2">Bootstrap</h6>
+          </div>
+          <!-- fillouts -->
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More React work">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" alt="React">
+            <h6 class="mt-2">React</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Next.js">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" alt="Next.js">
+            <h6 class="mt-2">Next.js</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Tailwind">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" alt="Tailwind">
+            <h6 class="mt-2">Tailwind</h6>
+          </div>
+          <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Bootstrap">
+            <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" alt="Bootstrap">
+            <h6 class="mt-2">Bootstrap</h6>
+          </div>
+        </div>
       </div>
     </section>
-
-    <!-- Skills -->
-    <section id="skills">
-        <h3 class="text-center display-4 fw-bold hero-text mb-5" style="letter-spacing: 5px;">SKILLS</h3>
-        <div class="container">
-          <div class="row">
-            <!-- C -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://docs.microsoft.com/en-us/cpp/?view=msvc-170" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" width="60" height="60" alt="C" />
-              </a>
-              <h5>C</h5>
-              <p>Programming fundamentals</p>
+    <!-- Experience -->
+    <section class="experience">
+      <h2>A clean timeline design, with animated links</h2>
+      <div class="timeline"> 
+        <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+          <div class="timeline__event__icon ">
+            <i class="lni-cake"></i>
+          </div>
+          <div class="timeline__event__date">
+            20-08-2019
+          </div>
+          <div class="timeline__event__content ">
+            <div class="timeline__event__title">
+              Birthday
             </div>
-            <!-- C++ -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://docs.microsoft.com/en-us/cpp/?view=msvc-170" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg" width="60" height="60" alt="C++" />
-              </a>
-              <h5>C++</h5>
-              <p>Object-oriented programming</p>
+            <div class="timeline__event__description">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
             </div>
-            <!-- JavaScript -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" width="60" height="60" alt="JavaScript" />
-              </a>
-              <h5>JavaScript</h5>
-              <p>Web development</p>
-            </div>
-            <!-- Python -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://www.python.org/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" width="60" height="60" alt="Python" />
-              </a>
-              <h5>Python</h5>
-              <p>Data analysis, scripting</p>
-            </div>
-            <!-- VS Code -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode.svg" width="60" height="60" alt="VS Code" />
-              </a>
-              <h5>VS Code</h5>
-              <p>Code editor</p>
-            </div>
-            <!-- XCode -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://www.xcode.com" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xcode.svg" width="60" height="60" alt="XCode" />
-              </a>
-              <h5>XCode</h5>
-              <p>iOS development</p>
-            </div>
-            <!-- HTML5 -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" width="60" height="60" alt="HTML5" />
-              </a>
-              <h5>HTML5</h5>
-              <p>Markup language for the web</p>
-            </div>
-            <!-- React -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://reactjs.org/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" width="60" height="60" alt="React" />
-              </a>
-              <h5>React</h5>
-              <p>Frontend UI library</p>
-            </div>
-            <!-- Next.js -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://nextjs.org/docs" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" width="60" height="60" alt="NextJs" />
-              </a>
-              <h5>Next.js</h5>
-              <p>React framework</p>
-            </div>
-            <!-- Bootstrap -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://getbootstrap.com/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" width="60" height="60" alt="Bootstrap" />
-              </a>
-              <h5>Bootstrap</h5>
-              <p>CSS framework</p>
-            </div>
-            <!-- TailwindCSS -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" width="60" height="60" alt="TailwindCSS" />
-              </a>
-              <h5>TailwindCSS</h5>
-              <p>Utility-first CSS</p>
-            </div>
-            <!-- CSS3 -->
-            <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://www.w3.org/TR/CSS/#css" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" width="60" height="60" alt="CSS3" />
-              </a>
-              <h5>CSS3</h5>
-              <p>Styling web pages</p>
-            </div>
-            <!-- PHP -->
-            <!-- <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
-              <a href="https://www.php.net/" target="_blank" rel="noreferrer">
-                <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg" width="60" height="60" alt="PHP" />
-              </a>
-              <h5>PHP</h5>
-              <p>Backend scripting</p>
-            </div> -->
           </div>
         </div>
-      </section>
-        <!-- <div class="skills-icons mt-2">
-            <a href="https://angular.io/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angularjs-colored.svg" width="36" height="36" alt="Angular" /></a>
-            <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg" width="36" height="36" alt="NodeJS" /></a>
-            <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="36" height="36" alt="PostgreSQL" /></a>
-            <a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored.svg" width="36" height="36" alt="Flask" /></a>
-            <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mongodb-colored.svg" width="36" height="36" alt="MongoDB" /></a>
-            <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mysql-colored.svg" width="36" height="36" alt="MySQL" /></a>
-            <a href="https://ethereum.org/en/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-colored.svg" width="36" height="36" alt="Ethereum" /></a>
-            <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg" width="36" height="36" alt="Django" /></a>
-            <a href="https://flutter.dev/" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg" width="36" height="36" alt="Flutter" /></a>
-        </div> -->
+        <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+          <div class="timeline__event__icon">
+            <i class="lni-burger"></i>
+
+          </div>
+          <div class="timeline__event__date">
+            20-08-2019
+          </div>
+          <div class="timeline__event__content">
+            <div class="timeline__event__title">
+              Lunch
+            </div>
+            <div class="timeline__event__description">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
+            </div>
+          </div>
+        </div>
+        <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+          <div class="timeline__event__icon">
+            <i class="lni-slim"></i>
+
+          </div>
+          <div class="timeline__event__date">
+            20-08-2019
+          </div>
+          <div class="timeline__event__content">
+            <div class="timeline__event__title">
+              Exercise
+            </div>
+            <div class="timeline__event__description">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
+            </div>
+
+          </div>
+        </div>
+        <div class="timeline__event animated fadeInUp timeline__event--type1">
+          <div class="timeline__event__icon">
+            <i class="lni-cake"></i>
+
+          </div>
+          <div class="timeline__event__date">
+            20-08-2019
+          </div>
+          <div class="timeline__event__content">
+            <div class="timeline__event__title">
+              Birthday
+            </div>
+            <div class="timeline__event__description">
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- Stats -->
+    <section class="stats-main">
+      <div class="container-fluid">
+        <h2 class="page-title">STATS Overview</h1>
+        <div class="card stats-card">
+          <div class="row">
+            <div class="col-md-3">
+              <h5 class="text-uppercase text-muted mb-3">Menu</h5>
+              <div class="nav nav-pills flex-row flex-md-column overflow-auto" id="v-pills-tab" role="tablist">
+                <!-- the pill indicator -->
+                <div class="pill-indicator"></div>
     
+                <button class="nav-link active" id="leetcode-tab" data-bs-toggle="pill" data-bs-target="#leetcode" type="button">LeetCode</button>
+                <button class="nav-link" id="github-tab" data-bs-toggle="pill" data-bs-target="#github" type="button">GitHub</button>
+                <button class="nav-link" id="codeforces-tab" data-bs-toggle="pill" data-bs-target="#codeforces" type="button">Codeforces</button>
+                <button class="nav-link" id="codechef-tab" data-bs-toggle="pill" data-bs-target="#codechef" type="button">CodeChef</button>
+              </div>
+            </div>
+    
+            <div class="col-md-9">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="leetcode">
+                  <div class="stat-box text-center">
+                    <h4 class="mb-3">LeetCode Stats</h4>
+                    <img src="https://leetcard.jacoblin.cool/__rajrishi__" alt="LeetCode Stats" class="img-fluid">
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="github">
+                  <div class="stat-box text-center">
+                    <h4 class="mb-3">GitHub Stats</h4>
+                    <img src="https://github-readme-stats.vercel.app/api?username=rajrishi-06&show_icons=true&theme=default" alt="GitHub Stats" class="img-fluid mb-3">
+                    <img src="https://github-readme-streak-stats.herokuapp.com/?user=rajrishi-06" alt="GitHub Streak Stats" class="img-fluid">
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="codeforces">
+                  <div class="stat-box text-center">
+                    <h4 class="mb-3">Codeforces Stats</h4>
+                    <img src="https://cf-stats.vercel.app/api?username=rajrishi0609" alt="Codeforces Stats" class="img-fluid">
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="codechef">
+                  <div class="stat-box text-center">
+                    <h4 class="mb-3">CodeChef Stats</h4>
+                    <img src="https://codechef-api.vercel.app/api/card?username=rajrishi-06" alt="CodeChef Stats" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- Projects -->
     <section id="projects" class="container py-5">
       <h3 class="text-center display-4 fw-bold hero-text mb-5" style="letter-spacing: 5px;">PROJECTS</h3>
-      <div class="row" data-masonry="{&quot;percentPosition&quot;: true }">
+      <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 272px;">
         <!-- Project 1 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/car.webp" class="card-img-top" alt="Project 1">
@@ -359,7 +489,7 @@
           </div>
         </div>
         <!-- Project 2 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 0px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/man_walk.webp" class="card-img-top" alt="Project 2">
@@ -371,7 +501,7 @@
           </div>
         </div>
         <!-- Project 3 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 0px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/random_stuff.webp" class="card-img-top" alt="Project 3">
@@ -383,7 +513,7 @@
           </div>
         </div>
         <!-- Project 4 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 136px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/tulip.webp" class="card-img-top" alt="Project 4">
@@ -395,7 +525,7 @@
           </div>
         </div>
         <!-- Project 5 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 136px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/spiral_man.webp" class="card-img-top" alt="Project 5">
@@ -407,7 +537,7 @@
           </div>
         </div>
         <!-- Project 6 -->
-        <div class="col-sm-6 col-lg-4 mb-4">
+        <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 136px;">
           <div class="card">
             <a href="#" class="text-decoration-none text-dark">
               <img src="images/random_stuff.webp" class="card-img-top" alt="Project 6">
@@ -420,9 +550,68 @@
         </div>
       </div>
     </section>
-    <!--About me-->
   </div> 
-
+  <!--Contact From-->
+  <section id="contact">
+    <div class="contact_us_8">
+      <div class="responsive-container-block container">
+        <form class="form-box" id="contact-form">
+          <div class="container-block form-wrapper">
+            <div class="responsive-container-block">
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12" id="i10mt-9">
+                <input class="input" id="ijowk-9" name="Name" placeholder="Name" required>
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12" id="iajvf">
+                <input class="input" id="ipmgh-9" name="Email" placeholder="Email" required>
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12" id="i0txn">
+                <input class="input" id="imgis-8" name="PhoneNumber" placeholder="Phone Number (optional)">
+              </div>
+              <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12" id="i634i-9">
+                <textarea aria-placeholder="What’s on your mind?" name="Message" required class="textinput" id="i5vyy-9" placeholder="What’s on your mind?"></textarea>
+              </div>
+            </div>
+            <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12 checkbox-container" id="i634i-2-2">
+              <div class="checkboc-container">
+                <input id="i0m1w" type="checkbox"  name="terms"  required>
+                <label class="checkbox-text" for="i0m1w">
+                  Agree to the terms and Conditions 
+                </label>
+              </div>
+            </div>
+            <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-8 wk-ipadp-12" id="i0txn-2">
+              <button class="submit-btn">
+                Submit
+              </button>
+            </div>
+            <div class="right-side-text">
+              <p class="text-blk contactus-head">
+                Get in Touch
+              </p>
+              <!-- <p class="text-blk contactus-subhead">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Felis diam lectus sapien.
+              </p> -->
+  
+              <div class="social-media-links">
+                <a href="#" id="ix94i-2-3">
+                  <img class="link-img" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-twitter.png">
+                </a>
+                <a href="#">
+                  <img class="link-img" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-facebook.png">
+                </a>
+                <a href="#">
+                  <img class="link-img" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-google.png">
+                </a>
+                <a href="#" id="izldf-2-3">
+                  <img class="link-img" src="https://workik-widget-assets.s3.amazonaws.com/Footer1-83/v1/images/Icon-instagram.png">
+                </a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
   <!-- Footer -->
   <div id="footer" class="gradient-background" style="border-top-left-radius: 50px; border-top-right-radius: 50px;">
     <section id="contact">
@@ -434,5 +623,92 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- include SMTP.js library -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<!--Form script-->
+<script>
+document
+  .getElementById('contact-form')
+  .addEventListener('submit', function(evt) {
+    evt.preventDefault();
+
+    const firstName = this.Name.value.trim();
+    const email     = this.Email.value.trim();
+    const phone     = this.PhoneNumber.value.trim() || '[not provided]';
+    const message   = this.Message.value.trim();
+    
+    // if (!firstName || !email || !message || !this.terms.checked) {
+    //   return alert('Please fill all required fields & agree.');
+    // }
+
+    const body = `
+      First Name: ${firstName}
+      Email:      ${email}
+      Phone:      ${phone}
+
+      Message:
+      ${message}
+    `;
+    Email.send({
+      SecureToken : "d5501d20-eb38-4016-a456-8e0cb94ea479",      // generated on smtpjs.com
+      To          : "rajrishi0109@gmail.com",
+      From        : "rajrishi0109@gmail.com",                    // show as “from” the visitor
+      Subject     : "New Contact Submission",
+      Body        : body
+    })
+    .then(msg => {
+      alert("✓ Mail sent!");
+      this.reset();
+    }
+  )
+    .catch(err => alert("✘ Error sending mail: " + err));
+});
+</script>
+<!--Toggle for stats-->
+  <script>
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      .forEach(el => new bootstrap.Tooltip(el));
+  </script>
+  <script>
+    function updatePillIndicator(activeBtn) {
+      const nav      = document.getElementById('v-pills-tab');
+      const pill     = nav.querySelector('.pill-indicator');
+      const navRect  = nav.getBoundingClientRect();
+      const btnRect  = activeBtn.getBoundingClientRect();
+      const style    = getComputedStyle(nav);
+      const isColumn = style.flexDirection === 'column';
+
+      if (isColumn) {
+        // Vertical tabs: full width, slide in Y
+        pill.style.left   = '0px';
+        pill.style.width  = navRect.width + 'px';
+        pill.style.top    = (btnRect.top - navRect.top) + 'px';
+        pill.style.height = btnRect.height + 'px';
+      } else {
+        // Horizontal tabs: full height, slide in X
+        pill.style.top    = '0px';
+        pill.style.height = navRect.height + 'px';
+        pill.style.left   = (btnRect.left - navRect.left) + 'px';
+        pill.style.width  = btnRect.width + 'px';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const nav = document.getElementById('v-pills-tab');
+      // initialize
+      updatePillIndicator(nav.querySelector('.nav-link.active'));
+      // on each tab show
+      nav.querySelectorAll('.nav-link').forEach(btn => {
+        btn.addEventListener('shown.bs.tab', e => {
+          updatePillIndicator(e.target);
+        });
+      });
+      // also on resize (in case flex-direction flips)
+      window.addEventListener('resize', () => {
+        const active = nav.querySelector('.nav-link.active');
+        updatePillIndicator(active);
+      });
+    });
+  </script>
 </body>
 </html>
