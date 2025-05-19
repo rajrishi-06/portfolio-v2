@@ -946,9 +946,18 @@
           <!-- Projects -->
           <section id="projects" class="container py-5">
             <h3 class="text-center display-4 fw-bold hero-text mb-5" style="letter-spacing: 5px;">PROJECTS</h3>
-            <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 272px;">
+            
+            <!-- Loading spinner for projects only -->
+            <div id="projectsLoadingSpinner" class="text-center mb-4">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading projects...</span>
+              </div>
+              <div class="mt-2">Loading projects...</div>
+            </div>
+            
+            <div class="row" id="projectsGrid" style="opacity: 0; transition: opacity 0.5s ease;">
               <!-- Project 1 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/car.webp" class="card-img-top" alt="Project 1">
@@ -960,7 +969,7 @@
                 </div>
               </div>
               <!-- Project 2 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 0px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/man_walk.webp" class="card-img-top" alt="Project 2">
@@ -972,7 +981,7 @@
                 </div>
               </div>
               <!-- Project 3 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 0px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/random_stuff.webp" class="card-img-top" alt="Project 3">
@@ -984,7 +993,7 @@
                 </div>
               </div>
               <!-- Project 4 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 136px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/tulip.webp" class="card-img-top" alt="Project 4">
@@ -996,7 +1005,7 @@
                 </div>
               </div>
               <!-- Project 5 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 136px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/spiral_man.webp" class="card-img-top" alt="Project 5">
@@ -1008,7 +1017,7 @@
                 </div>
               </div>
               <!-- Project 6 -->
-              <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 136px;">
+              <div class="col-sm-6 col-lg-4 mb-4">
                 <div class="card">
                   <a href="#" class="text-decoration-none text-dark">
                     <img src="images/random_stuff.webp" class="card-img-top" alt="Project 6">
@@ -1119,7 +1128,8 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <!-- include SMTP.js library -->
 <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -1235,6 +1245,37 @@ document
           icon.classList.remove('bi-x-lg');
           icon.classList.add('bi-list');
         }
+      });
+    });
+  </script>
+  <!-- Add Masonry initialization script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectsGrid = document.getElementById('projectsGrid');
+      const spinner = document.getElementById('projectsLoadingSpinner');
+      
+      // Function to initialize Masonry
+      const initializeMasonry = () => {
+        // Initialize Masonry with proper configuration
+        const masonry = new Masonry(projectsGrid, {
+          itemSelector: '.col-sm-6.col-lg-4',
+          percentPosition: true,
+          transitionDuration: 0 // Disable animation during initial layout
+        });
+        
+        // Ensure layout is calculated correctly
+        setTimeout(() => {
+          masonry.layout();
+          
+          // Hide spinner and show grid
+          if (spinner) spinner.style.display = 'none';
+          projectsGrid.style.opacity = '1';
+        }, 500);
+      };
+      
+      // Wait for all images to load before initializing Masonry
+      imagesLoaded(projectsGrid).on('always', function() {
+        initializeMasonry();
       });
     });
   </script>
