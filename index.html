@@ -31,45 +31,6 @@
     html {
       background-color: #0c0d13;
     }
-    /* Creative divider + larger tabs + spacing */
-    .skills-main .nav-tabs {
-      border-bottom: none;
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-    .skills-main .nav-tabs::after {
-      content: '';
-      display: block;
-      height: 4px;
-      background: linear-gradient(90deg, #4e54c8, #8f94fb, #4e54c8);
-      border-radius: 2px;
-      width: 80%;
-      margin: 0.25rem auto;
-    }
-    .skills-main .nav-tabs .nav-item {
-      margin: 0 .5rem;      /* responsive spacing */
-    }
-    .skills-main .nav-tabs .nav-link {
-      font-size: 1.25rem;
-      padding: 0.75rem 1.5rem;
-      color: #6c757d;
-    }
-    .skills-main .nav-tabs .nav-link.active {
-      background-color: #0c0d13 !important;
-      color: yellow !important;
-    }
-
-    /* Smaller logos & hover scale */
-    .skills-icon img,
-    .skills-icon i {
-      width: 48px;
-      height: 48px;
-      transition: transform .2s;
-    }
-    .skills-icon:hover img,
-    .skills-icon:hover i {
-      transform: scale(1.1);
-    }
     
     /* Dragon Preloader Styles */
     .dragon-container {
@@ -643,270 +604,425 @@
         <!-- Your Existing Sections Wrapped in content-area -->
         <div class="container main-content" style="z-index: 3;">
           <!-- skills -->
-          <section class="skills-main">
-            <!-- Tabs -->
-          <ul class="nav nav-tabs justify-content-center" id="categoryTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active"
-                      id="skills-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#skills"
-                      type="button"
-                      role="tab"
-                      aria-controls="skills"
-                      aria-selected="true">
-                Skills
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link"
-                      id="tools-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#tools"
-                      type="button"
-                      role="tab"
-                      aria-controls="tools"
-                      aria-selected="false">
-                Tools
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link"
-                      id="frameworks-tab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#frameworks"
-                      type="button"
-                      role="tab"
-                      aria-controls="frameworks"
-                      aria-selected="false">
-                Frameworks
-              </button>
-            </li>
-          </ul>
-        
-          <!-- Panes -->
-          <div class="tab-content py-4" style="min-height: 350px;">
-        
-            <!-- Skills Pane -->
-            <div class="tab-pane fade show active" id="skills" role="tabpanel" aria-labelledby="skills-tab">
-              <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Used in C DBMS file parsing">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" alt="C">
-                  <h6 class="mt-2">C</h6>
+          <section id="skills-section" class="skills-section">
+        <div class="container">
+            <h2 class="section-title">MY SKILLS</h2>
+            
+            <div class="tab-container">
+                <div class="skills-tabs">
+                    <button class="tab-btn active" data-target="languages"><span>Languages</span></button>
+                    <button class="tab-btn" data-target="frameworks"><span>Frameworks</span></button>
+                    <button class="tab-btn" data-target="tools"><span>Tools</span></button>
+                    <button class="tab-btn" data-target="design"><span>Design</span></button>
                 </div>
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Core of my C++ OOP layers">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg" alt="C++">
-                  <h6 class="mt-2">C++</h6>
+
+                <div class="tab-content">
+                    <!-- Languages Tab -->
+                    <div id="languages" class="tab-pane active">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
+                                </div>
+                                <div class="skill-name">JavaScript</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg" alt="TypeScript">
+                                </div>
+                                <div class="skill-name">TypeScript</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" alt="Python">
+                                </div>
+                                <div class="skill-name">Python</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/java-colored.svg" alt="Java">
+                                </div>
+                                <div class="skill-name">Java</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" alt="C">
+                                </div>
+                                <div class="skill-name">C</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg" alt="C++">
+                                </div>
+                                <div class="skill-name">C++</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" alt="HTML">
+                                </div>
+                                <div class="skill-name">HTML</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" alt="CSS">
+                                </div>
+                                <div class="skill-name">CSS</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Frameworks Tab -->
+                    <div id="frameworks" class="tab-pane">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" alt="React">
+                                </div>
+                                <div class="skill-name">React</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" alt="Next.js">
+                                </div>
+                                <div class="skill-name">Next.js</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg" alt="Vue">
+                                </div>
+                                <div class="skill-name">Vue.js</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angular-colored.svg" alt="Angular">
+                                </div>
+                                <div class="skill-name">Angular</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" alt="Tailwind">
+                                </div>
+                                <div class="skill-name">Tailwind</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" alt="Bootstrap">
+                                </div>
+                                <div class="skill-name">Bootstrap</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg" alt="Node.js">
+                                </div>
+                                <div class="skill-name">Node.js</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg" alt="Express">
+                                </div>
+                                <div class="skill-name">Express</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tools Tab -->
+                    <div id="tools" class="tab-pane">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/git-colored.svg" alt="Git">
+                                </div>
+                                <div class="skill-name">Git</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg" alt="Docker">
+                                </div>
+                                <div class="skill-name">Docker</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/kubernetes-colored.svg" alt="Kubernetes">
+                                </div>
+                                <div class="skill-name">Kubernetes</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vscode-colored.svg" alt="VS Code">
+                                </div>
+                                <div class="skill-name">VS Code</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mongodb-colored.svg" alt="MongoDB">
+                                </div>
+                                <div class="skill-name">MongoDB</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mysql-colored.svg" alt="MySQL">
+                                </div>
+                                <div class="skill-name">MySQL</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg" alt="PostgreSQL">
+                                </div>
+                                <div class="skill-name">PostgreSQL</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/firebase-colored.svg" alt="Firebase">
+                                </div>
+                                <div class="skill-name">Firebase</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Design Tab -->
+                    <div id="design" class="tab-pane">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/figma-colored.svg" alt="Figma">
+                                </div>
+                                <div class="skill-name">Figma</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored.svg" alt="Photoshop">
+                                </div>
+                                <div class="skill-name">Photoshop</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored.svg" alt="Illustrator">
+                                </div>
+                                <div class="skill-name">Illustrator</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored.svg" alt="XD">
+                                </div>
+                                <div class="skill-name">Adobe XD</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sketch-colored.svg" alt="Sketch">
+                                </div>
+                                <div class="skill-name">Sketch</div>
+                                    </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored.svg" alt="After Effects">
+                                </div>
+                                <div class="skill-name">After Effects</div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored.svg" alt="Premiere Pro">
+                                </div>
+                                <div class="skill-name">Premiere Pro</div>
+                                    </div>
+                            <div class="skill-item">
+                                <div class="skill-icon">
+                                    <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg" alt="Blender">
+                                </div>
+                                <div class="skill-name">Blender</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Interactive UIs & fetch calls">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
-                  <h6 class="mt-2">JavaScript</h6>
-                </div>
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Data analysis & scripting">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" alt="Python">
-                  <h6 class="mt-2">Python</h6>
-                </div>
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Markup for all web pages">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg" alt="HTML5">
-                  <h6 class="mt-2">HTML5</h6>
-                </div>
-                <div class="col text-center skills-icon"
-                     data-bs-toggle="tooltip"
-                     title="Styling with modern CSS">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg" alt="CSS3">
-                  <h6 class="mt-2">CSS3</h6>
-                </div>
-                <!-- duplicates to fill -->
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More C practice">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg" alt="C">
-                  <h6 class="mt-2">C</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More JS apps">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
-                  <h6 class="mt-2">JavaScript</h6>
-                </div>
-              </div>
             </div>
-        
-            <!-- Tools Pane -->
-            <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
-              <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Version control">
-                  <i class="bi bi-git"></i>
-                  <h6 class="mt-2">Git</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Daily IDE">
-                  <i class="bi bi-code-slash"></i>
-                  <h6 class="mt-2">VS Code</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Relational DB">
-                  <i class="bi bi-database"></i>
-                  <h6 class="mt-2">MySQL</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Remote file upload">
-                  <i class="bi bi-box-arrow-up-right"></i>
-                  <h6 class="mt-2">FTP</h6>
-                </div>
-                <!-- fillouts -->
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="CLI tools">
-                  <i class="bi bi-terminal-dash"></i>
-                  <h6 class="mt-2">CLI</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Repo hosting">
-                  <i class="bi bi-github"></i>
-                  <h6 class="mt-2">GitHub</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Git ops">
-                  <i class="bi bi-git"></i>
-                  <h6 class="mt-2">Git</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More CLI use">
-                  <i class="bi bi-terminal-dash"></i>
-                  <h6 class="mt-2">CLI</h6>
-                </div>
-              </div>
-            </div>
-        
-            <!-- Frameworks Pane -->
-            <div class="tab-pane fade" id="frameworks" role="tabpanel" aria-labelledby="frameworks-tab">
-              <div class="row justify-content-center row-cols-lg-8 row-cols-md-6 row-cols-sm-4 row-cols-3 g-3">
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Portfolio in React">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" alt="React">
-                  <h6 class="mt-2">React</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="SSR & API routes">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" alt="Next.js">
-                  <h6 class="mt-2">Next.js</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Utility-first CSS">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" alt="Tailwind">
-                  <h6 class="mt-2">Tailwind</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="Rapid prototyping">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" alt="Bootstrap">
-                  <h6 class="mt-2">Bootstrap</h6>
-                </div>
-                <!-- fillouts -->
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More React work">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg" alt="React">
-                  <h6 class="mt-2">React</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Next.js">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg" alt="Next.js">
-                  <h6 class="mt-2">Next.js</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Tailwind">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg" alt="Tailwind">
-                  <h6 class="mt-2">Tailwind</h6>
-                </div>
-                <div class="col text-center skills-icon" data-bs-toggle="tooltip" title="More Bootstrap">
-                  <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg" alt="Bootstrap">
-                  <h6 class="mt-2">Bootstrap</h6>
-                </div>
-              </div>
-            </div>
-          </section>
+        </div>
+    </section>
           <!-- Experience -->
           <section class="experience-main">
-            <h2>A clean timeline design, with animated links</h2>
-            <div class="timeline"> 
-              <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
-                <div class="timeline__event__icon ">
-                  <i class="lni-cake"></i>
-                </div>
-                <div class="timeline__event__date">
-                  20-08-2019
-                </div>
-                <div class="timeline__event__content ">
-                  <div class="timeline__event__title">
-                    Birthday
-                  </div>
-                  <div class="timeline__event__description">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                  </div>
-                </div>
-              </div>
-              <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
-                <div class="timeline__event__icon">
-                  <i class="lni-burger"></i>
-
-                </div>
-                <div class="timeline__event__date">
-                  20-08-2019
-                </div>
-                <div class="timeline__event__content">
-                  <div class="timeline__event__title">
-                    Lunch
-                  </div>
-                  <div class="timeline__event__description">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                  </div>
-                </div>
-              </div>
-              <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
-                <div class="timeline__event__icon">
-                  <i class="lni-slim"></i>
-
-                </div>
-                <div class="timeline__event__date">
-                  20-08-2019
-                </div>
-                <div class="timeline__event__content">
-                  <div class="timeline__event__title">
-                    Exercise
-                  </div>
-                  <div class="timeline__event__description">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                  </div>
-
-                </div>
-              </div>
-              <div class="timeline__event animated fadeInUp timeline__event--type1">
-                <div class="timeline__event__icon">
-                  <i class="lni-cake"></i>
-
-                </div>
-                <div class="timeline__event__date">
-                  20-08-2019
-                </div>
-                <div class="timeline__event__content">
-                  <div class="timeline__event__title">
-                    Birthday
-                  </div>
-                  <div class="timeline__event__description">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                  </div>
-                </div>
-              </div>
-
+    <h2 class="experience-title">Education & Experience</h2>
+    <div class="timeline"> 
+      <div class="timeline__event timeline__event--type1">
+        <div class="timeline__event__icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="timeline__event__date">
+          2023 - 2027
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            National Institute of Technology, Silchar
+          </div>
+          <div class="timeline__event__description">
+            <p>B.Tech in Computer Science and Engineering</p>
+            <ul>
+              <li>CGPA: 8.21/10.00</li>
+              <li>Related Coursework: Data Structures & Algorithms, Objects & Design, Computer Organization & Programming, Combinatorics, Object-Oriented Programming, Statistics & Applications</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline__event timeline__event--type2">
+        <div class="timeline__event__icon">
+          <i class="fas fa-school"></i>
+        </div>
+        <div class="timeline__event__date">
+          2021 - 2023
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            SriChaitanya Junior College, Madhapur
+          </div>
+          <div class="timeline__event__description">
+            <p>Higher Secondary Education (Class 12)</p>
+            <ul>
+              <li>Percentage: 98.1%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline__event timeline__event--type3">
+        <div class="timeline__event__icon">
+          <i class="fas fa-blog"></i>
+        </div>
+        <div class="timeline__event__date">
+          January 2025
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            Blog Website
+          </div>
+          <div class="timeline__event__description">
+            <p>Developed a dynamic blog website with a user-friendly interface and responsive design.</p>
+            <ul>
+              <li>Implemented user authentication and validation for secure access</li>
+              <li>Designed a relational database to manage users, store comments, and track user interactions</li>
+            </ul>
+            <div class="skills">
+              <span>Flask</span>
+              <span>Bootstrap</span>
+              <span>CSS</span>
+              <span>HTML</span>
+              <span>JavaScript</span>
+              <span>PostgreSQL/MySQL</span>
+              <span>Python</span>
             </div>
-          </section>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline__event timeline__event--type1">
+        <div class="timeline__event__icon">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <div class="timeline__event__date">
+          February 2025
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            Eco-Products Website
+          </div>
+          <div class="timeline__event__description">
+            <p>Built a product search platform that suggests sustainable alternatives for searched items.</p>
+            <ul>
+              <li>Implemented user authentication & validation for secure cart and wishlist functionality</li>
+              <li>Designed a relational database to manage users, product details, and shopping interactions</li>
+            </ul>
+            <div class="skills">
+              <span>Python</span>
+              <span>Flask/Django</span>
+              <span>JavaScript</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>PostgreSQL/MySQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline__event timeline__event--type2">
+        <div class="timeline__event__icon">
+          <i class="fas fa-keyboard"></i>
+        </div>
+        <div class="timeline__event__date">
+          March 2025
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            Typing Speed Test
+          </div>
+          <div class="timeline__event__description">
+            <p>Designed and implemented an interactive GUI application for typing speed testing.</p>
+            <ul>
+              <li>Created customizable typing tests with dynamic visual and sound feedback</li>
+              <li>Added detailed performance metrics (WPM, accuracy) and configuration options</li>
+            </ul>
+            <div class="skills">
+              <span>Python</span>
+              <span>Tkinter</span>
+              <span>Pillow</span>
+              <span>Pygame</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="timeline__event timeline__event--type3">
+        <div class="timeline__event__icon">
+          <i class="fas fa-database"></i>
+        </div>
+        <div class="timeline__event__date">
+          April 2025
+        </div>
+        <div class="timeline__event__content">
+          <div class="timeline__event__title">
+            QiloDB - Custom Database System
+          </div>
+          <div class="timeline__event__description">
+            <p>Developed a lightweight, file-based DBMS with a custom SQL-like query language.</p>
+            <ul>
+              <li>Built using C++ and OOP principles, ensuring modularity and efficient error handling</li>
+              <li>Collaborated in an agile team environment to design, develop, test, and deploy high-quality software</li>
+            </ul>
+            <div class="skills">
+              <span>C++</span>
+              <span>OOP</span>
+              <span>File System</span>
+              <span>CLI</span>
+              <span>SQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
           <!-- Stats -->
           <section class="stats-main">
-            <div class="container-fluid">
-              <h2 class="page-title">STATS Overview</h1>
+            <div class="container">
+              <h2 class="page-title">STATS Overview</h2>
               <div class="card stats-card">
                 <div class="row">
                   <div class="col-md-3">
-                    <h5 class="text-uppercase text-muted mb-3">Menu</h5>
                     <div class="nav nav-pills flex-row flex-md-column overflow-auto" id="v-pills-tab" role="tablist">
                       <!-- the pill indicator -->
                       <div class="pill-indicator"></div>
           
-                      <button class="nav-link active" id="leetcode-tab" data-bs-toggle="pill" data-bs-target="#leetcode" type="button">LeetCode</button>
-                      <button class="nav-link" id="github-tab" data-bs-toggle="pill" data-bs-target="#github" type="button">GitHub</button>
-                      <button class="nav-link" id="codeforces-tab" data-bs-toggle="pill" data-bs-target="#codeforces" type="button">Codeforces</button>
-                      <button class="nav-link" id="codechef-tab" data-bs-toggle="pill" data-bs-target="#codechef" type="button">CodeChef</button>
+                      <button class="nav-link active" id="leetcode-tab" data-bs-toggle="pill" data-bs-target="#leetcode" type="button">
+                        <i class="fas fa-code"></i>
+                        <span class="d-none d-md-inline">LeetCode</span>
+                      </button>
+                      <button class="nav-link" id="github-tab" data-bs-toggle="pill" data-bs-target="#github" type="button">
+                        <i class="fab fa-github"></i>
+                        <span class="d-none d-md-inline">GitHub</span>
+                      </button>
+                      <button class="nav-link" id="codeforces-tab" data-bs-toggle="pill" data-bs-target="#codeforces" type="button">
+                        <i class="fas fa-laptop-code"></i>
+                        <span class="d-none d-md-inline">Codeforces</span>
+                      </button>
+                      <button class="nav-link" id="codechef-tab" data-bs-toggle="pill" data-bs-target="#codechef" type="button">
+                        <i class="fas fa-utensils"></i>
+                        <span class="d-none d-md-inline">CodeChef</span>
+                      </button>
                     </div>
                   </div>
           
@@ -914,26 +1030,24 @@
                     <div class="tab-content" id="v-pills-tabContent">
                       <div class="tab-pane fade show active" id="leetcode">
                         <div class="stat-box text-center">
-                          <h4 class="mb-3">LeetCode Stats</h4>
                           <img src="https://leetcard.jacoblin.cool/__rajrishi__" alt="LeetCode Stats" class="img-fluid">
                         </div>
                       </div>
                       <div class="tab-pane fade" id="github">
                         <div class="stat-box text-center">
-                          <h4 class="mb-3">GitHub Stats</h4>
-                          <img src="https://github-readme-stats.vercel.app/api?username=rajrishi-06&show_icons=true&theme=default" alt="GitHub Stats" class="img-fluid mb-3">
-                          <img src="https://github-readme-streak-stats.herokuapp.com/?user=rajrishi-06" alt="GitHub Streak Stats" class="img-fluid">
+                          <div class="github-stats-container">
+                            <img src="https://github-readme-stats.vercel.app/api?username=rajrishi-06&show_icons=true&theme=default" alt="GitHub Stats" class="img-fluid mb-3">
+                            <img src="https://github-readme-streak-stats.herokuapp.com/?user=rajrishi-06" alt="GitHub Streak Stats" class="img-fluid">
+                          </div>
                         </div>
                       </div>
                       <div class="tab-pane fade" id="codeforces">
                         <div class="stat-box text-center">
-                          <h4 class="mb-3">Codeforces Stats</h4>
                           <img src="https://cf-stats.vercel.app/api?username=rajrishi0609" alt="Codeforces Stats" class="img-fluid">
                         </div>
                       </div>
                       <div class="tab-pane fade" id="codechef">
                         <div class="stat-box text-center">
-                          <h4 class="mb-3">CodeChef Stats</h4>
                           <img src="https://codechef-api.vercel.app/api/card?username=rajrishi-06" alt="CodeChef Stats" class="img-fluid">
                         </div>
                       </div>
@@ -1174,48 +1288,159 @@ document
 </script>
 <!--Toggle for stats-->
   <script>
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      .forEach(el => new bootstrap.Tooltip(el));
-  </script>
-  <script>
-    function updatePillIndicator(activeBtn) {
-      const nav      = document.getElementById('v-pills-tab');
-      const pill     = nav.querySelector('.pill-indicator');
-      const navRect  = nav.getBoundingClientRect();
-      const btnRect  = activeBtn.getBoundingClientRect();
-      const style    = getComputedStyle(nav);
-      const isColumn = style.flexDirection === 'column';
-
-      if (isColumn) {
-        // Vertical tabs: full width, slide in Y
-        pill.style.left   = '0px';
-        pill.style.width  = navRect.width + 'px';
-        pill.style.top    = (btnRect.top - navRect.top) + 'px';
-        pill.style.height = btnRect.height + 'px';
-      } else {
-        // Horizontal tabs: full height, slide in X
-        pill.style.top    = '0px';
-        pill.style.height = navRect.height + 'px';
-        pill.style.left   = (btnRect.left - navRect.left) + 'px';
-        pill.style.width  = btnRect.width + 'px';
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all timeline events
+      const timelineEvents = Array.from(document.querySelectorAll('.timeline__event'));
+      
+      // Track which events have been animated
+      const animatedEvents = new Set();
+      
+      // Animation timing constants - increased for smoother transitions
+      const BASE_DELAY = 450; // Increased base delay between animations
+      const ANIMATION_DURATION = 1200; // Longer animation duration
+      
+      // Create intersection observer with a larger rootMargin to detect elements earlier
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Find the index of the current element
+            const currentIndex = timelineEvents.indexOf(entry.target);
+            
+            // Animate only current element and next element (reduced from 3 to 2)
+            for (let i = currentIndex; i < Math.min(currentIndex + 2, timelineEvents.length); i++) {
+              const event = timelineEvents[i];
+              
+              // Skip if already animated
+              if (animatedEvents.has(event)) continue;
+              
+              // Add to animated set
+              animatedEvents.add(event);
+              
+              // Calculate delay based on position - with increased delay
+              const delayOffset = i - currentIndex; // 0 for current, 1 for next
+              const delay = delayOffset * BASE_DELAY; 
+              
+              // Animate with appropriate delay
+              setTimeout(() => {
+                event.classList.add('animated');
+                
+                // Forced reflow to ensure animation starts fresh
+                void event.offsetWidth;
+                
+                event.classList.add('fadeInUp');
+              }, delay);
+            }
+            
+            // Unobserve current event
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null, // viewport
+        threshold: 0.15, // Increased threshold - trigger when 15% of the element is visible
+        rootMargin: '0px 0px -15% 0px' // Less aggressive trigger point
+      });
+      
+      // Observe each timeline event
+      timelineEvents.forEach(event => {
+        observer.observe(event);
+      });
+      
+      // Add scroll event listener with throttling for smoother animation during scrolling
+      let lastScrollTime = 0;
+      const scrollThrottle = 400; // Increased throttle time to reduce animation frequency
+      
+      window.addEventListener('scroll', function() {
+        const now = Date.now();
+        
+        // Throttle scroll events to prevent too many animations
+        if (now - lastScrollTime < scrollThrottle) return;
+        
+        lastScrollTime = now;
+        
+        // Find the first non-animated element
+        const nextIndex = timelineEvents.findIndex(event => !animatedEvents.has(event));
+        
+        if (nextIndex !== -1) {
+          // Animate next element if it exists
+          const nextEvent = timelineEvents[nextIndex];
+          
+          // Calculate position relative to viewport
+          const rect = nextEvent.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          
+          // Only pre-animate if element is closer to viewport (reduced from 1.5x to 1.2x)
+          if (rect.top < viewportHeight * 1.2) {
+            animatedEvents.add(nextEvent);
+            
+            // Forced reflow to ensure animation starts fresh
+            void nextEvent.offsetWidth;
+            
+            nextEvent.classList.add('animated', 'fadeInUp');
+            
+            // Only animate the next element if it's also close to viewport
+            if (nextIndex + 1 < timelineEvents.length) {
+              const afterNext = timelineEvents[nextIndex + 1];
+              const afterNextRect = afterNext.getBoundingClientRect();
+              
+              // Only animate if this element is also close to viewport
+              if (afterNextRect.top < viewportHeight * 1.5) {
+                setTimeout(() => {
+                  if (!animatedEvents.has(afterNext)) {
+                    animatedEvents.add(afterNext);
+                    
+                    // Forced reflow to ensure animation starts fresh
+                    void afterNext.offsetWidth;
+                    
+                    afterNext.classList.add('animated', 'fadeInUp');
+                  }
+                }, BASE_DELAY); // Use consistent delay
+              }
+            }
+          }
+        }
+      });
+      
+      // Animation for the pills navigation
+      function handlePillIndicator() {
+        const navPills = document.querySelector('.stats-main .nav-pills');
+        const pillIndicator = document.querySelector('.stats-main .pill-indicator');
+        const activeButton = document.querySelector('.stats-main .nav-pills .nav-link.active');
+        
+        if (!navPills || !pillIndicator || !activeButton) return;
+        
+        const isMobile = window.innerWidth < 768;
+        
+        // Position the pill indicator based on the active button
+        pillIndicator.style.left = `${activeButton.offsetLeft}px`;
+        pillIndicator.style.top = `${activeButton.offsetTop}px`;
+        pillIndicator.style.width = `${activeButton.offsetWidth}px`;
+        pillIndicator.style.height = `${activeButton.offsetHeight}px`;
       }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const nav = document.getElementById('v-pills-tab');
-      // initialize
-      updatePillIndicator(nav.querySelector('.nav-link.active'));
-      // on each tab show
-      nav.querySelectorAll('.nav-link').forEach(btn => {
-        btn.addEventListener('shown.bs.tab', e => {
-          updatePillIndicator(e.target);
+      
+      // Initialize pill indicator
+      setTimeout(handlePillIndicator, 100);
+      
+      // Update pill indicator on tab change
+      const tabButtons = document.querySelectorAll('.stats-main .nav-pills .nav-link');
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          setTimeout(handlePillIndicator, 10);
         });
       });
-      // also on resize (in case flex-direction flips)
+      
+      // Update pill indicator on window resize
       window.addEventListener('resize', () => {
-        const active = nav.querySelector('.nav-link.active');
-        updatePillIndicator(active);
+        setTimeout(handlePillIndicator, 100);
       });
+      
+      // Initial bootstrap tab show events
+      const tabEl = document.querySelector('button[data-bs-toggle="pill"]')
+      if (tabEl) {
+        tabEl.addEventListener('shown.bs.tab', () => {
+          setTimeout(handlePillIndicator, 10);
+        });
+      }
     });
   </script>
   <!-- Side Panel Toggle Script -->
@@ -1276,6 +1501,147 @@ document
       // Wait for all images to load before initializing Masonry
       imagesLoaded(projectsGrid).on('always', function() {
         initializeMasonry();
+      });
+    });
+  </script>
+  <script>
+        // Tabs functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab
+                    const targetId = this.getAttribute('data-target');
+                    tabPanes.forEach(pane => {
+                        pane.classList.remove('active');
+                        if (pane.id === targetId) {
+                            pane.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <!--Script for timeline events-->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all timeline events
+      const timelineEvents = Array.from(document.querySelectorAll('.timeline__event'));
+      
+      // Track which events have been animated
+      const animatedEvents = new Set();
+      
+      // Animation timing constants - increased for smoother transitions
+      const BASE_DELAY = 450; // Increased base delay between animations
+      const ANIMATION_DURATION = 1200; // Longer animation duration
+      
+      // Create intersection observer with a larger rootMargin to detect elements earlier
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Find the index of the current element
+            const currentIndex = timelineEvents.indexOf(entry.target);
+            
+            // Animate only current element and next element (reduced from 3 to 2)
+            for (let i = currentIndex; i < Math.min(currentIndex + 2, timelineEvents.length); i++) {
+              const event = timelineEvents[i];
+              
+              // Skip if already animated
+              if (animatedEvents.has(event)) continue;
+              
+              // Add to animated set
+              animatedEvents.add(event);
+              
+              // Calculate delay based on position - with increased delay
+              const delayOffset = i - currentIndex; // 0 for current, 1 for next
+              const delay = delayOffset * BASE_DELAY; 
+              
+              // Animate with appropriate delay
+              setTimeout(() => {
+                event.classList.add('animated');
+                
+                // Forced reflow to ensure animation starts fresh
+                void event.offsetWidth;
+                
+                event.classList.add('fadeInUp');
+              }, delay);
+            }
+            
+            // Unobserve current event
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null, // viewport
+        threshold: 0.15, // Increased threshold - trigger when 15% of the element is visible
+        rootMargin: '0px 0px -15% 0px' // Less aggressive trigger point
+      });
+      
+      // Observe each timeline event
+      timelineEvents.forEach(event => {
+        observer.observe(event);
+      });
+      
+      // Add scroll event listener with throttling for smoother animation during scrolling
+      let lastScrollTime = 0;
+      const scrollThrottle = 400; // Increased throttle time to reduce animation frequency
+      
+      window.addEventListener('scroll', function() {
+        const now = Date.now();
+        
+        // Throttle scroll events to prevent too many animations
+        if (now - lastScrollTime < scrollThrottle) return;
+        
+        lastScrollTime = now;
+        
+        // Find the first non-animated element
+        const nextIndex = timelineEvents.findIndex(event => !animatedEvents.has(event));
+        
+        if (nextIndex !== -1) {
+          // Animate next element if it exists
+          const nextEvent = timelineEvents[nextIndex];
+          
+          // Calculate position relative to viewport
+          const rect = nextEvent.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          
+          // Only pre-animate if element is closer to viewport (reduced from 1.5x to 1.2x)
+          if (rect.top < viewportHeight * 1.2) {
+            animatedEvents.add(nextEvent);
+            
+            // Forced reflow to ensure animation starts fresh
+            void nextEvent.offsetWidth;
+            
+            nextEvent.classList.add('animated', 'fadeInUp');
+            
+            // Only animate the next element if it's also close to viewport
+            if (nextIndex + 1 < timelineEvents.length) {
+              const afterNext = timelineEvents[nextIndex + 1];
+              const afterNextRect = afterNext.getBoundingClientRect();
+              
+              // Only animate if this element is also close to viewport
+              if (afterNextRect.top < viewportHeight * 1.5) {
+                setTimeout(() => {
+                  if (!animatedEvents.has(afterNext)) {
+                    animatedEvents.add(afterNext);
+                    
+                    // Forced reflow to ensure animation starts fresh
+                    void afterNext.offsetWidth;
+                    
+                    afterNext.classList.add('animated', 'fadeInUp');
+                  }
+                }, BASE_DELAY); // Use consistent delay
+              }
+            }
+          }
+        }
       });
     });
   </script>
