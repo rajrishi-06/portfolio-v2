@@ -335,13 +335,15 @@ body::before {
 }
 
 .stats-main .nav-pills .nav-link.active {
-  color: white;
+  color: var(--primary-color);
   font-weight: 600;
+  background-color: var(--border-color);
 }
 
 .stats-main .nav-pills .nav-link:hover {
-  color: white;
+  color: whitesmoke;
   transform: translateY(-1px);
+  background-color: var(--border-color);
 }
 
 /* the sliding pill */
@@ -390,7 +392,7 @@ body::before {
 
 @media (min-width: 992px) {
   .stats-main .nav-pills .nav-link {
-    padding: 0.85rem 1.1rem;
+    padding: 0.85rem 1rem;
   }
   
   .stats-main .nav-pills .nav-link i {
@@ -404,11 +406,16 @@ body::before {
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .stats-main .nav-pills .nav-link span {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
   }
-  
+  .stats-main .nav-pills .nav-link i {
+    margin-right: 0.2rem;
+  }
   .stats-card .row {
     min-height: 500px;
+  }
+  .stats-main{
+    padding: 0;
   }
 }
 
@@ -1703,6 +1710,29 @@ body::before {
     padding-left: 30px;
     padding-right:30px; /* Space above footer */
   }
+
+  @media (min-width: 574px) {
+    .container.main-content {
+      max-width: 620px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container.main-content {
+      max-width: 815px;
+    }
+  }
+
+  @media (min-width: 991px) {
+    .container.main-content {
+      max-width: 1030px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container.main-content {
+      max-width: 100%;
+    }
+  }
   #hero {
     box-shadow: none;
     height: 100vh;
@@ -1855,7 +1885,7 @@ body::before {
 }
 
 
-button {
+.r-hover {
   position: relative;
   padding-top: 3px;
   padding-bottom: 3px;
@@ -1934,13 +1964,13 @@ button {
   transition: all .8s ease;
 }
 
-button:hover {
+.r-hover:hover {
   background: transparent;
   color: var(--color);
   box-shadow: 0 0 25px #fec1958c;
 }
 
-button:hover .star-1 {
+.r-hover:hover .star-1 {
   position: absolute;
   top: -80%;
   left: -30%;
@@ -1950,7 +1980,7 @@ button:hover .star-1 {
   z-index: 2;
 }
 
-button:hover .star-2 {
+.r-hover:hover .star-2 {
   position: absolute;
   top: -25%;
   left: 10%;
@@ -1960,7 +1990,7 @@ button:hover .star-2 {
   z-index: 5;
 }
 
-button:hover .star-3 {
+.r-hover:hover .star-3 {
   position: absolute;
   top: 55%;
   left: 25%;
@@ -1970,7 +2000,7 @@ button:hover .star-3 {
   z-index: 5;
 }
 
-button:hover .star-4 {
+.r-hover:hover .star-4 {
   position: absolute;
   top: 30%;
   left: 80%;
@@ -1980,7 +2010,7 @@ button:hover .star-4 {
   z-index: 5;
 }
 
-button:hover .star-5 {
+.r-hover:hover .star-5 {
   position: absolute;
   top: 25%;
   left: 115%;
@@ -1990,7 +2020,7 @@ button:hover .star-5 {
   z-index: 5;
 }
 
-button:hover .star-6 {
+.r-hover:hover .star-6 {
   position: absolute;
   top: 5%;
   left: 60%;
@@ -2313,7 +2343,7 @@ button:hover .star-6 {
     padding: 80px 40px;
     overflow-y: auto;
     transition: right 0.3s ease-in-out;
-    z-index: 1000;
+    z-index: 1150;
 }
 
 .side-panel.active {
@@ -2406,7 +2436,7 @@ button:hover .star-6 {
 }
 
 .side-nav a:hover {
-    color: var(--primary-color);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .side-nav a:hover::after {
@@ -2445,6 +2475,7 @@ button:hover .star-6 {
 
     .side-panel {
         width: 300px;
+        z-index: 1000;
         padding: 60px 30px;
     }
 }
@@ -2454,7 +2485,6 @@ button:hover .star-6 {
       width: 100vw;
     } */
     .side-panel {
-        width: 100%;
         right: -100%;
     }
 }
@@ -2909,12 +2939,13 @@ button:hover .star-6 {
   }
 }
 
-@media (max-width: 574px) {
+@media (max-width: 767px) {
   .skills-tabs {
     justify-content: center;
     padding: 10px;
     margin: 0 auto;
     max-width: 100%;
+    margin-bottom: 20px;
   }
 
   .tab-btn {

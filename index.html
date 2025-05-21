@@ -514,7 +514,7 @@
         </nav>
         <div class="side-resume mb-4">
           <a href="images/xxxxxx.pdf" target="_blank">
-            <button class="resume-btn side-resume-btn">Resume
+            <button class="resume-btn side-resume-btn r-hover">Resume
               <div class="star-1">
                 <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><defs></defs><g id="Layer_x0020_1"><metadata id="CorelCorpID_0Corel-Layer"></metadata><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
               </div>
@@ -559,7 +559,7 @@
                   <div class="hero-buttons">
                     <div class="d-flex align-items-center">
                       <a href="images/xxxxxx.pdf" target="_blank">
-                        <button>Resume
+                        <button class="r-hover">Resume
                           <div class="star-1">
                             <svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 784.11 815.53" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><defs></defs><g id="Layer_x0020_1"><metadata id="CorelCorpID_0Corel-Layer"></metadata><path d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z" class="fil0"></path></g></svg>
                           </div>
@@ -620,13 +620,13 @@
                     <!-- Languages Tab -->
                     <div id="languages" class="tab-pane active">
                         <div class="skills-grid">
-                            <div class="skill-item">
+                            <div class="skill-item" data-bs-toggle="tooltip" data-bs-placement="top" title="JavaScript">
                                 <div class="skill-icon">
                                     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg" alt="JavaScript">
                                 </div>
                                 <div class="skill-name">JavaScript</div>
                             </div>
-                            <div class="skill-item">
+                            <div class="skill-item" data-bs-toggle="tooltip" data-bs-placement="top" title="TypeScript">
                                 <div class="skill-icon">
                                     <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg" alt="TypeScript">
                                 </div>
@@ -1509,6 +1509,35 @@ document
         document.addEventListener('DOMContentLoaded', function() {
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            // Initialize tooltips with custom options
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    trigger: 'hover focus',
+                    delay: { show: 200, hide: 100 }, // Add slight delays
+                    container: 'body',
+                    animation: true,
+                    html: true
+                });
+            });
+
+            // Auto-hide tooltips after 2 seconds
+            document.addEventListener('shown.bs.tooltip', function (event) {
+                setTimeout(() => {
+                    bootstrap.Tooltip.getInstance(event.target).hide();
+                }, 2000);
+            });
+
+            // Hide tooltip on click anywhere
+            document.addEventListener('click', function() {
+                tooltipTriggerList.forEach(el => {
+                    const tooltip = bootstrap.Tooltip.getInstance(el);
+                    if (tooltip) {
+                        tooltip.hide();
+                    }
+                });
+            });
             
             tabButtons.forEach(button => {
                 button.addEventListener('click', function() {
