@@ -879,7 +879,7 @@ body::before {
   }
   
   .contact_us_8 .container-block.form-wrapper {
-    background-color: white;
+    background-color: #f3f3f3;
     max-width: 610px;
     text-align: center;
     padding-top: 50px;
@@ -2548,7 +2548,7 @@ body::before {
 /* Common social links styling */
 .social-links a,
 .side-social a,
-.hero-social-links a {
+.hero-social-links a{
   color: #fff;
   font-size: 20px;
   transition: all 0.3s ease;
@@ -2604,7 +2604,9 @@ body::before {
   padding: 8px 15px;
   backdrop-filter: blur(5px);
 }
-
+.contact-social-links a{
+  background: rgba(17, 16, 16, 0.932);
+}
 @media (max-width: 767px) {
   .hero-buttons .d-flex {
     flex-direction: row;
@@ -3434,5 +3436,16 @@ body::before {
     max-width: 90%;
     max-height: 600px;
     margin: 0 auto;
+  }
+}
+.contactus-head {
+  color: black;
+}
+.contactus-links {
+  background-color: rgb(17, 17, 17);
+}
+@media (max-width: 991px){
+  .contactus-head {
+    color: white;
   }
 }
