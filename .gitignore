@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# Archived previous (vanilla) version — recoverable from git history
+_legacy
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
