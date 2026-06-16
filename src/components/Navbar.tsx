@@ -25,13 +25,13 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5">
       <div
         className={cn(
-          "mx-auto mt-3 flex h-16 max-w-[1200px] items-center justify-between rounded-2xl px-4 transition-all duration-300 sm:px-5",
+          "relative mx-auto mt-3 flex h-16 max-w-[1200px] items-center justify-between rounded-2xl px-4 transition-all duration-300 sm:px-5",
           scrolled
-            ? "glass mx-3 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.9)] sm:mx-5"
-            : "mx-3 border border-transparent bg-transparent sm:mx-5"
+            ? "glass-strong shadow-[0_18px_50px_-22px_rgba(0,0,0,0.95)]"
+            : "border border-transparent bg-transparent"
         )}
       >
         {/* Logo */}
@@ -44,13 +44,14 @@ export function Navbar() {
           </span>
         </a>
 
-        {/* Desktop links */}
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* Desktop links — absolutely centered so they stay dead-center
+            regardless of the logo / action widths on either side */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
           {nav.map((n) => (
             <a
               key={n.href}
               href={n.href}
-              className="rounded-lg px-3.5 py-2 text-sm font-medium text-muted transition-colors hover:bg-white/5 hover:text-ink"
+              className="rounded-lg px-3.5 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-white/10 hover:text-white"
             >
               {n.label}
             </a>
@@ -64,7 +65,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-white/5 hover:text-ink"
+            className="grid h-9 w-9 place-items-center rounded-lg text-ink/80 transition-colors hover:bg-white/10 hover:text-white"
           >
             <Github className="h-[18px] w-[18px]" />
           </a>
@@ -80,7 +81,7 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
-          className="grid h-10 w-10 place-items-center rounded-xl glass text-ink md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-xl glass-strong text-ink md:hidden"
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -94,14 +95,14 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="mx-3 mt-2 overflow-hidden rounded-2xl glass p-2 md:hidden"
+            className="mt-2 overflow-hidden rounded-2xl glass-strong p-2 md:hidden"
           >
             {nav.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-4 py-3 text-base font-medium text-ink/90 hover:bg-white/5"
+                className="block rounded-xl px-4 py-3 text-base font-medium text-ink/90 hover:bg-white/10 hover:text-white"
               >
                 {n.label}
               </a>

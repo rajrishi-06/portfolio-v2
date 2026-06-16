@@ -1,10 +1,13 @@
+import { type CSSProperties } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Sparkles } from "lucide-react";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/button";
+import { TechIcon, techBrand } from "@/components/TechIcon";
 import me from "@/assets/me.webp";
 
 const ease = [0.21, 0.47, 0.32, 0.98] as const;
+const heroStack = ["React", "Python", "TypeScript"];
 
 export function Hero() {
   return (
@@ -102,17 +105,38 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease }}
           className="relative mx-auto w-full max-w-sm lg:max-w-md"
         >
-          <div className="glow-radial absolute inset-0 -z-10 scale-110 opacity-70" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-surface">
-            <img
-              src={me}
-              alt={site.fullName}
-              width={520}
-              height={620}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
+          {/* Layered backdrop — rotating conic halo + soft radial glow */}
+          <div aria-hidden className="pointer-events-none absolute -inset-8 -z-10">
+            <div className="conic-halo animate-spin-slow absolute inset-0 rounded-[3rem] opacity-60 blur-2xl" />
+            <div className="glow-radial absolute inset-6 scale-110 opacity-50" />
           </div>
+
+          {/* Offset dotted panel for depth behind the frame */}
+          <div
+            aria-hidden
+            className="absolute -right-4 -top-4 -z-10 hidden h-36 w-36 rounded-3xl border border-white/10 bg-white/[0.02] sm:block"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
+              backgroundSize: "13px 13px",
+            }}
+          />
+
+          {/* Gradient ring frame + portrait */}
+          <div className="relative rounded-[2rem] bg-gradient-to-br from-accent/60 via-white/10 to-transparent p-px shadow-[0_40px_90px_-30px_rgba(29,111,255,0.55)]">
+            <div className="relative overflow-hidden rounded-[calc(2rem-1px)] bg-surface">
+              <img
+                src={me}
+                alt={site.fullName}
+                width={520}
+                height={620}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 rounded-[calc(2rem-1px)] ring-1 ring-inset ring-white/10" />
+            </div>
+          </div>
+
           {/* Floating accent chip */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
@@ -124,6 +148,23 @@ export function Hero() {
               <div className="text-sm font-semibold text-ink">Always shipping</div>
               <div className="text-xs text-faint">web · automation · AI</div>
             </div>
+          </motion.div>
+
+          {/* Floating tech-stack chip */}
+          <motion.div
+            animate={{ y: [0, 9, 0] }}
+            transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+            className="absolute -right-3 top-7 flex items-center gap-1.5 rounded-2xl glass px-2.5 py-2 shadow-card sm:-right-6"
+          >
+            {heroStack.map((t) => (
+              <span
+                key={t}
+                style={{ "--brand": techBrand[t] ?? "#5b9dff" } as CSSProperties}
+                className="grid h-8 w-8 place-items-center rounded-lg bg-white/[0.04] ring-1 ring-white/10"
+              >
+                <TechIcon name={t} className="h-[18px] w-[18px] text-[color:var(--brand)]" />
+              </span>
+            ))}
           </motion.div>
         </motion.div>
       </div>
