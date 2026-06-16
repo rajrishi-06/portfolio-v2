@@ -1,6 +1,8 @@
+import { type CSSProperties } from "react";
 import { Github, MapPin, Sparkles, Code2, ArrowUpRight } from "lucide-react";
 import { skills, stats, site } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
+import { TechIcon, techBrand } from "@/components/TechIcon";
 
 export function About() {
   return (
@@ -50,8 +52,13 @@ export function About() {
                       {s.items.map((it) => (
                         <span
                           key={it}
-                          className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-ink/90 transition-colors hover:border-accent-bright/50 hover:text-white"
+                          style={{ "--brand": techBrand[it] ?? "#5b9dff" } as CSSProperties}
+                          className="group/chip inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-ink/90 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-bright/50 hover:bg-white/[0.06] hover:text-white"
                         >
+                          <TechIcon
+                            name={it}
+                            className="h-[15px] w-[15px] shrink-0 text-faint transition-colors duration-200 group-hover/chip:text-[color:var(--brand)]"
+                          />
                           {it}
                         </span>
                       ))}
