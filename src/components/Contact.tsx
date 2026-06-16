@@ -20,7 +20,7 @@ export function Contact() {
     <section id="contact" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="container-wide">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-surface p-8 text-center sm:p-14">
+          <div className="relative overflow-hidden rounded-3xl border border-overlay/10 bg-surface p-8 text-center sm:p-14">
             <div className="grid-backdrop pointer-events-none absolute inset-0" />
             <div className="glow-radial pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 opacity-60" />
 

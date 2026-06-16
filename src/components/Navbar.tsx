@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Github, Linkedin, FileText } from "lucide-react";
 import { nav, site } from "@/data/site";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -36,7 +37,7 @@ export function Navbar() {
       >
         {/* Logo */}
         <a href="#top" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent font-display text-lg font-bold text-white shadow-[0_6px_20px_-6px_rgba(29,111,255,0.8)]">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent font-display text-lg font-bold text-white shadow-[0_6px_20px_-6px_rgb(var(--c-accent-glow)/0.6)]">
             R
           </span>
           <span className="font-display text-[15px] font-semibold tracking-tight">
@@ -51,7 +52,7 @@ export function Navbar() {
             <a
               key={n.href}
               href={n.href}
-              className="rounded-lg px-3.5 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-lg px-3.5 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-overlay/10 hover:text-ink"
             >
               {n.label}
             </a>
@@ -60,12 +61,13 @@ export function Navbar() {
 
         {/* Right actions */}
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <a
             href={site.socials.github}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="grid h-9 w-9 place-items-center rounded-lg text-ink/80 transition-colors hover:bg-white/10 hover:text-white"
+            className="grid h-9 w-9 place-items-center rounded-lg text-ink/80 transition-colors hover:bg-overlay/10 hover:text-ink"
           >
             <Github className="h-[18px] w-[18px]" />
           </a>
@@ -102,7 +104,7 @@ export function Navbar() {
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-4 py-3 text-base font-medium text-ink/90 hover:bg-white/10 hover:text-white"
+                className="block rounded-xl px-4 py-3 text-base font-medium text-ink/90 hover:bg-overlay/10 hover:text-ink"
               >
                 {n.label}
               </a>
@@ -123,6 +125,7 @@ export function Navbar() {
                   <Linkedin className="h-5 w-5" />
                 </Button>
               </a>
+              <ThemeToggle className="h-11 w-11 rounded-xl border border-overlay/15 bg-overlay/[0.02]" />
             </div>
           </motion.div>
         )}

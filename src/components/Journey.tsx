@@ -17,7 +17,7 @@ export function Journey() {
             return (
               <Reveal key={item.title} delay={i * 0.08}>
                 <div className="glass glass-hover group flex gap-5 rounded-2xl p-5 sm:p-6">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[0.03] text-accent-bright">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-overlay/10 bg-overlay/[0.03] text-accent-bright">
                     <Icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0 flex-1">
