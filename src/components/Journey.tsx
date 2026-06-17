@@ -4,7 +4,10 @@ import { Reveal } from "@/components/Reveal";
 
 export function Journey() {
   return (
-    <section id="journey" className="relative scroll-mt-24 py-20 sm:py-28">
+    <section
+      id="journey"
+      className="relative scroll-mt-24 border-y border-overlay/[0.06] py-20 sm:py-28"
+    >
       <div className="container-wide max-w-4xl">
         <Reveal>
           <span className="eyebrow">Journey</span>

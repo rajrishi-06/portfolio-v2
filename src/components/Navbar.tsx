@@ -78,15 +78,19 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          className="grid h-10 w-10 place-items-center rounded-xl glass-strong text-ink md:hidden"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        {/* Mobile actions — the theme toggle stays permanently on the bar so it's
+            always visible and one tap away; only the nav links collapse into the sheet */}
+        <div className="flex items-center gap-1.5 md:hidden">
+          <ThemeToggle className="h-10 w-10 rounded-xl glass-strong" />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            className="grid h-10 w-10 place-items-center rounded-xl glass-strong text-ink"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile sheet */}
@@ -125,7 +129,6 @@ export function Navbar() {
                   <Linkedin className="h-5 w-5" />
                 </Button>
               </a>
-              <ThemeToggle className="h-11 w-11 rounded-xl border border-overlay/15 bg-overlay/[0.02]" />
             </div>
           </motion.div>
         )}

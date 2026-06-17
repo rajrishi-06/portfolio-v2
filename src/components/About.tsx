@@ -1,10 +1,12 @@
-import { type CSSProperties } from "react";
-import { Github, MapPin, Sparkles, Code2, ArrowUpRight } from "lucide-react";
-import { skills, stats, site } from "@/data/site";
+import { useState, type CSSProperties } from "react";
+import { Github, MapPin, Sparkles, Code2, ArrowUpRight, Handshake } from "lucide-react";
+import { skills, site, BASE } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 import { TechIcon, techBrand } from "@/components/TechIcon";
 
 export function About() {
+  const [logoOk, setLogoOk] = useState(true);
+
   return (
     <section id="about" className="relative scroll-mt-24 py-20 sm:py-28">
       <div className="container-wide">
@@ -68,26 +70,43 @@ export function About() {
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="glass grid grid-cols-3 gap-2 rounded-2xl p-6 md:col-span-2 lg:col-span-2">
-              {stats.map((st) => (
-                <div key={st.label} className="flex flex-col justify-center">
-                  <div className="font-display text-3xl font-bold text-gradient sm:text-4xl">
-                    {st.value}
-                  </div>
-                  <div className="mt-1 text-xs leading-tight text-muted">{st.label}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Currently */}
-            <div className="glass flex flex-col justify-between rounded-2xl p-6 md:col-span-1">
-              <span className="text-xs font-semibold uppercase tracking-wider text-faint">
-                Currently
-              </span>
+            {/* Leadership role — widened into the space left by the old stats card */}
+            <div className="glass flex flex-col justify-between rounded-2xl p-6 md:col-span-1 lg:col-span-3">
+              <div className="flex items-center justify-between gap-4">
+                <span className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-white">
+                  {logoOk ? (
+                    <img
+                      src={`${BASE}images/nit-silchar.jpg`}
+                      alt="NIT Silchar"
+                      onError={() => setLogoOk(false)}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <Handshake className="h-7 w-7 text-accent-bright" />
+                  )}
+                </span>
+                <span className="text-sm font-medium text-faint">Oct 2025 — Present</span>
+              </div>
               <div>
-                <div className="text-lg font-semibold text-ink">Interning @ NPCI</div>
-                <div className="mt-1 text-sm text-muted">Automating internal tooling</div>
+                <div className="text-lg font-semibold text-ink">
+                  {"T&P Coordinator"}{" "}
+                  <span className="font-medium text-faint">· NIT Silchar</span>
+                </div>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                  Bridging the gap between students and the corporate world — campus to career.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {["Campus placements", "Corporate outreach", "Student mentorship"].map(
+                    (t) => (
+                      <span
+                        key={t}
+                        className="rounded-md border border-overlay/10 bg-overlay/[0.04] px-2.5 py-1 text-xs font-medium text-muted"
+                      >
+                        {t}
+                      </span>
+                    )
+                  )}
+                </div>
               </div>
             </div>
 

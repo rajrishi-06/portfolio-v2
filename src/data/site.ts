@@ -9,7 +9,7 @@ export const site = {
   tagline:
     "Software engineer who turns rough ideas into shipped products — web apps, automation tools and AI-powered experiments.",
   location: "India",
-  email: "neuronhyd5@gmail.com",
+  email: "rajrishireddyk@gmail.com",
   resume: `${BASE}resume.pdf`,
   socials: {
     github: "https://github.com/rajrishi-06",
@@ -30,12 +30,6 @@ export const skills: { group: string; items: string[] }[] = [
   { group: "Languages", items: ["Python", "JavaScript", "TypeScript", "C++", "Java", "SQL"] },
   { group: "Frameworks", items: ["React", "Node.js", "Flask", "Svelte", "Tailwind"] },
   { group: "Tools", items: ["Git", "Docker", "Selenium", "Linux", "Figma"] },
-];
-
-export const stats = [
-  { value: "30+", label: "Public repositories" },
-  { value: "6+", label: "Languages shipped" },
-  { value: "9", label: "Featured projects" },
 ];
 
 // Education + experience as one "journey" (anti-resume: a story, not stacked boxes)
