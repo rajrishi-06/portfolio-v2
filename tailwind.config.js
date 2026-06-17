@@ -10,18 +10,22 @@ export default {
     },
     extend: {
       colors: {
-        // Deep-dark + electric-blue, high contrast
-        bg: "#07080d",
-        surface: "#0e1018",
-        "surface-2": "#141722",
-        border: "rgba(255,255,255,0.08)",
-        ink: "#f4f6fb",
-        muted: "#aab2c5",
-        faint: "#6b7388",
+        // Theme-aware tokens — values come from CSS vars in index.css
+        // (dark = the original deep-dark/electric-blue, light = its counterpart).
+        bg: "rgb(var(--c-bg) / <alpha-value>)",
+        surface: "rgb(var(--c-surface) / <alpha-value>)",
+        "surface-2": "rgb(var(--c-surface-2) / <alpha-value>)",
+        ink: "rgb(var(--c-ink) / <alpha-value>)",
+        muted: "rgb(var(--c-muted) / <alpha-value>)",
+        faint: "rgb(var(--c-faint) / <alpha-value>)",
+        // Adaptive overlay: white in dark mode, black in light mode.
+        // Used for glass / borders / hover fills so they flip with the theme.
+        overlay: "rgb(var(--c-overlay) / <alpha-value>)",
+        border: "rgb(var(--c-overlay) / 0.1)",
         accent: {
-          DEFAULT: "#3b82f6",
-          bright: "#5b9dff",
-          glow: "#1d6fff",
+          DEFAULT: "rgb(var(--c-accent) / <alpha-value>)",
+          bright: "rgb(var(--c-accent-bright) / <alpha-value>)",
+          glow: "rgb(var(--c-accent-glow) / <alpha-value>)",
         },
       },
       fontFamily: {
@@ -29,8 +33,8 @@ export default {
         sans: ['"Inter"', "system-ui", "sans-serif"],
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(91,157,255,0.25), 0 8px 40px -8px rgba(29,111,255,0.55)",
-        card: "0 1px 0 0 rgba(255,255,255,0.05) inset, 0 20px 50px -20px rgba(0,0,0,0.8)",
+        glow: "0 0 0 1px rgb(var(--c-accent-bright) / 0.25), 0 8px 40px -8px rgb(var(--c-accent-glow) / 0.55)",
+        card: "var(--shadow-card)",
       },
       keyframes: {
         "fade-up": {

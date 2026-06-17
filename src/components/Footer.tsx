@@ -3,7 +3,7 @@ import { nav, site } from "@/data/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06]">
+    <footer className="border-t border-overlay/[0.06]">
       <div className="container-wide flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
         <div className="flex items-center gap-2.5">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-accent font-display text-sm font-bold text-white">
@@ -32,7 +32,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-white/5 hover:text-ink"
+            className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-overlay/5 hover:text-ink"
           >
             <Github className="h-[18px] w-[18px]" />
           </a>
@@ -41,7 +41,7 @@ export function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-white/5 hover:text-ink"
+            className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-overlay/5 hover:text-ink"
           >
             <Linkedin className="h-[18px] w-[18px]" />
           </a>

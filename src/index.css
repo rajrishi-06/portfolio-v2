@@ -3,26 +3,58 @@
 @tailwind utilities;
 
 @layer base {
+  /* ===== Light theme (default) ===== */
   :root {
+    color-scheme: light;
+    --c-bg: 255 255 255;
+    --c-surface: 246 247 249;
+    --c-surface-2: 236 238 242;
+    --c-ink: 24 27 34; /* near-black (not pure) */
+    --c-muted: 90 97 112;
+    --c-faint: 140 147 162;
+    --c-overlay: 17 20 28; /* black-ish overlay on light surfaces */
+    --c-accent: 37 99 235; /* blue-600 — white text reads on it */
+    --c-accent-bright: 29 78 216; /* deeper blue for text/icons on light */
+    --c-accent-glow: 37 99 235;
+    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.6) inset,
+      0 18px 40px -24px rgb(17 20 28 / 0.22);
+  }
+  /* ===== Dark theme — the original deep-dark / electric-blue ===== */
+  .dark {
     color-scheme: dark;
+    --c-bg: 7 8 13;
+    --c-surface: 14 16 24;
+    --c-surface-2: 20 23 34;
+    --c-ink: 244 246 251;
+    --c-muted: 170 178 197;
+    --c-faint: 107 115 136;
+    --c-overlay: 255 255 255; /* white overlay on dark surfaces */
+    --c-accent: 59 130 246;
+    --c-accent-bright: 91 157 255;
+    --c-accent-glow: 29 111 255;
+    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.05) inset,
+      0 20px 50px -20px rgb(0 0 0 / 0.8);
   }
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-bg text-ink font-sans antialiased;
+    background-color: rgb(var(--c-bg));
+    color: rgb(var(--c-ink));
+    @apply font-sans antialiased;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   ::selection {
-    background: rgba(59, 130, 246, 0.3);
-    color: #fff;
+    background: rgb(var(--c-accent) / 0.3);
+    color: rgb(var(--c-ink));
   }
   /* Scrollbar */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #07080d; }
-  ::-webkit-scrollbar-thumb { background: #1c2030; border-radius: 99px; border: 2px solid #07080d; }
-  ::-webkit-scrollbar-thumb:hover { background: #2a3046; }
+  ::-webkit-scrollbar-track { background: rgb(var(--c-bg)); }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--c-overlay) / 0.18); border-radius: 99px; border: 2px solid rgb(var(--c-bg)); }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-overlay) / 0.3); }
 
   h1, h2, h3, h4 { @apply font-display tracking-tight; }
 }
@@ -30,40 +62,46 @@
 @layer components {
   .container-wide { @apply mx-auto w-full max-w-[1200px] px-6; }
 
-  /* Glass surface used across cards */
+  /* Glass surface used across cards (adapts via the overlay token) */
   .glass {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgb(var(--c-overlay) / 0.045), rgb(var(--c-overlay) / 0.018));
+    border: 1px solid rgb(var(--c-overlay) / 0.09);
     backdrop-filter: blur(10px);
   }
   /* Heavier frosted surface — used for the floating navbar / mobile sheet so
      text stays legible over whatever content scrolls behind it. */
   .glass-strong {
-    background: linear-gradient(180deg, rgba(18, 21, 31, 0.88), rgba(11, 13, 20, 0.82));
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.7));
+    border: 1px solid rgb(var(--c-overlay) / 0.1);
     backdrop-filter: blur(16px) saturate(160%);
+  }
+  .dark .glass-strong {
+    background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
   }
   .glass-hover {
     transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
   .glass-hover:hover {
-    border-color: rgba(91, 157, 255, 0.45);
-    box-shadow: 0 0 0 1px rgba(91, 157, 255, 0.2), 0 24px 60px -24px rgba(29, 111, 255, 0.5);
+    border-color: rgb(var(--c-accent-bright) / 0.45);
+    box-shadow: 0 0 0 1px rgb(var(--c-accent-bright) / 0.2), 0 24px 60px -24px rgb(var(--c-accent-glow) / 0.5);
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-muted;
+    @apply inline-flex items-center gap-2 rounded-full border border-overlay/10 bg-overlay/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-muted;
   }
 
   .text-gradient {
-    background: linear-gradient(120deg, #ffffff 0%, #cdd9f5 40%, #5b9dff 100%);
+    background-image: linear-gradient(120deg, #14161c 0%, #3257c9 52%, #2563eb 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  .dark .text-gradient {
+    background-image: linear-gradient(120deg, #ffffff 0%, #cdd9f5 40%, #5b9dff 100%);
+  }
 
   .accent-link {
-    @apply inline-flex items-center gap-1.5 text-accent-bright transition-colors hover:text-white;
+    @apply inline-flex items-center gap-1.5 text-accent-bright transition-colors hover:text-ink;
   }
 
   /* Section title block */
@@ -74,14 +112,14 @@
   /* Faint grid backdrop */
   .grid-backdrop {
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--c-overlay) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--c-overlay) / 0.05) 1px, transparent 1px);
     background-size: 44px 44px;
     -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
     mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
   }
   .glow-radial {
-    background: radial-gradient(closest-side, rgba(29, 111, 255, 0.35), transparent);
+    background: radial-gradient(closest-side, rgb(var(--c-accent-glow) / 0.3), transparent);
   }
 
   /* Fine film grain — keeps the deep-dark from looking flat/empty */
@@ -94,10 +132,10 @@
   .conic-halo {
     background: conic-gradient(
       from 180deg at 50% 50%,
-      rgba(29, 111, 255, 0.28),
-      rgba(34, 211, 238, 0.12),
-      rgba(124, 58, 237, 0.22),
-      rgba(29, 111, 255, 0.28)
+      rgb(var(--c-accent-glow) / 0.28),
+      rgb(var(--c-accent-bright) / 0.14),
+      rgb(var(--c-accent) / 0.22),
+      rgb(var(--c-accent-glow) / 0.28)
     );
   }
   .animate-spin-slow {

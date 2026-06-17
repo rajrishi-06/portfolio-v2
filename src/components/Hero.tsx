@@ -81,7 +81,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="grid h-11 w-11 place-items-center rounded-xl text-muted transition-colors hover:bg-white/5 hover:text-ink"
+                className="grid h-11 w-11 place-items-center rounded-xl text-muted transition-colors hover:bg-overlay/5 hover:text-ink"
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -90,7 +90,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="grid h-11 w-11 place-items-center rounded-xl text-muted transition-colors hover:bg-white/5 hover:text-ink"
+                className="grid h-11 w-11 place-items-center rounded-xl text-muted transition-colors hover:bg-overlay/5 hover:text-ink"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -114,16 +114,16 @@ export function Hero() {
           {/* Offset dotted panel for depth behind the frame */}
           <div
             aria-hidden
-            className="absolute -right-4 -top-4 -z-10 hidden h-36 w-36 rounded-3xl border border-white/10 bg-white/[0.02] sm:block"
+            className="absolute -right-4 -top-4 -z-10 hidden h-36 w-36 rounded-3xl border border-overlay/10 bg-overlay/[0.02] sm:block"
             style={{
               backgroundImage:
-                "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
+                "radial-gradient(rgb(var(--c-overlay) / 0.14) 1px, transparent 1px)",
               backgroundSize: "13px 13px",
             }}
           />
 
           {/* Gradient ring frame + portrait */}
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-accent/60 via-white/10 to-transparent p-px shadow-[0_40px_90px_-30px_rgba(29,111,255,0.55)]">
+          <div className="relative rounded-[2rem] bg-gradient-to-br from-accent/60 via-overlay/10 to-transparent p-px shadow-[0_40px_90px_-30px_rgb(var(--c-accent-glow)/0.45)]">
             <div className="relative overflow-hidden rounded-[calc(2rem-1px)] bg-surface">
               <img
                 src={me}
@@ -160,7 +160,7 @@ export function Hero() {
               <span
                 key={t}
                 style={{ "--brand": techBrand[t] ?? "#5b9dff" } as CSSProperties}
-                className="grid h-8 w-8 place-items-center rounded-lg bg-white/[0.04] ring-1 ring-white/10"
+                className="grid h-8 w-8 place-items-center rounded-lg bg-overlay/[0.04] ring-1 ring-overlay/10"
               >
                 <TechIcon name={t} className="h-[18px] w-[18px] text-[color:var(--brand)]" />
               </span>

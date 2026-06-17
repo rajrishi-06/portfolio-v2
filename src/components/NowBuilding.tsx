@@ -20,7 +20,7 @@ export function NowBuilding() {
   return (
     <section
       id="experience"
-      className="relative scroll-mt-24 border-y border-white/[0.06] py-14 sm:py-16"
+      className="relative scroll-mt-24 border-y border-overlay/[0.06] py-14 sm:py-16"
     >
       <div className="container-wide">
         <Reveal>
@@ -29,7 +29,7 @@ export function NowBuilding() {
             <div>
               <span className="eyebrow">Currently building at</span>
               <div className="mt-5 flex items-center gap-4">
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-white/10 bg-white/[0.04] font-display text-2xl font-bold tracking-tight text-ink shadow-card">
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-overlay/10 bg-overlay/[0.04] font-display text-2xl font-bold tracking-tight text-ink shadow-card">
                   N
                 </span>
                 <div>
@@ -57,7 +57,7 @@ export function NowBuilding() {
                   {[...stack, ...stack].map((t, i) => (
                     <div
                       key={`${t}-${i}`}
-                      className="group/logo flex shrink-0 items-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.02] px-4 py-2.5 transition-colors hover:border-white/15 hover:bg-white/[0.05]"
+                      className="group/logo flex shrink-0 items-center gap-2.5 rounded-xl border border-overlay/[0.07] bg-overlay/[0.02] px-4 py-2.5 transition-colors hover:border-overlay/15 hover:bg-overlay/[0.05]"
                     >
                       <TechIcon
                         name={t}

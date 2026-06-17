@@ -53,7 +53,7 @@ export function About() {
                         <span
                           key={it}
                           style={{ "--brand": techBrand[it] ?? "#5b9dff" } as CSSProperties}
-                          className="group/chip inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-ink/90 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-bright/50 hover:bg-white/[0.06] hover:text-white"
+                          className="group/chip inline-flex items-center gap-2 rounded-lg border border-overlay/10 bg-overlay/[0.04] px-3 py-1.5 text-sm text-ink/90 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-bright/50 hover:bg-overlay/[0.06] hover:text-ink"
                         >
                           <TechIcon
                             name={it}

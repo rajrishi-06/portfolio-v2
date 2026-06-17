@@ -12,6 +12,22 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 
+// Apply the saved / system colour theme before first paint. Default = system
+// preference; an explicit choice is persisted in localStorage. The dragon
+// preloader keeps its own dark styling regardless of the active theme.
+(() => {
+  try {
+    const stored = localStorage.getItem("theme");
+    const dark = stored
+      ? stored === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", dark);
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
+  } catch {
+    document.documentElement.classList.add("dark");
+  }
+})();
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
