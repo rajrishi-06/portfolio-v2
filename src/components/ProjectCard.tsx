@@ -2,8 +2,15 @@ import { useRef } from "react";
 import { Github, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  className,
+}: {
+  project: Project;
+  className?: string;
+}) {
   const Icon = project.icon;
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -20,7 +27,10 @@ export function ProjectCard({ project }: { project: Project }) {
     <article
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className="group relative flex flex-col overflow-hidden rounded-2xl glass glass-hover"
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-2xl glass glass-hover",
+        className
+      )}
     >
       {/* Thumbnail (image / hover-video / gradient placeholder) */}
       <a
