@@ -6,7 +6,17 @@ import path from "path";
 // Use the subpath only for production builds; serve at "/" during dev.
 export default defineConfig(({ command }) => ({
   base: command === "build" ? "/portfolio-v2/" : "/",
-  server: { port: 5173 },
+  server: {
+    port: 5173,
+    // Proxy API calls to the local chat backend during development so the
+    // frontend can use relative /api paths. The backend runs on :8787.
+    proxy: {
+      "/api": {
+        target: "http://localhost:8787",
+        changeOrigin: true,
+      },
+    },
+  },
   plugins: [react()],
   resolve: {
     alias: {
