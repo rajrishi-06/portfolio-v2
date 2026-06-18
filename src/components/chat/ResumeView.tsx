@@ -191,7 +191,7 @@ export function ResumeView({
         <input
           ref={fileInputRef}
           type="file"
-          accept=".pdf,.txt,.md,image/png,image/jpeg,image/webp,image/gif"
+          accept=".pdf,.txt,.md,.heic,.heif,image/png,image/jpeg,image/webp,image/heic,image/heif"
           className="hidden"
           onChange={(e) => onFiles(e.target.files)}
         />

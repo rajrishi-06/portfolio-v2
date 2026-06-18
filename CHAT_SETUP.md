@@ -9,7 +9,7 @@ the bottom-right that opens a themed console with two tabs —
   of how you and Raj fit together, with an animated fit score.
 
 Because a static site can't safely hold an API key, this is now a **client +
-server** app: a small Node backend (`server/`) holds the Anthropic key and the
+server** app: a small Node backend (`server/`) holds the Gemini key and the
 React frontend talks to it. The key never reaches the browser.
 
 ## Run it locally (two terminals)
@@ -18,7 +18,7 @@ React frontend talks to it. The key never reaches the browser.
 
 ```bash
 cd server
-cp .env.example .env          # add your ANTHROPIC_API_KEY
+cp .env.example .env          # add your GEMINI_API_KEY
 npm install
 npm run dev                   # → http://localhost:8787
 ```
@@ -39,7 +39,7 @@ icon in the corner.
 GitHub Pages only serves static files, so host the backend separately
 (Render, Railway, Fly, a VPS — anything that runs Node):
 
-1. Deploy the `server/` folder. Set `ANTHROPIC_API_KEY`, and add your site's
+1. Deploy the `server/` folder. Set `GEMINI_API_KEY`, and add your site's
    origin (`https://rajrishi-06.github.io`) to `ALLOWED_ORIGINS`. See
    [`server/README.md`](server/README.md).
 2. Build the frontend with the backend URL baked in:
@@ -51,9 +51,10 @@ GitHub Pages only serves static files, so host the backend separately
 
 ## Cost note
 
-Both routes default to **Claude Opus 4.8** for the best answers. For a public
-widget, set cheaper models in `server/.env` — e.g. `CHAT_MODEL=claude-haiku-4-5`
-keeps portfolio Q&A cheap and snappy. Built-in guardrails: per-IP rate limiting,
+Both routes default to **Gemini 2.5 Flash** — fast, cheap, and plenty for
+portfolio Q&A and the fit analysis. Tune models in `server/.env` — e.g.
+`CHAT_MODEL=gemini-2.0-flash` or `RESUME_MODEL=gemini-2.5-pro`. Built-in
+guardrails: per-IP rate limiting,
 bounded history, an 8 MB upload cap, and aborting upstream calls when a visitor
 closes the tab.
 
@@ -61,7 +62,7 @@ closes the tab.
 
 | Piece | Path |
 | --- | --- |
-| Backend (Express + Claude) | [`server/`](server/) |
+| Backend (Express + Gemini) | [`server/`](server/) |
 | Persona / boundaries | [`server/src/prompts.ts`](server/src/prompts.ts) |
 | What the AI knows about Raj | [`server/src/knowledge.ts`](server/src/knowledge.ts) |
 | Widget UI | [`src/components/chat/`](src/components/chat/) |

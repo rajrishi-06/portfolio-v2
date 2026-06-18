@@ -1,5 +1,5 @@
 import type { Response } from "express";
-import type Anthropic from "@anthropic-ai/sdk";
+import type { GenerateContentResponse } from "@google/genai";
 
 /** Prepare an Express response for Server-Sent-Events streaming. */
 export function initSSE(res: Response): void {
@@ -22,22 +22,19 @@ export function sendEvent(res: Response, data: unknown): void {
 }
 
 /**
- * Pipe an Anthropic message stream to the client as SSE text deltas.
- * Emits { type: "delta", text } per token, then { type: "done" }, or
- * { type: "error", message } if generation fails.
+ * Pipe a Gemini content stream to the client as SSE text deltas.
+ * Emits { type: "delta", text } per chunk, then { type: "done" }, or
+ * { type: "error", message } if generation fails. `chunk.text` is the
+ * incremental text for that chunk (undefined for non-text parts).
  */
 export async function pipeStream(
-  stream: AsyncIterable<Anthropic.MessageStreamEvent>,
+  stream: AsyncIterable<GenerateContentResponse>,
   res: Response,
 ): Promise<void> {
   try {
-    for await (const event of stream) {
-      if (
-        event.type === "content_block_delta" &&
-        event.delta.type === "text_delta"
-      ) {
-        sendEvent(res, { type: "delta", text: event.delta.text });
-      }
+    for await (const chunk of stream) {
+      const text = chunk.text;
+      if (text) sendEvent(res, { type: "delta", text });
     }
     sendEvent(res, { type: "done" });
   } catch (err) {

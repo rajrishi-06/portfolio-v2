@@ -11,11 +11,13 @@ import { assistantConfig } from "@/data/chatConfig";
 import { cn } from "@/lib/utils";
 import { ChatView } from "./ChatView";
 import { ResumeView } from "./ResumeView";
+import type { PanelBox } from "./position";
 
 type Mode = "chat" | "resume";
 
 export function ChatPanel({
   open,
+  box,
   dirty,
   sessionKey,
   onMinimize,
@@ -23,6 +25,8 @@ export function ChatPanel({
   onActivity,
 }: {
   open: boolean;
+  /** Where the panel should sit + how big it is (computed from the launcher). */
+  box: PanelBox;
   /** True once the visitor has a conversation / analysis worth warning about. */
   dirty: boolean;
   /** Bumping this remounts the views, wiping their state (used by a confirmed close). */
@@ -95,14 +99,14 @@ export function ChatPanel({
         dragConstraints={boundsRef}
         dragMomentum={false}
         dragElastic={0.06}
-        style={{ x, y }}
+        style={{ x, y, left: box.left, top: box.top, width: box.width, height: box.height }}
         initial={false}
         animate={open ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.97 }}
         transition={{ duration: 0.26, ease: [0.21, 0.47, 0.32, 0.98] }}
         role="dialog"
         aria-label="Raj's AI assistant"
         className={cn(
-          "absolute bottom-24 right-4 flex h-[min(620px,calc(100vh-7.5rem))] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl glass-strong shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)] sm:right-6 sm:w-[400px]",
+          "absolute flex flex-col overflow-hidden rounded-2xl glass-strong shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)]",
           open ? "pointer-events-auto" : "pointer-events-none",
         )}
       >

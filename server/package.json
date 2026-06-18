@@ -2,14 +2,14 @@
   "name": "portfolio-chat-server",
   "private": true,
   "version": "1.0.0",
-  "description": "Backend that powers the portfolio AI assistant + resume fit analyzer (Claude).",
+  "description": "Backend that powers the portfolio AI assistant + resume fit analyzer (Google Gemini).",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "latest",
+    "@google/genai": "^2.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
