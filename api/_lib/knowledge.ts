@@ -155,7 +155,7 @@ export function profileBrief(): string {
   const projects = profile.projects
     .map(
       (p) =>
-        `- ${p.title} (${p.lang}${p.featured ? ", featured" : ""}) — ${p.blurb} Tech: ${p.tags.join(", ")}. Repo: ${p.github}`,
+        `- ${p.title} (${p.lang}${"featured" in p && p.featured ? ", featured" : ""}) — ${p.blurb} Tech: ${p.tags.join(", ")}. Repo: ${p.github}`,
     )
     .join("\n");
 

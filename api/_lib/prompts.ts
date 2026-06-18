@@ -1,4 +1,4 @@
-import { profileBrief } from "./knowledge.js";
+import { profileBrief } from "./knowledge";
 
 /**
  * STRICT persona for the chat assistant.

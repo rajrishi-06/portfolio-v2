@@ -1,70 +1,62 @@
 # AI assistant — setup
 
-The portfolio now ships with a custom AI assistant: a quiet terminal launcher in
-the bottom-right that opens a themed console with two tabs —
+The portfolio ships with a custom AI assistant: a quiet terminal launcher in
+the corner that opens a themed console with two tabs —
 
 - **Chat** — a strict "digital twin" of Raj that only answers about his skills,
   education, experience and projects (and politely declines anything else).
 - **Resume Fit** — upload or paste a résumé and get a candid, streamed analysis
   of how you and Raj fit together, with an animated fit score.
 
-Because a static site can't safely hold an API key, this is now a **client +
-server** app: a small Node backend (`server/`) holds the Gemini key and the
-React frontend talks to it. The key never reaches the browser.
+A static site can't safely hold an API key, so the Gemini key lives in **Vercel
+serverless functions** under [`api/`](api/) — same project, same origin, one
+deploy. The key is a server-side env var and never reaches the browser.
 
-## Run it locally (two terminals)
-
-**1. Backend**
-
-```bash
-cd server
-cp .env.example .env          # add your GEMINI_API_KEY
-npm install
-npm run dev                   # → http://localhost:8787
-```
-
-**2. Frontend** (repo root)
+## Run it locally
 
 ```bash
 npm install
-npm run dev                   # → http://localhost:5173
+cp .env.example .env.local        # add your GEMINI_API_KEY
+npm i -g vercel                   # one-time: the Vercel CLI
+vercel dev                        # → http://localhost:3000 (frontend + /api)
 ```
 
-The Vite dev server proxies `/api/*` to the backend automatically, so there's
-nothing else to configure for local use. Open the site and click the terminal
-icon in the corner.
+`vercel dev` runs the React frontend **and** the `api/` functions together on
+one origin, so the widget's relative `/api/*` calls just work. (Plain
+`npm run dev` serves only the frontend — the chat needs the functions.)
 
-## Going to production
+Get a Gemini key at <https://aistudio.google.com/apikey> (it starts with
+`AIza…`).
 
-GitHub Pages only serves static files, so host the backend separately
-(Render, Railway, Fly, a VPS — anything that runs Node):
+## Deploy to Vercel
 
-1. Deploy the `server/` folder. Set `GEMINI_API_KEY`, and add your site's
-   origin (`https://rajrishi-06.github.io`) to `ALLOWED_ORIGINS`. See
-   [`server/README.md`](server/README.md).
-2. Build the frontend with the backend URL baked in:
-   ```bash
-   # .env (repo root) — see .env.example
-   VITE_API_BASE=https://your-portfolio-api.example.com
-   npm run build
-   ```
+1. Push the repo to GitHub and **Import** it at <https://vercel.com/new>.
+   Vercel auto-detects Vite — no build config needed (`vercel.json` pins it).
+2. In **Project → Settings → Environment Variables**, add `GEMINI_API_KEY`
+   (and optionally `CHAT_MODEL` / `RESUME_MODEL`).
+3. Deploy. The frontend and the `/api/chat`, `/api/resume`, `/api/health`
+   functions all serve from your `*.vercel.app` domain (add a custom domain in
+   project settings if you like). No CORS, no separate backend host.
 
-## Cost note
+## Cost & limits
 
 Both routes default to **Gemini 2.5 Flash** — fast, cheap, and plenty for
-portfolio Q&A and the fit analysis. Tune models in `server/.env` — e.g.
-`CHAT_MODEL=gemini-2.0-flash` or `RESUME_MODEL=gemini-2.5-pro`. Built-in
-guardrails: per-IP rate limiting,
-bounded history, an 8 MB upload cap, and aborting upstream calls when a visitor
-closes the tab.
+portfolio Q&A and the fit analysis. Tune per route with the `CHAT_MODEL` /
+`RESUME_MODEL` env vars (e.g. `gemini-2.0-flash` for the cheapest chat,
+`gemini-2.5-pro` for stronger résumé reasoning). The functions disable Gemini's
+"thinking" so the token budget goes to the visible answer, and abort the
+upstream call if the visitor leaves. Note Vercel's serverless request body limit
+is ~4.5 MB, so very large résumé uploads may be rejected — paste the text
+instead.
 
 ## Where things live
 
 | Piece | Path |
 | --- | --- |
-| Backend (Express + Gemini) | [`server/`](server/) |
-| Persona / boundaries | [`server/src/prompts.ts`](server/src/prompts.ts) |
-| What the AI knows about Raj | [`server/src/knowledge.ts`](server/src/knowledge.ts) |
+| Serverless API (Gemini) | [`api/`](api/) |
+| Shared backend logic | [`api/_lib/`](api/_lib/) |
+| Persona / boundaries | [`api/_lib/prompts.ts`](api/_lib/prompts.ts) |
+| What the AI knows about Raj | [`api/_lib/knowledge.ts`](api/_lib/knowledge.ts) |
 | Widget UI | [`src/components/chat/`](src/components/chat/) |
 | Starter prompts & copy | [`src/data/chatConfig.ts`](src/data/chatConfig.ts) |
 | Frontend API client | [`src/lib/chatApi.ts`](src/lib/chatApi.ts) |
