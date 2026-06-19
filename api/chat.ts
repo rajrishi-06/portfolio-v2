@@ -1,7 +1,8 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type { Content } from "@google/genai";
 import { genai, CHAT_MODEL } from "./_lib/genai";
 import { chatSystemPrompt } from "./_lib/prompts";
-import { jsonResponse, sseResponse } from "./_lib/stream";
+import { initSSE, sendEvent, sendJson, streamGemini } from "./_lib/stream";
 
 // Allow up to 60s for a streamed reply (Vercel default is 10s).
 export const config = { maxDuration: 60 };
@@ -35,22 +36,28 @@ function sanitize(messages: unknown): Content[] | null {
   return tail.length ? tail : null;
 }
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST")
-    return jsonResponse({ error: "Method not allowed." }, 405);
-
-  let body: { messages?: unknown };
-  try {
-    body = (await req.json()) as { messages?: unknown };
-  } catch {
-    return jsonResponse({ error: "Invalid JSON body." }, 400);
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse,
+): Promise<void> {
+  if (req.method !== "POST") {
+    sendJson(res, 405, { error: "Method not allowed." });
+    return;
   }
 
-  const contents = sanitize(body?.messages);
-  if (!contents)
-    return jsonResponse({ error: "Provide a non-empty 'messages' array." }, 400);
+  const contents = sanitize(req.body?.messages);
+  if (!contents) {
+    sendJson(res, 400, { error: "Provide a non-empty 'messages' array." });
+    return;
+  }
 
-  return sseResponse(async (send) => {
+  initSSE(res);
+
+  // Abort the upstream call if the visitor closes the tab.
+  const controller = new AbortController();
+  req.on("close", () => controller.abort());
+
+  try {
     const stream = await genai.models.generateContentStream({
       model: CHAT_MODEL,
       contents,
@@ -60,13 +67,15 @@ export default async function handler(req: Request): Promise<Response> {
         // Disable "thinking" so the budget goes to the visible answer and
         // replies stay snappy. (Applies to 2.5 models; ignored otherwise.)
         thinkingConfig: { thinkingBudget: 0 },
-        // Aborts the upstream call if the visitor closes the tab.
-        abortSignal: req.signal,
+        abortSignal: controller.signal,
       },
     });
-    for await (const chunk of stream) {
-      const text = chunk.text;
-      if (text) send({ type: "delta", text });
-    }
-  });
+    await streamGemini(stream, res);
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Failed to start the assistant.";
+    console.error("[portfolio-chat] chat error:", message);
+    sendEvent(res, { type: "error", message });
+    if (!res.writableEnded) res.end();
+  }
 }

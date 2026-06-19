@@ -1,7 +1,8 @@
-import { jsonResponse } from "./_lib/stream";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { sendJson } from "./_lib/stream";
 
-export default async function handler(_req: Request): Promise<Response> {
-  return jsonResponse({
+export default function handler(_req: VercelRequest, res: VercelResponse): void {
+  sendJson(res, 200, {
     ok: true,
     keyConfigured: Boolean(
       process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY,

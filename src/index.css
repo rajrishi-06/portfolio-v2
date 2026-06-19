@@ -78,6 +78,34 @@
   .dark .glass-strong {
     background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
   }
+
+  /* AI-twin launcher: render in the OPPOSITE theme of the site — a dark button
+     on the light site and a light button on the dark site. Pure CSS so it flips
+     instantly with the theme toggle. The values mirror the :root / .dark blocks
+     above (scoped to this one element); keep them in sync if the palette moves. */
+  .chat-launcher-invert {
+    --c-bg: 7 8 13;
+    --c-ink: 244 246 251;
+    --c-overlay: 255 255 255;
+    --c-accent: 59 130 246;
+    --c-accent-bright: 91 157 255;
+    --c-accent-glow: 29 111 255;
+  }
+  .chat-launcher-invert.glass-strong {
+    background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
+  }
+  .dark .chat-launcher-invert {
+    --c-bg: 255 255 255;
+    --c-ink: 24 27 34;
+    --c-overlay: 17 20 28;
+    --c-accent: 37 99 235;
+    --c-accent-bright: 29 78 216;
+    --c-accent-glow: 37 99 235;
+  }
+  .dark .chat-launcher-invert.glass-strong {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.7));
+  }
+
   .glass-hover {
     transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }

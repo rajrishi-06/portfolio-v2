@@ -1,62 +1,61 @@
+import type { ServerResponse } from "http";
+import type { GenerateContentResponse } from "@google/genai";
+
 /**
- * Helpers for the serverless functions: JSON responses and an SSE stream that
- * mirrors the frontend's contract ({type:"delta"|"error"|"done"}). Built on the
- * Web ReadableStream API so it works as a streamed `Response` on Vercel.
+ * SSE helpers built on the Node response object (res.write / res.end). This is
+ * the streaming model Vercel's Node runtime terminates reliably — when res.end()
+ * is called the function invocation ends, so it never hangs past the timeout.
  */
 
-const encoder = new TextEncoder();
+/** Send a one-shot JSON response (validation errors etc.). */
+export function sendJson(res: ServerResponse, status: number, data: unknown): void {
+  res.statusCode = status;
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify(data));
+}
 
-const SSE_HEADERS: Record<string, string> = {
-  "Content-Type": "text/event-stream; charset=utf-8",
-  "Cache-Control": "no-cache, no-transform",
-  Connection: "keep-alive",
-  // Disable proxy buffering so chunks reach the client in real time.
-  "X-Accel-Buffering": "no",
-};
+/** Open the SSE stream. (No `Connection` header — Vercel manages the socket.) */
+export function initSSE(res: ServerResponse): void {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-transform");
+  // Disable proxy buffering so chunks arrive in real time.
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders?.();
+}
 
-export type Send = (data: unknown) => void;
-
-/** A plain JSON response (used for validation errors). */
-export function jsonResponse(data: unknown, status = 200): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
+/** Write one JSON event over the SSE channel (no-op once the client is gone). */
+export function sendEvent(res: ServerResponse, data: unknown): void {
+  if (res.writableEnded) return;
+  try {
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  } catch {
+    /* client disconnected mid-write — nothing to do */
+  }
 }
 
 /**
- * Run `producer`, forwarding each `send({type:"delta",text})` to the client as
- * an SSE frame. Emits {type:"done"} when it resolves, or {type:"error",message}
- * if it throws (including upstream Gemini errors) — so failures surface to the
- * client instead of crashing the function.
+ * Pipe a Gemini content stream to the client as SSE deltas, then end the
+ * response. Emits {type:"delta",text} per chunk, then {type:"done"}, or
+ * {type:"error",message} if generation fails — and always calls res.end() so
+ * the serverless function terminates.
  */
-export function sseResponse(
-  producer: (send: Send) => Promise<void>,
-): Response {
-  const body = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      const send: Send = (data) =>
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-      try {
-        await producer(send);
-        send({ type: "done" });
-      } catch (err) {
-        const message =
-          err instanceof Error ? err.message : "Generation failed unexpectedly.";
-        console.error("[portfolio-chat] stream error:", message);
-        try {
-          send({ type: "error", message });
-        } catch {
-          /* controller already closed (client gone) */
-        }
-      } finally {
-        try {
-          controller.close();
-        } catch {
-          /* already closed */
-        }
-      }
-    },
-  });
-  return new Response(body, { headers: SSE_HEADERS });
+export async function streamGemini(
+  upstream: AsyncIterable<GenerateContentResponse>,
+  res: ServerResponse,
+): Promise<void> {
+  try {
+    for await (const chunk of upstream) {
+      const text = chunk.text;
+      if (text) sendEvent(res, { type: "delta", text });
+    }
+    sendEvent(res, { type: "done" });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Generation failed unexpectedly.";
+    console.error("[portfolio-chat] stream error:", message);
+    sendEvent(res, { type: "error", message });
+  } finally {
+    if (!res.writableEnded) res.end();
+  }
 }

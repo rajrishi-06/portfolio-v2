@@ -43,6 +43,7 @@ export function ChatPanel({
 
   // Drag: the panel floats freely; the title bar is the handle.
   const boundsRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -57,6 +58,21 @@ export function ChatPanel({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [open, confirmingClose, onMinimize]);
+
+  // Click anywhere outside the panel → minimize (keeps state), same as the
+  // yellow dot. While a delete-confirm is up, an outside click just cancels it
+  // (mirrors Escape) rather than minimizing mid-confirm. Capture phase so a
+  // page element calling stopPropagation can't swallow it.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (panelRef.current?.contains(e.target as Node)) return;
+      if (confirmingClose) setConfirmingClose(false);
+      else onMinimize();
+    };
+    document.addEventListener("pointerdown", onPointerDown, true);
+    return () => document.removeEventListener("pointerdown", onPointerDown, true);
   }, [open, confirmingClose, onMinimize]);
 
   // Reset float position + any pending confirm whenever it leaves the screen.
@@ -93,6 +109,7 @@ export function ChatPanel({
     // only the panel itself re-enables pointer events.
     <div ref={boundsRef} className="pointer-events-none fixed inset-0 z-[60]">
       <motion.div
+        ref={panelRef}
         drag
         dragListener={false}
         dragControls={dragControls}
