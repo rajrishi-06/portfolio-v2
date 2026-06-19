@@ -123,7 +123,7 @@ export function ChatPanel({
         role="dialog"
         aria-label="Raj's AI assistant"
         className={cn(
-          "absolute flex flex-col overflow-hidden rounded-2xl glass-strong shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)]",
+          "chat-invert absolute flex flex-col overflow-hidden rounded-2xl glass-strong shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)]",
           open ? "pointer-events-auto" : "pointer-events-none",
         )}
       >

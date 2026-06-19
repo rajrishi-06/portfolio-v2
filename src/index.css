@@ -79,30 +79,43 @@
     background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
   }
 
-  /* AI-twin launcher: render in the OPPOSITE theme of the site — a dark button
-     on the light site and a light button on the dark site. Pure CSS so it flips
-     instantly with the theme toggle. The values mirror the :root / .dark blocks
-     above (scoped to this one element); keep them in sync if the palette moves. */
-  .chat-launcher-invert {
+  /* AI-twin launcher + chat panel: render in the OPPOSITE theme of the site —
+     dark on the light site, light on the dark site. Pure CSS, so it flips
+     instantly with the theme toggle. Apply `.chat-invert` to a subtree root and
+     the full token set below (mirroring the :root / .dark blocks) inverts for
+     everything inside it. Keep these values in sync if the palette moves. */
+  .chat-invert {
+    color-scheme: dark;
     --c-bg: 7 8 13;
+    --c-surface: 14 16 24;
+    --c-surface-2: 20 23 34;
     --c-ink: 244 246 251;
+    --c-muted: 170 178 197;
+    --c-faint: 107 115 136;
     --c-overlay: 255 255 255;
     --c-accent: 59 130 246;
     --c-accent-bright: 91 157 255;
     --c-accent-glow: 29 111 255;
   }
-  .chat-launcher-invert.glass-strong {
+  .chat-invert.glass-strong,
+  .chat-invert .glass-strong {
     background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
   }
-  .dark .chat-launcher-invert {
+  .dark .chat-invert {
+    color-scheme: light;
     --c-bg: 255 255 255;
+    --c-surface: 246 247 249;
+    --c-surface-2: 236 238 242;
     --c-ink: 24 27 34;
+    --c-muted: 90 97 112;
+    --c-faint: 140 147 162;
     --c-overlay: 17 20 28;
     --c-accent: 37 99 235;
     --c-accent-bright: 29 78 216;
     --c-accent-glow: 37 99 235;
   }
-  .dark .chat-launcher-invert.glass-strong {
+  .dark .chat-invert.glass-strong,
+  .dark .chat-invert .glass-strong {
     background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.7));
   }
 

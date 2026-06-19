@@ -15,7 +15,7 @@ export function ChatLauncher({ onClick }: { onClick: () => void }) {
       aria-label="Open Raj's AI assistant"
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.94 }}
-      className="chat-launcher-invert group relative grid h-14 w-14 place-items-center rounded-2xl glass-strong text-ink shadow-[0_18px_50px_-22px_rgba(0,0,0,0.9)] transition-colors hover:border-accent-bright/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+      className="chat-invert group relative grid h-14 w-14 place-items-center rounded-2xl glass-strong text-ink shadow-[0_18px_50px_-22px_rgba(0,0,0,0.9)] transition-colors hover:border-accent-bright/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
     >
       <span className="pointer-events-none absolute inset-0 rounded-2xl bg-accent/0 transition-colors duration-300 group-hover:bg-accent/[0.06]" />
       <Terminal className="relative h-6 w-6 text-accent-bright" />

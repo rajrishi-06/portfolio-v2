@@ -4,6 +4,8 @@ dist-ssr
 *.local
 .DS_Store
 .vite
+.claude
+
 
 # Secrets & Vercel
 .env
