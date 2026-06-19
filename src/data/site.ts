@@ -38,7 +38,7 @@ export type JourneyItem = {
   title: string;
   org: string;
   detail?: string;
-  kind: "work" | "education";
+  kind: string;
 };
 
 export const journey: JourneyItem[] = [
@@ -47,20 +47,20 @@ export const journey: JourneyItem[] = [
     title: "Software / Automation Intern",
     org: "NPCI",
     detail: "Building and automating internal tooling and data workflows.",
-    kind: "work",
+    kind: "https://yt3.googleusercontent.com/ytc/AIdro_mDt7ITa64-4jAN3IPWpbaqYbtLtiDfComrYNxhxK0AWyE=s900-c-k-c0x00ffffff-no-rj",
   },
   {
     period: "2023 — 2027",
     title: "B.Tech, Computer Science & Engineering",
     org: "National Institute of Technology, Silchar",
-    detail: "CGPA 8.21 / 10 · DSA, OOP, DBMS, Computer Organization.",
-    kind: "education",
+    detail: "CGPA 8.45 / 10 · DSA, OOP, DBMS, Computer Organization.",
+    kind: "/images/nit-silchar.jpg",
   },
   {
     period: "2021 — 2023",
     title: "Higher Secondary (Class XII)",
     org: "Sri Chaitanya Junior College, Madhapur",
     detail: "98.1% — Mathematics, Physics, Chemistry.",
-    kind: "education",
+    kind: "https://images.jdmagicbox.com/v2/comp/hyderabad/b6/040pxx40.xx40.180531175910.z4b6/catalogue/sri-chaitanya-junior-college-chanda-nagar-hyderabad-colleges-g2tsgxdeqb.jpg",
   },
 ];

@@ -1,4 +1,3 @@
-import { Briefcase, GraduationCap } from "lucide-react";
 import { journey } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
 
@@ -16,12 +15,16 @@ export function Journey() {
 
         <div className="mt-12 space-y-3">
           {journey.map((item, i) => {
-            const Icon = item.kind === "work" ? Briefcase : GraduationCap;
             return (
               <Reveal key={item.title} delay={i * 0.08}>
                 <div className="glass glass-hover group flex gap-5 rounded-2xl p-5 sm:p-6">
                   <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-overlay/10 bg-overlay/[0.03] text-accent-bright">
-                    <Icon className="h-5 w-5" />
+                    <img
+                    src={item.kind}
+                    alt="NPCI"
+                    loading="lazy"
+                    className=" rounded-xl border-spacing-10 border-overlay/10 object-cover shadow-card"
+                  />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
