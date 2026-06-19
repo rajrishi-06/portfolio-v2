@@ -4,6 +4,13 @@ dist-ssr
 *.local
 .DS_Store
 .vite
+.claude
+
+
+# Secrets & Vercel
+.env
+.env*.local
+.vercel
 
 # Archived previous (vanilla) version — recoverable from git history
 _legacy

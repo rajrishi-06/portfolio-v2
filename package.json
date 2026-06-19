@@ -3,13 +3,15 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "homepage": "https://rajrishi-06.github.io/portfolio-v2/",
   "scripts": {
     "dev": "vite",
+    "dev:vercel": "vercel dev",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^2.8.0",
+    "busboy": "^1.6.0",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "framer-motion": "11.11.17",
@@ -22,7 +24,10 @@
   "devDependencies": {
     "@fontsource/inter": "5.1.0",
     "@fontsource/space-grotesk": "5.1.0",
+    "@types/busboy": "1.5.4",
+    "@types/node": "22.10.5",
     "@types/react": "18.3.12",
+    "@vercel/node": "3.2.29",
     "@types/react-dom": "18.3.1",
     "@vitejs/plugin-react": "4.3.4",
     "autoprefixer": "10.4.20",

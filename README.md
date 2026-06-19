@@ -37,14 +37,19 @@ image: `${import.meta.env.BASE_URL}images/projects/action-poster.jpg`,
 `ratio` (height ÷ width) controls how tall the card is — vary it so the masonry reflows
 nicely. Use webp/mp4 and keep clips short (a few seconds, muted).
 
-## Deploy (GitHub Pages via Actions)
+## Deploy (Vercel)
 
-1. Commit & push to `main`.
-2. In the repo: **Settings → Pages → Build and deployment → Source → "GitHub Actions"**
-   (it previously served the repo root — this switch is required once).
-3. `.github/workflows/deploy.yml` builds and publishes `dist/` on every push to `main`.
+The frontend and the AI assistant's backend (serverless functions under `api/`)
+deploy together as one Vercel project.
 
-Live at: https://rajrishi-06.github.io/portfolio-v2/
+1. Push to GitHub, then **Import** the repo at <https://vercel.com/new>
+   (Vercel auto-detects Vite).
+2. Add `GEMINI_API_KEY` under **Settings → Environment Variables**
+   (and optionally `CHAT_MODEL` / `RESUME_MODEL`).
+3. Deploy — every push then ships automatically.
+
+Run the full stack locally with `vercel dev`. See [`CHAT_SETUP.md`](CHAT_SETUP.md)
+for the assistant details.
 
 ## Notes
 

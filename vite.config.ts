@@ -2,15 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-// Project site served at https://rajrishi-06.github.io/portfolio-v2/
-// Use the subpath only for production builds; serve at "/" during dev.
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/portfolio-v2/" : "/",
-  server: { port: 5173 },
+// Served at the domain root on Vercel, with the /api functions on the same
+// origin. Run the full stack locally with `vercel dev` (frontend + functions);
+// plain `npm run dev` serves only the frontend.
+export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-}));
+});
