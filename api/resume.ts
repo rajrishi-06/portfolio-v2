@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type { Part } from "@google/genai";
 import busboy from "busboy";
-import { genai, RESUME_MODEL } from "./_lib/genai";
-import { jdSystemPrompt } from "./_lib/prompts";
-import { initSSE, sendEvent, sendJson, streamGemini } from "./_lib/stream";
+import { genai, RESUME_MODEL } from "./_lib/genai.js";
+import { jdSystemPrompt } from "./_lib/prompts.js";
+import { initSSE, sendEvent, sendJson, streamGemini } from "./_lib/stream.js";
 
 export const config = { maxDuration: 60 };
 

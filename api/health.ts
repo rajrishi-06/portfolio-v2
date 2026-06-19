@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { sendJson } from "./_lib/stream";
+import { sendJson } from "./_lib/stream.js";
 
 export default function handler(_req: VercelRequest, res: VercelResponse): void {
   sendJson(res, 200, {

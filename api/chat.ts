@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import type { Content } from "@google/genai";
-import { genai, CHAT_MODEL } from "./_lib/genai";
-import { chatSystemPrompt } from "./_lib/prompts";
-import { initSSE, sendEvent, sendJson, streamGemini } from "./_lib/stream";
+import { genai, CHAT_MODEL } from "./_lib/genai.js";
+import { chatSystemPrompt } from "./_lib/prompts.js";
+import { initSSE, sendEvent, sendJson, streamGemini } from "./_lib/stream.js";
 
 // Allow up to 60s for a streamed reply (Vercel default is 10s).
 export const config = { maxDuration: 60 };
