@@ -4,6 +4,8 @@ export const assistantConfig = {
   /** Shown in the terminal title bar. */
   title: "raj.ai",
   prompt: "raj@portfolio:~$",
+  /** Compact prefix for narrow screens, so more of the typed text is visible. */
+  promptShort: "~$",
 
   /** First message the assistant "boots" with. */
   greeting:

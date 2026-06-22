@@ -103,6 +103,36 @@ export function ChatWidget() {
     return () => window.removeEventListener("resize", onResize);
   }, [x, y]);
 
+  // While open, keep the panel inside the *visual* viewport. When the mobile
+  // keyboard appears, iOS shrinks visualViewport (not window) and would scroll
+  // our fixed panel up off the top to reveal the focused input. Re-placing the
+  // panel to fit the space above the keyboard keeps the input visible, so the
+  // panel stays put instead of jumping to the top.
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv || !open) return;
+    const fit = () => {
+      const box = placePanel({ x: x.get(), y: y.get() }, vv.width, vv.height);
+      const left = box.left + vv.offsetLeft;
+      const top = box.top + vv.offsetTop;
+      setPanelBox((prev) =>
+        prev.left === left &&
+        prev.top === top &&
+        prev.width === box.width &&
+        prev.height === box.height
+          ? prev // unchanged — let React bail out of the re-render
+          : { left, top, width: box.width, height: box.height },
+      );
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+    };
+  }, [open, x, y]);
+
   const openPanel = () => {
     reposition(); // open toward whatever space the launcher currently has
     setOpen(true);

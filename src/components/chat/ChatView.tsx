@@ -29,7 +29,12 @@ export function ChatView({
   }, [messages, streaming]);
 
   useEffect(() => {
-    if (active) inputRef.current?.focus();
+    // Autofocus only on larger screens. On phones, focusing immediately pops the
+    // on-screen keyboard the moment the chat opens, which shoves the panel up and
+    // hides the greeting — let the visitor read first and tap when ready to type.
+    if (active && window.matchMedia("(min-width: 640px)").matches) {
+      inputRef.current?.focus();
+    }
   }, [active]);
 
   async function send(text: string) {
@@ -144,8 +149,10 @@ export function ChatView({
       {/* Composer */}
       <div className="border-t border-overlay/10 p-3">
         <div className="flex items-end gap-2 rounded-xl border border-overlay/10 bg-overlay/[0.03] px-3 py-2 transition-colors focus-within:border-accent-bright/50">
-          <span className="select-none pb-1.5 font-mono text-xs text-accent-bright/70">
-            {assistantConfig.prompt}
+          <span className="select-none whitespace-nowrap pb-1.5 font-mono text-xs text-accent-bright/70">
+            {/* Short prefix on phones (more room for the typed text), full on sm+. */}
+            <span className="sm:hidden">{assistantConfig.promptShort}</span>
+            <span className="hidden sm:inline">{assistantConfig.prompt}</span>
           </span>
           <textarea
             ref={inputRef}
