@@ -7,6 +7,7 @@ import { Journey } from "@/components/Journey";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   return (
@@ -32,6 +33,9 @@ export default function App() {
 
       {/* Custom AI assistant — quiet terminal launcher, bottom-right */}
       <ChatWidget />
+
+      {/* Vercel Web Analytics*/}
+      <Analytics />
     </>
   );
 }
