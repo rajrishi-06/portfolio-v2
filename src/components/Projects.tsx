@@ -185,7 +185,8 @@ export function Projects() {
                 placeholder="Search projects, tech, keywords…"
                 aria-label="Search projects"
                 aria-controls="project-grid"
-                className="h-11 w-full rounded-xl border border-overlay/10 bg-overlay/[0.03] pl-10 pr-10 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-accent-bright/60 focus:bg-overlay/[0.05]"
+                // 16px on mobile avoids the focus auto-zoom; text-sm from sm: up.
+                className="h-11 w-full rounded-xl border border-overlay/10 bg-overlay/[0.03] pl-10 pr-10 text-base text-ink outline-none transition-colors placeholder:text-faint focus:border-accent-bright/60 focus:bg-overlay/[0.05] sm:text-sm"
               />
               {query && (
                 <button

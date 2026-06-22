@@ -154,7 +154,9 @@ export function ChatView({
             onKeyDown={onKeyDown}
             rows={1}
             placeholder="Ask about my work…"
-            className="max-h-28 flex-1 resize-none bg-transparent py-1 text-[13.5px] text-ink placeholder:text-faint focus:outline-none"
+            // 16px on mobile stops iOS/Android from auto-zooming the page on
+            // focus; the designed 13.5px returns from sm: up (no zoom there).
+            className="max-h-28 flex-1 resize-none bg-transparent py-1 text-base text-ink placeholder:text-faint focus:outline-none sm:text-[13.5px]"
           />
           {streaming ? (
             <button

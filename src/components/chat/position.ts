@@ -14,6 +14,9 @@ const DEFAULT_INSET = 24; // resting distance from the corner (~bottom-6/right-6
 const PANEL_GAP = 12; // gap between the launcher and the opened panel
 const PANEL_MAX_W = 400;
 const PANEL_MAX_H = 620;
+const MOBILE_BP = 640; // below this the panel sizes itself as a roomy overlay
+const MOBILE_MARGIN = 20; // side gap on phones, so the page shows around the panel
+const MOBILE_MAX_VH = 0.74; // panel never taller than this fraction of the screen
 const STORAGE_KEY = "raj-assistant-launcher-pos";
 
 export interface Point {
@@ -88,8 +91,15 @@ export function saveLauncherPos(p: Point): void {
  * right if on the left), then is clamped fully on-screen.
  */
 export function placePanel(launcher: Point, vw: number, vh: number): PanelBox {
-  const width = Math.min(PANEL_MAX_W, vw - VIEWPORT_MARGIN * 2);
-  const height = Math.min(PANEL_MAX_H, vh - VIEWPORT_MARGIN * 2);
+  const mobile = vw < MOBILE_BP;
+
+  // On phones, keep a generous side margin (so the page stays visible behind the
+  // panel) and cap the height to a fraction of the screen — a roomy overlay, not
+  // a full-screen takeover. On larger screens, the original floating-card sizing.
+  const hMargin = mobile ? MOBILE_MARGIN : VIEWPORT_MARGIN;
+  const width = Math.min(PANEL_MAX_W, vw - hMargin * 2);
+  const maxH = mobile ? Math.min(PANEL_MAX_H, Math.round(vh * MOBILE_MAX_VH)) : PANEL_MAX_H;
+  const height = Math.min(maxH, vh - VIEWPORT_MARGIN * 2);
 
   const centerX = launcher.x + LAUNCHER_SIZE / 2;
   const centerY = launcher.y + LAUNCHER_SIZE / 2;
@@ -107,7 +117,10 @@ export function placePanel(launcher: Point, vw: number, vh: number): PanelBox {
       ? launcher.y - PANEL_GAP - height // grow up
       : launcher.y + LAUNCHER_SIZE + PANEL_GAP; // grow down
 
-  left = clamp(left, VIEWPORT_MARGIN, vw - width - VIEWPORT_MARGIN);
+  // Clamp on-screen. The horizontal bound uses `hMargin`, so on mobile (where
+  // the width already fills the space between the margins) the panel settles
+  // centered instead of pinned to whichever side the launcher happened to be on.
+  left = clamp(left, hMargin, vw - width - hMargin);
   top = clamp(top, VIEWPORT_MARGIN, vh - height - VIEWPORT_MARGIN);
 
   return { left, top, width, height };
