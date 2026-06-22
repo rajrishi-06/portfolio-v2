@@ -38,7 +38,14 @@ export function ProjectCard({
         target="_blank"
         rel="noopener noreferrer"
         className="relative block w-full overflow-hidden"
-        style={{ paddingTop: `${project.ratio * 100}%` }}
+        // A real screenshot drives its own height (intrinsic ratio, shown whole).
+        // Video + the gradient placeholder have no intrinsic size, so they fall
+        // back to the reserved `ratio` box.
+        style={
+          project.image && !project.video
+            ? undefined
+            : { paddingTop: `${project.ratio * 100}%` }
+        }
         aria-label={`${project.title} preview`}
       >
         {project.video ? (
@@ -53,11 +60,15 @@ export function ProjectCard({
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : project.image ? (
+          // No fixed box and no object-cover: the image keeps its own aspect
+          // ratio, scaled to the column width — fit to size, never cropped or
+          // stretched (like Shift-resizing in Word). The card height follows it
+          // and the masonry reflows, so each card can differ in height.
           <img
             src={project.image}
             alt={project.title}
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : (
           // Designed placeholder — swap in real media via project.image / project.video

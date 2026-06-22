@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
@@ -11,7 +12,7 @@ import { assistantConfig } from "@/data/chatConfig";
 import { cn } from "@/lib/utils";
 import { ChatView } from "./ChatView";
 import { ResumeView } from "./ResumeView";
-import type { PanelBox } from "./position";
+import type { PanelBox, Point } from "./position";
 
 type Mode = "chat" | "resume";
 
@@ -23,6 +24,7 @@ export function ChatPanel({
   onMinimize,
   onClose,
   onActivity,
+  onDragCommit,
 }: {
   open: boolean;
   /** Where the panel should sit + how big it is (computed from the launcher). */
@@ -37,6 +39,10 @@ export function ChatPanel({
   onClose: () => void;
   /** Children report activity so we know whether to confirm before a destructive close. */
   onActivity: () => void;
+  /** Report how far the panel was dragged (this gesture) so the launcher can
+   *  follow it — keeps the minimized icon (and the next open) next to where the
+   *  visitor left the panel instead of snapping back to the launcher's corner. */
+  onDragCommit: (delta: Point) => void;
 }) {
   const [mode, setMode] = useState<Mode>("chat");
   const [confirmingClose, setConfirmingClose] = useState(false);
@@ -45,8 +51,14 @@ export function ChatPanel({
   const boundsRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
+  // Offset from `box` (the launcher-derived anchor). It accumulates as the panel
+  // is dragged and is folded into the launcher on each drag end, so it can be
+  // safely zeroed the next time the panel opens (see below).
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  // Panel offset captured at drag start, so a drag end can report just this
+  // gesture's committed delta (post-constraint), not the cumulative offset.
+  const dragStart = useRef<Point>({ x: 0, y: 0 });
 
   // Esc cancels a pending confirm, otherwise minimizes (never destructive).
   useEffect(() => {
@@ -75,10 +87,18 @@ export function ChatPanel({
     return () => document.removeEventListener("pointerdown", onPointerDown, true);
   }, [open, confirmingClose, onMinimize]);
 
-  // Reset float position + any pending confirm whenever it leaves the screen.
+  // Cancel any pending delete-confirm whenever the panel closes.
   useEffect(() => {
-    if (!open) {
-      setConfirmingClose(false);
+    if (!open) setConfirmingClose(false);
+  }, [open]);
+
+  // Clear the drag offset each time the panel OPENS — while it's still hidden,
+  // so there's no visible jump. The launcher already absorbed the last drag
+  // (onDragEnd → onDragCommit), and `box` is recomputed from that launcher
+  // position, so resetting the offset lands the panel exactly where it was left
+  // rather than snapping it back to the launcher's old corner.
+  useLayoutEffect(() => {
+    if (open) {
       x.set(0);
       y.set(0);
     }
@@ -116,6 +136,17 @@ export function ChatPanel({
         dragConstraints={boundsRef}
         dragMomentum={false}
         dragElastic={0.06}
+        onDragStart={() => {
+          dragStart.current = { x: x.get(), y: y.get() };
+        }}
+        onDragEnd={() => {
+          // Hand the launcher this gesture's committed movement so it (and the
+          // panel's next open position, which is derived from it) tracks here.
+          onDragCommit({
+            x: x.get() - dragStart.current.x,
+            y: y.get() - dragStart.current.y,
+          });
+        }}
         style={{ x, y, left: box.left, top: box.top, width: box.width, height: box.height }}
         initial={false}
         animate={open ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.97 }}

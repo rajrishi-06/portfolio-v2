@@ -19,7 +19,11 @@ export type Project = {
   github: string;
   demo?: string;
   icon: LucideIcon;
-  /** thumbnail height ÷ width — varied so the masonry visibly reflows */
+  /**
+   * Reserved thumbnail height ÷ width, used ONLY for the gradient placeholder
+   * and looping video (which have no intrinsic size). A real `image` ignores
+   * this and is shown at its own aspect ratio, scaled to the column width.
+   */
   ratio: number;
   /** gradient stops for the placeholder thumbnail */
   grad: [string, string];

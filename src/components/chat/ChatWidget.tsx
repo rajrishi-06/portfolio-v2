@@ -57,6 +57,29 @@ export function ChatWidget() {
     );
   }, [x, y]);
 
+  // The panel was dragged: slide the launcher by the same amount (clamped) and
+  // persist it. The launcher is the single source of truth, so moving it makes
+  // the minimized icon reappear beside where the panel was left, and the next
+  // open (placed from the launcher) opens there too — instead of snapping back
+  // to the launcher's old corner. The panel keeps its current visual spot; its
+  // offset is reset on the next open, after `box` is recomputed from here.
+  const commitPanelDrag = useCallback(
+    (delta: Point) => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const moved = clampLauncherPos(
+        { x: x.get() + delta.x, y: y.get() + delta.y },
+        vw,
+        vh,
+      );
+      x.set(moved.x);
+      y.set(moved.y);
+      desiredRef.current = moved;
+      saveLauncherPos(moved);
+    },
+    [x, y],
+  );
+
   // Keep the launcher out of the tab order / AT while the panel is open.
   useEffect(() => {
     launcherWrapRef.current?.toggleAttribute("inert", open);
@@ -103,6 +126,7 @@ export function ChatWidget() {
         onMinimize={minimize}
         onClose={close}
         onActivity={() => setDirty(true)}
+        onDragCommit={commitPanelDrag}
       />
 
       {/* Movable launcher. Full-viewport boundary keeps the page clickable and
