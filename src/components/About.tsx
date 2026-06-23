@@ -18,9 +18,9 @@ export function About() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:auto-rows-[210px] lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-4 lg:auto-rows-[210px] lg:grid-cols-4">
             {/* Bio */}
-            <div className="glass flex flex-col rounded-2xl p-7 md:col-span-2 lg:col-span-2 lg:row-span-2">
+            <div className="glass flex flex-col rounded-2xl p-7 sm:col-span-4 lg:col-span-2 lg:row-span-2">
               <Sparkles className="h-7 w-7 text-accent-bright" />
               <p className="mt-5 text-balance text-xl font-medium leading-relaxed text-ink/95">
                 I'm {site.fullName.split(" ").slice(0, 3).join(" ")} — a CS undergrad
@@ -37,7 +37,7 @@ export function About() {
             </div>
 
             {/* Tech stack */}
-            <div className="glass flex flex-col rounded-2xl p-7 md:col-span-2 lg:col-span-2 lg:row-span-2">
+            <div className="glass flex flex-col rounded-2xl p-7 sm:col-span-4 lg:col-span-2 lg:row-span-2">
               <div className="flex items-center gap-2 text-muted">
                 <Code2 className="h-5 w-5 text-accent-bright" />
                 <span className="text-sm font-semibold uppercase tracking-wider">
@@ -71,7 +71,7 @@ export function About() {
             </div>
 
             {/* Leadership role — widened into the space left by the old stats card */}
-            <div className="glass flex flex-col justify-between rounded-2xl p-6 md:col-span-1 lg:col-span-3">
+            <div className="glass flex flex-col justify-between rounded-2xl p-6 sm:col-span-3 lg:col-span-3">
               <div className="flex items-center justify-between gap-4">
                 <span className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-white">
                   {logoOk ? (
@@ -115,7 +115,7 @@ export function About() {
               href={site.socials.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass glass-hover group flex flex-col justify-between rounded-2xl p-6 md:col-span-1"
+              className="glass glass-hover group flex flex-col justify-between rounded-2xl p-6 sm:col-span-1"
             >
               <div className="flex items-center justify-between">
                 <Github className="h-7 w-7 text-ink" />

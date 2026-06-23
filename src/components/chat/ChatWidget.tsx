@@ -13,6 +13,10 @@ import {
   type Point,
 } from "./position";
 
+// Breathing room kept between the panel's bottom and the top of the on-screen
+// keyboard when the panel is lifted to clear it.
+const KEYBOARD_GAP = 8;
+
 /**
  * The whole assistant: a quiet, draggable terminal launcher + a floating,
  * draggable panel with the strict chat twin and the JD Role-Fit analyzer.
@@ -103,25 +107,31 @@ export function ChatWidget() {
     return () => window.removeEventListener("resize", onResize);
   }, [x, y]);
 
-  // While open, keep the panel inside the *visual* viewport. When the mobile
-  // keyboard appears, iOS shrinks visualViewport (not window) and would scroll
-  // our fixed panel up off the top to reveal the focused input. Re-placing the
-  // panel to fit the space above the keyboard keeps the input visible, so the
-  // panel stays put instead of jumping to the top.
+  // While open, keep the panel above the on-screen keyboard. When the mobile
+  // keyboard appears, the visual viewport shrinks (the window doesn't) and our
+  // fixed panel would otherwise sit under the keyboard / get scrolled off the
+  // top. Rather than resizing the panel (which makes it hard to read), keep it
+  // at its normal size and just LIFT it so the input rests right above the
+  // keyboard. It drops back to its resting spot when the keyboard closes.
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv || !open) return;
     const fit = () => {
-      const box = placePanel({ x: x.get(), y: y.get() }, vv.width, vv.height);
-      const left = box.left + vv.offsetLeft;
-      const top = box.top + vv.offsetTop;
+      // The panel's normal, keyboard-free placement + size (never shrunk here).
+      const base = placePanel({ x: x.get(), y: y.get() }, window.innerWidth, window.innerHeight);
+      // Bottom of the visible area = top of the keyboard, in layout coords.
+      const visibleBottom = vv.offsetTop + vv.height;
+      // How far the panel's bottom pokes under the keyboard (0 if it's clear).
+      const overlap = base.top + base.height - (visibleBottom - KEYBOARD_GAP);
+      const left = base.left + vv.offsetLeft;
+      const top = overlap > 0 ? base.top - overlap : base.top; // lift, never lower
       setPanelBox((prev) =>
         prev.left === left &&
         prev.top === top &&
-        prev.width === box.width &&
-        prev.height === box.height
+        prev.width === base.width &&
+        prev.height === base.height
           ? prev // unchanged — let React bail out of the re-render
-          : { left, top, width: box.width, height: box.height },
+          : { left, top, width: base.width, height: base.height },
       );
     };
     fit();
