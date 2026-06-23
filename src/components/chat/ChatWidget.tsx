@@ -143,6 +143,37 @@ export function ChatWidget() {
     };
   }, [open, x, y]);
 
+  // On phones, lock the page while the panel is open. Without this, focusing the
+  // input (which lives in a fixed overlay) makes iOS scroll the whole document to
+  // try to reveal it — flinging the fixed panel off the top of the screen. Pinning
+  // the body keeps the page still so the panel can rest right on top of the
+  // keyboard; the scroll position is restored on close.
+  useEffect(() => {
+    if (!open || !window.matchMedia("(max-width: 639px)").matches) return;
+    const { scrollX, scrollY } = window;
+    const body = document.body;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.left = prev.left;
+      body.style.right = prev.right;
+      body.style.width = prev.width;
+      window.scrollTo(scrollX, scrollY);
+    };
+  }, [open]);
+
   const openPanel = () => {
     reposition(); // open toward whatever space the launcher currently has
     setOpen(true);
