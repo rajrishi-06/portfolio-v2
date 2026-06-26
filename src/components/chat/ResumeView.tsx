@@ -232,7 +232,9 @@ export function ResumeView({
           onChange={(e) => setPasteText(e.target.value)}
           rows={5}
           placeholder="Paste the job description here…"
-          className="mt-2 w-full resize-none rounded-xl border border-overlay/10 bg-overlay/[0.03] px-3 py-2 text-[13px] text-ink placeholder:text-faint focus:border-accent-bright/50 focus:outline-none"
+          // 16px on mobile prevents the browser's focus auto-zoom; the smaller
+          // designed size returns from sm: up.
+          className="mt-2 w-full resize-none rounded-xl border border-overlay/10 bg-overlay/[0.03] px-3 py-2 text-base text-ink placeholder:text-faint focus:border-accent-bright/50 focus:outline-none sm:text-[13px]"
         />
       )}
 

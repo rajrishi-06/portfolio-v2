@@ -19,7 +19,11 @@ export type Project = {
   github: string;
   demo?: string;
   icon: LucideIcon;
-  /** thumbnail height ÷ width — varied so the masonry visibly reflows */
+  /**
+   * Reserved thumbnail height ÷ width, used ONLY for the gradient placeholder
+   * and looping video (which have no intrinsic size). A real `image` ignores
+   * this and is shown at its own aspect ratio, scaled to the column width.
+   */
   ratio: number;
   /** gradient stops for the placeholder thumbnail */
   grad: [string, string];
@@ -39,6 +43,7 @@ export const projects: Project[] = [
     github: "https://github.com/rajrishi-06/Cp-Card",
     icon: CreditCard,
     ratio: 0.62,
+    image: "/images/projects/cp-card.png",
     grad: ["#1d4ed8", "#0ea5e9"],
     featured: true,
   },
@@ -51,6 +56,7 @@ export const projects: Project[] = [
     github: "https://github.com/rajrishi-06/QR.Code.Generator",
     icon: QrCode,
     ratio: 0.82,
+    image: "/images/projects/qr-code.png",
     grad: ["#2563eb", "#7c3aed"],
   },
   {
@@ -97,6 +103,7 @@ export const projects: Project[] = [
     github: "https://github.com/rajrishi-06/Gol-Gol",
     icon: Car,
     ratio: 0.82,
+    image: "/images/projects/gol-gol.png",
     grad: ["#0891b2", "#3b82f6"],
   },
   {

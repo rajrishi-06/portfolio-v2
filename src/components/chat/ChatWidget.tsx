@@ -13,6 +13,10 @@ import {
   type Point,
 } from "./position";
 
+// Breathing room kept between the panel's bottom and the top of the on-screen
+// keyboard when the panel is lifted to clear it.
+const KEYBOARD_GAP = 8;
+
 /**
  * The whole assistant: a quiet, draggable terminal launcher + a floating,
  * draggable panel with the strict chat twin and the JD Role-Fit analyzer.
@@ -57,6 +61,29 @@ export function ChatWidget() {
     );
   }, [x, y]);
 
+  // The panel was dragged: slide the launcher by the same amount (clamped) and
+  // persist it. The launcher is the single source of truth, so moving it makes
+  // the minimized icon reappear beside where the panel was left, and the next
+  // open (placed from the launcher) opens there too — instead of snapping back
+  // to the launcher's old corner. The panel keeps its current visual spot; its
+  // offset is reset on the next open, after `box` is recomputed from here.
+  const commitPanelDrag = useCallback(
+    (delta: Point) => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const moved = clampLauncherPos(
+        { x: x.get() + delta.x, y: y.get() + delta.y },
+        vw,
+        vh,
+      );
+      x.set(moved.x);
+      y.set(moved.y);
+      desiredRef.current = moved;
+      saveLauncherPos(moved);
+    },
+    [x, y],
+  );
+
   // Keep the launcher out of the tab order / AT while the panel is open.
   useEffect(() => {
     launcherWrapRef.current?.toggleAttribute("inert", open);
@@ -79,6 +106,73 @@ export function ChatWidget() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, [x, y]);
+
+  // While open, keep the panel above the on-screen keyboard. When the mobile
+  // keyboard appears, the visual viewport shrinks (the window doesn't) and our
+  // fixed panel would otherwise sit under the keyboard / get scrolled off the
+  // top. Rather than resizing the panel (which makes it hard to read), keep it
+  // at its normal size and just LIFT it so the input rests right above the
+  // keyboard. It drops back to its resting spot when the keyboard closes.
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv || !open) return;
+    const fit = () => {
+      // The panel's normal, keyboard-free placement + size (never shrunk here).
+      const base = placePanel({ x: x.get(), y: y.get() }, window.innerWidth, window.innerHeight);
+      // Bottom of the visible area = top of the keyboard, in layout coords.
+      const visibleBottom = vv.offsetTop + vv.height;
+      // How far the panel's bottom pokes under the keyboard (0 if it's clear).
+      const overlap = base.top + base.height - (visibleBottom - KEYBOARD_GAP);
+      const left = base.left + vv.offsetLeft;
+      const top = overlap > 0 ? base.top - overlap : base.top; // lift, never lower
+      setPanelBox((prev) =>
+        prev.left === left &&
+        prev.top === top &&
+        prev.width === base.width &&
+        prev.height === base.height
+          ? prev // unchanged — let React bail out of the re-render
+          : { left, top, width: base.width, height: base.height },
+      );
+    };
+    fit();
+    vv.addEventListener("resize", fit);
+    vv.addEventListener("scroll", fit);
+    return () => {
+      vv.removeEventListener("resize", fit);
+      vv.removeEventListener("scroll", fit);
+    };
+  }, [open, x, y]);
+
+  // On phones, lock the page while the panel is open. Without this, focusing the
+  // input (which lives in a fixed overlay) makes iOS scroll the whole document to
+  // try to reveal it — flinging the fixed panel off the top of the screen. Pinning
+  // the body keeps the page still so the panel can rest right on top of the
+  // keyboard; the scroll position is restored on close.
+  useEffect(() => {
+    if (!open || !window.matchMedia("(max-width: 639px)").matches) return;
+    const { scrollX, scrollY } = window;
+    const body = document.body;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.left = prev.left;
+      body.style.right = prev.right;
+      body.style.width = prev.width;
+      window.scrollTo(scrollX, scrollY);
+    };
+  }, [open]);
 
   const openPanel = () => {
     reposition(); // open toward whatever space the launcher currently has
@@ -103,6 +197,7 @@ export function ChatWidget() {
         onMinimize={minimize}
         onClose={close}
         onActivity={() => setDirty(true)}
+        onDragCommit={commitPanelDrag}
       />
 
       {/* Movable launcher. Full-viewport boundary keeps the page clickable and
