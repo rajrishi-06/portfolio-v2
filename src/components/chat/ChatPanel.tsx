@@ -12,6 +12,7 @@ import { assistantConfig } from "@/data/chatConfig";
 import { cn } from "@/lib/utils";
 import { ChatView } from "./ChatView";
 import { ResumeView } from "./ResumeView";
+import { RobotHead } from "./RobotMascot";
 import type { PanelBox, Point } from "./position";
 
 type Mode = "chat" | "resume";
@@ -185,7 +186,8 @@ export function ChatPanel({
                 style={{ backgroundColor: "#28c840" }}
               />
             </div>
-            <span className="ml-0.5 font-mono text-xs text-faint">
+            <span className="ml-0.5 flex items-center gap-1.5 font-mono text-xs text-faint">
+              <RobotHead className="w-[18px] shrink-0" />
               {assistantConfig.title}
             </span>
           </div>

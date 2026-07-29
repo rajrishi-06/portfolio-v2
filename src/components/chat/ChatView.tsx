@@ -5,6 +5,7 @@ import { streamChat, type ChatMessage as Msg } from "@/lib/chatApi";
 import { ChatMessage } from "./ChatMessage";
 import { SuggestedPrompts } from "./SuggestedPrompts";
 import { Markdown } from "./Markdown";
+import { RobotHead } from "./RobotMascot";
 
 export function ChatView({
   active,
@@ -111,8 +112,8 @@ export function ChatView({
       >
         {/* Boot greeting (always shown) */}
         <div className="flex items-start gap-2.5">
-          <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-accent/15 text-accent-bright ring-1 ring-accent-bright/20">
-            <span className="font-mono text-xs font-bold">~</span>
+          <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-overlay/[0.06] ring-1 ring-overlay/10">
+            <RobotHead className="w-[22px]" />
           </span>
           <div className="max-w-[82%] rounded-2xl rounded-tl-sm border border-overlay/10 bg-overlay/[0.03] px-3.5 py-2.5">
             <Markdown text={assistantConfig.greeting} />

@@ -8,7 +8,7 @@
  * whichever side has the most room.
  */
 
-export const LAUNCHER_SIZE = 56; // matches h-14 w-14 on the launcher button
+export const LAUNCHER_SIZE = 64; // matches h-16 w-16 on the launcher button
 export const VIEWPORT_MARGIN = 16; // min gap kept from every screen edge
 const DEFAULT_INSET = 24; // resting distance from the corner (~bottom-6/right-6)
 const PANEL_GAP = 12; // gap between the launcher and the opened panel

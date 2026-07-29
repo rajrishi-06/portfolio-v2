@@ -31,7 +31,7 @@ export default function App() {
       </main>
       <Footer />
 
-      {/* Custom AI assistant — quiet terminal launcher, bottom-right */}
+      {/* Custom AI assistant — draggable robot launcher, bottom-right */}
       <ChatWidget />
 
       {/* Vercel Web Analytics*/}

@@ -1,6 +1,7 @@
-import { Terminal, User } from "lucide-react";
+import { User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Markdown } from "./Markdown";
+import { RobotHead } from "./RobotMascot";
 
 export function ChatMessage({
   role,
@@ -21,13 +22,15 @@ export function ChatMessage({
           "mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg",
           isUser
             ? "bg-overlay/[0.06] text-faint"
-            : "bg-accent/15 text-accent-bright ring-1 ring-accent-bright/20",
+            // Neutral tile on purpose — the bot brings its own blue, and an
+            // accent-tinted square behind it just muddies both.
+            : "bg-overlay/[0.06] ring-1 ring-overlay/10",
         )}
       >
         {isUser ? (
           <User className="h-3.5 w-3.5" />
         ) : (
-          <Terminal className="h-3.5 w-3.5" />
+          <RobotHead className="w-[22px]" />
         )}
       </span>
 

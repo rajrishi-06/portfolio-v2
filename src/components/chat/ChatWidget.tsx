@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useVelocity } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ChatLauncher } from "./ChatLauncher";
 import { ChatPanel } from "./ChatPanel";
@@ -18,7 +18,7 @@ import {
 const KEYBOARD_GAP = 8;
 
 /**
- * The whole assistant: a quiet, draggable terminal launcher + a floating,
+ * The whole assistant: a quiet, draggable robot launcher + a floating,
  * draggable panel with the strict chat twin and the JD Role-Fit analyzer.
  *
  * The launcher's position is the single source of truth — it's draggable,
@@ -31,6 +31,7 @@ export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [sessionKey, setSessionKey] = useState(0);
+  const [dragging, setDragging] = useState(false);
 
   const launcherBoundsRef = useRef<HTMLDivElement>(null);
   const launcherWrapRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,13 @@ export function ChatWidget() {
   ).current;
   const x = useMotionValue(initial.x);
   const y = useMotionValue(initial.y);
+
+  // How fast the launcher is travelling, px/s. This is the only input the robot
+  // needs: its whole rig (lean, follow-through, trailing limbs, where it looks)
+  // is derived from these two values, so the bot reacts to a drag, a flick, and
+  // an on-resize reposition without any of them being special-cased.
+  const vx = useVelocity(x);
+  const vy = useVelocity(y);
 
   // The unclamped spot the user dragged to — the persisted intent. The shown
   // position is clamped to the viewport, but this survives a temporary window
@@ -212,8 +220,10 @@ export function ChatWidget() {
           style={{ x, y }}
           onDragStart={() => {
             draggedRef.current = true;
+            setDragging(true);
           }}
           onDragEnd={() => {
+            setDragging(false);
             // The drop point is the new persisted intent (it's already within
             // the viewport thanks to dragConstraints).
             const dropped = { x: x.get(), y: y.get() };
@@ -234,6 +244,9 @@ export function ChatWidget() {
           )}
         >
           <ChatLauncher
+            vx={vx}
+            vy={vy}
+            dragging={dragging}
             onClick={() => {
               if (!draggedRef.current) openPanel();
             }}
