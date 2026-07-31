@@ -14,7 +14,7 @@ const buttonVariants = cva(
         primary: "border-ink bg-ink text-bg hover:border-accent hover:bg-accent",
         outline: "border-overlay/[0.28] text-ink hover:border-ink",
         // Transparent rule keeps ghost the same height as the other two.
-        ghost: "border-transparent text-muted hover:bg-overlay/[0.06] hover:text-ink",
+        ghost: "border-transparent text-muted hover:bg-surface hover:text-ink",
       },
       size: {
         default: "h-11 px-5",
@@ -28,9 +28,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+    VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => (

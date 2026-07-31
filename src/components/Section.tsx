@@ -28,7 +28,7 @@ export function Section({
   return (
     <section id={id} className="scroll-mt-24">
       <DrawnRule />
-      <div className="container-wide grid gap-x-10 gap-y-8 py-20 lg:grid-cols-[200px_1fr] lg:py-28">
+      <div className="container-wide grid gap-x-10 gap-y-8 py-20 lg:grid-cols-[176px_1fr] lg:py-28">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <div className="flex items-baseline gap-3 lg:flex-col lg:gap-1">
             <span className="u-label text-ink">

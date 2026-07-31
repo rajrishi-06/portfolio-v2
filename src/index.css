@@ -72,7 +72,7 @@
 }
 
 @layer components {
-  .container-wide { @apply mx-auto w-full max-w-[1160px] px-6; }
+  .container-wide { @apply mx-auto w-full max-w-[1280px] px-6; }
 
   /* ===== Type roles ===== */
 
@@ -135,8 +135,8 @@
     --c-bg: 16 18 20;
     --c-surface: 24 27 30;
     --c-ink: 237 238 234;
-    --c-muted: 154 160 166;
-    --c-faint: 102 108 115;
+    --c-muted: 178 184 190;
+    --c-faint: 126 133 141;
     --c-overlay: 237 238 234;
     --c-accent: 92 116 255;
   }
@@ -145,8 +145,8 @@
     --c-bg: 239 240 236;
     --c-surface: 231 233 227;
     --c-ink: 22 24 26;
-    --c-muted: 88 93 99;
-    --c-faint: 139 144 151;
+    --c-muted: 72 77 83;
+    --c-faint: 96 103 110;
     --c-overlay: 22 24 26;
     --c-accent: 27 52 232;
   }
@@ -185,7 +185,31 @@
 }
 .rule-draw[data-in="true"] { transform: scaleX(1); }
 
+/* Hero plate: the bright arc sweeping the figure, and the plotting head riding
+   the same path at the same rate. Both are pure CSS so they composite off the
+   main thread. --trace-len / --trace-path are set inline by HeroFigure. */
+.hero-trace {
+  animation: trace-sweep 9s linear infinite;
+}
+@keyframes trace-sweep {
+  from { stroke-dashoffset: calc(var(--trace-len) * 1px); }
+  to { stroke-dashoffset: 0; }
+}
+
+.hero-head {
+  offset-path: var(--trace-path);
+  offset-rotate: 0deg;
+  animation: trace-head 9s linear infinite;
+}
+@keyframes trace-head {
+  from { offset-distance: var(--trace-from); }
+  to { offset-distance: var(--trace-to); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .rule-draw { transition: none; transform: scaleX(1); }
+  /* The completed figure stays; only the sweep and the head stop. */
+  .hero-trace { animation: none; stroke-dasharray: none; }
+  .hero-head { animation: none; offset-distance: var(--trace-from); }
 }

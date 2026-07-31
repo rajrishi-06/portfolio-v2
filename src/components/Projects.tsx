@@ -10,6 +10,7 @@ import {
 import { projects, type Project } from "@/data/projects";
 import { site } from "@/data/site";
 import { Section } from "@/components/Section";
+import { Button } from "@/components/ui/button";
 import { ProjectRow, ProjectPreview, ROW_COLS } from "@/components/ProjectCard";
 import { cn } from "@/lib/utils";
 
@@ -26,10 +27,6 @@ const languages = ["All", ...Array.from(new Set(projects.map((p) => p.lang)))];
 const partNo = new Map(
   projects.map((p, i) => [p.title, String(i + 1).padStart(2, "0")])
 );
-
-// Square, mono, 1px rule. See DESIGN.md § Component rules.
-const btn =
-  "inline-flex h-10 items-center justify-center gap-2 rounded-sm border border-overlay/[0.28] px-4 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink transition-colors duration-150 hover:bg-surface";
 
 /**
  * Compact filter trigger + popover. Sits directly left of the search box so the
@@ -74,7 +71,7 @@ function FilterMenu({
         aria-expanded={open}
         aria-label="Filter projects by language"
         className={cn(
-          "flex h-10 items-center gap-2 rounded-sm border px-3 font-mono text-[0.6875rem] uppercase tracking-[0.08em] transition-colors duration-150",
+          "u-label flex h-10 items-center gap-2 rounded-sm border px-3 transition-colors duration-150",
           active
             ? "border-overlay/[0.28] bg-surface text-ink"
             : "border-overlay/[0.14] text-muted hover:border-overlay/40 hover:text-ink"
@@ -105,10 +102,10 @@ function FilterMenu({
                 setOpen(false);
               }}
               className={cn(
-                "flex w-full items-center justify-between px-2 py-1.5 font-mono text-[0.8125rem] transition-colors duration-150",
+                "u-data flex w-full items-center justify-between px-2 py-1.5 transition-colors duration-150",
                 value === o
                   ? "bg-surface text-ink"
-                  : "text-muted hover:bg-overlay/[0.05] hover:text-ink"
+                  : "text-muted hover:bg-surface hover:text-ink"
               )}
             >
               {o}
@@ -196,7 +193,7 @@ export function Projects() {
         {filtered.length} {filtered.length === 1 ? "project" : "projects"} found
       </p>
 
-      <div className="mt-8 grid gap-x-8 gap-y-10 xl:grid-cols-[minmax(0,1fr)_200px]">
+      <div className="mt-8 grid gap-x-8 gap-y-10 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div id="project-index" className="min-w-0">
           {filtered.length > 0 ? (
             <>
@@ -236,9 +233,9 @@ export function Projects() {
               <p className="mx-auto mt-3 max-w-xs text-sm text-muted">
                 Nothing matched your search. Try a different keyword or language.
               </p>
-              <button type="button" className={cn(btn, "mt-6")} onClick={clearAll}>
+              <Button type="button" variant="outline" className="mt-6" onClick={clearAll}>
                 Clear filters
-              </button>
+              </Button>
             </div>
           )}
 
@@ -246,9 +243,10 @@ export function Projects() {
               searches and filters; only appears when the set overflows. */}
           {hiddenCount > 0 && (
             <div className="mt-6 sm:hidden">
-              <button
+              <Button
                 type="button"
-                className={cn(btn, "w-full")}
+                variant="outline"
+                className="w-full"
                 onClick={() => setShowAll((v) => !v)}
                 aria-expanded={showAll}
                 aria-controls="project-index"
@@ -258,18 +256,15 @@ export function Projects() {
                   aria-hidden
                   className={cn("h-4 w-4", showAll && "rotate-180")}
                 />
-              </button>
+              </Button>
             </div>
           )}
 
           <div className="mt-8">
-            <a
-              href={site.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={btn}
-            >
-              <Github className="h-4 w-4" /> See everything on GitHub
+            <a href={site.socials.github} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline">
+                <Github className="h-4 w-4" /> See everything on GitHub
+              </Button>
             </a>
           </div>
         </div>
@@ -284,7 +279,7 @@ export function Projects() {
               <>
                 <ProjectPreview project={preview} className="mt-4" />
                 <p className="u-data mt-3 text-ink">{preview.title}</p>
-                <p className="mt-1 text-[0.8125rem] leading-relaxed text-muted">
+                <p className="mt-1 text-sm leading-relaxed text-muted">
                   {preview.description}
                 </p>
               </>

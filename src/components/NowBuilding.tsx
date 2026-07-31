@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { NPCI_LOGO, journey } from "@/data/site";
 import { Section } from "@/components/Section";
-import { StackTopology } from "@/components/StackTopology";
+import { StackTable } from "@/components/StackTable";
 
 /**
- * §01 — the current engagement, then the block diagram it produces.
+ * §01 — the current engagement.
  *
- * Single column rather than text-beside-diagram: the diagram goes horizontal
- * above 1120px and needs the whole content column to do it.
+ * The copy deliberately names the domain and the tools and stops there. It does
+ * not describe how the system is built, and there is no diagram: an employer's
+ * internal architecture is not the author's to publish, and a portfolio gains
+ * nothing from it that the technology list does not already give.
  */
 export function NowBuilding() {
   const [logoOk, setLogoOk] = useState(true);
@@ -45,12 +47,12 @@ export function NowBuilding() {
       <p className="mt-8 max-w-[62ch] text-muted">
         I work on the real-time data pipeline behind{" "}
         <span className="text-ink">AEPS</span>, the system that lets someone
-        withdraw cash with a fingerprint instead of a card. Every block below is
-        one an event actually passes through.
+        withdraw cash with a fingerprint instead of a card. Below is what I work
+        in day to day.
       </p>
 
       <div className="mt-12">
-        <StackTopology />
+        <StackTable />
       </div>
     </Section>
   );

@@ -58,7 +58,7 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="grid h-8 w-8 place-items-center text-muted transition-colors duration-150 hover:bg-overlay/[0.06] hover:text-ink"
+                className="grid h-8 w-8 place-items-center text-muted transition-colors duration-150 hover:bg-surface hover:text-ink"
               >
                 <Github className="h-4 w-4" />
               </a>

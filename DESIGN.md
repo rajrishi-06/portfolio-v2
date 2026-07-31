@@ -11,23 +11,25 @@ dev-portfolio template.
 
 Raj builds infrastructure: a real-time payments pipeline at NPCI (Kafka,
 Cassandra, KeyDB, ELK), a storage engine in C++, automation tooling. The native
-document of that world is the datasheet — numbered sections, a block diagram,
-tabular characteristics, a revision history, ordering information. So the page
-borrows that document's *discipline*, not its parody:
+document of that world is the datasheet — numbered sections, plots, tabular
+characteristics, a revision history, ordering information. So the page borrows
+that document's *discipline*, not its parody:
 
 | Datasheet section      | Page section      |
 | ---------------------- | ----------------- |
-| Part identification    | Hero              |
-| Block diagram          | Currently (NPCI)  |
+| Part identification    | Hero + Fig. 1     |
+| Characteristics        | Currently (NPCI)  |
 | Selection table        | Work              |
 | Characteristics        | About / stack     |
 | Revision history       | Journey           |
 | Ordering information   | Contact           |
 
 **Rule:** the structure encodes real information. Section numbers are real
-(a datasheet is numbered), the table is a real table (9 rows of real specs),
-the block diagram is a real topology. Nothing decorative wears technical
-clothing. No fake "absolute maximum ratings", no invented metrics.
+(a datasheet is numbered), the work table is a real table of 9 real projects,
+the characteristics tables list tools actually used. Nothing decorative wears
+technical clothing. No fake "absolute maximum ratings", no invented metrics —
+and where a fact cannot be shown (see § What is deliberately NOT here), it is
+cut rather than approximated.
 
 ## What this replaces
 
@@ -39,8 +41,8 @@ Everything that made the old site look like every other portfolio:
 | Gradients, glows, conic halos  | One flat accent, no gradient anywhere      |
 | `rounded-2xl` everywhere       | Radius 0 (2px only on interactive chips)   |
 | Drop shadows                   | Rules and negative space                   |
-| Masonry card grid              | An index table                             |
-| Centered hero + portrait card  | Left-aligned identification block          |
+| Masonry card grid              | An index table + margin preview            |
+| Centered hero + portrait card  | Left-aligned ident block + a plotted figure |
 
 If a change needs a gradient, a blur, or a shadow to work, it is the wrong
 change.
@@ -65,7 +67,7 @@ these, re-measure rather than eyeballing.
 | `ink`       | `#16181A` | `22 24 26`    | 15.6:1  | Primary text, rules              |
 | `muted`     | `#484D53` | `72 77 83`    | 7.5:1   | Body secondary, table cells      |
 | `faint`     | `#60676E` | `96 103 110`  | 5.0:1   | Labels, captions, row numbers    |
-| `accent`    | `#1B34E8` | `27 52 232`   | 6.8:1   | Signal: links, active, the pulse |
+| `accent`    | `#1B34E8` | `27 52 232`   | 6.8:1   | Signal: links, active, Fig. 1    |
 
 ### Dark
 
@@ -95,8 +97,8 @@ Three faces, three jobs. No face does two jobs.
 | Data, labels, numbers   | IBM Plex Mono    | `font-mono`     | 400/500. **Everything small is mono.** |
 
 The mono is the datasheet's voice and should be visible everywhere: section
-numbers, eyebrows, table headers, tags, periods, stat values, captions,
-the block-diagram labels, the footer.
+numbers, eyebrows, table headers, tags, periods, stat values, captions and
+the footer.
 
 ### Scale
 
@@ -117,21 +119,23 @@ Every section is a two-column measured grid. This repeats down the whole page
 and is the thing that makes it read as one document.
 
 ```
-│◀────────── container 1160px ──────────────────────────────▶│
-┌──────────────┬─────────────────────────────────────────────┐
-│ §02          │  Selected work                              │  ← title, display
-│ WORK         │                                             │
-│              │  ┌────┬──────────────┬────────┬───────────┐ │
-│ (mono, small │  │ №  │ NAME         │ LANG   │ TAGS      │ │  ← table head, mono
-│  sticky at   │  ├────┼──────────────┼────────┼───────────┤ │
-│  top-28)     │  │ 01 │ Prod_Qilo    │ C++    │ Systems   │ │
-│              │  │ 02 │ Action       │ JS     │ AI/LLM    │ │
-└──────────────┴─────────────────────────────────────────────┘
-      200px                    1fr
+│◀──────────────── container 1280px ────────────────────────────────▶│
+┌────────────┬───────────────────────────────────┬──────────────────┐
+│ §02        │  Selected work                    │                  │
+│ WORK       │                                   │  PREVIEW         │
+│            │  ┌────┬───────────┬──────┬──────┐ │  ┌────────────┐  │
+│ (mono,     │  │ №  │ NAME      │ LANG │ TAGS │ │  │ screenshot │  │
+│  sticky at │  ├────┼───────────┼──────┼──────┤ │  │  of hovered │  │
+│  top-28)   │  │ 01 │ Cp-Card   │ JS   │ HTML │ │  │    row     │  │
+│            │  │ 02 │ Action    │ JS   │ LLM  │ │  └────────────┘  │
+└────────────┴───────────────────────────────────┴──────────────────┘
+    176px                    1fr                        320px
 ```
 
-- Grid: `lg:grid-cols-[200px_1fr]`, `gap-x-10`. Below `lg`, the rail collapses
+- Grid: `lg:grid-cols-[176px_1fr]`, `gap-x-10`. Below `lg`, the rail collapses
   to a single horizontal line above the content.
+- The container is 1280px because the work table plus a legibly-sized preview
+  needs it. At 1160 the preview was 200px and the screenshots were unreadable.
 - The rail is `position: sticky; top: 7rem` on `lg+` so the section number
   tracks with the reader. It is the wayfinding — that is why the nav does not
   need a scroll-spy pill.
@@ -140,12 +144,23 @@ and is the thing that makes it read as one document.
 
 ## Signature
 
-**The block diagram** in §01. The NPCI stack drawn as the pipeline it actually
-is, with a signal pulse travelling the connectors. It is the only looping
-animation on the page, and it earns that by being the literal subject: a real
-event moving through a real system.
+**Fig. 1** — the plotted Lissajous figure on the identification plate. A scope
+draws an XY figure when fed two related signals, so it is instrument vernacular
+rather than ornament, and it carries no numbers or axis labels, so it asserts
+nothing that would have to be true.
 
 Everything else stays quiet so this reads.
+
+### What is deliberately NOT here
+
+§01 once carried a block diagram of the NPCI pipeline — ordered stages, directed
+wires, a signal travelling them. **It was removed on purpose.** A public
+portfolio is the wrong place to publish an employer's internal architecture. The
+technologies stay, because a tech list is ordinary resume material; the shape of
+the system does not.
+
+If you are tempted to re-add arrows, ordering, or stage names to
+`StackTable.tsx`, that is the line being crossed.
 
 ## Motion
 
@@ -154,9 +169,13 @@ Three behaviours, total.
 1. **Rule draw** — on section entry, the section's hairline scales from
    `scaleX(0)` to `1`, `transform-origin: left`, 600ms. Nothing fades in.
    Content is present on load; only the rule animates.
-2. **Signal pulse** — the block-diagram connector. Loops.
-3. **Row hover** — a work-table row shows its thumbnail in the right margin
-   and its accent bar on the left. Instant-ish (150ms), no lift, no scale.
+2. **Fig. 1** — the arc sweeping the figure and the plotting head riding its
+   leading edge. Both are CSS (`stroke-dashoffset`, `offset-distance`) on a
+   shared 9s linear cycle, so they composite off the main thread and stay in
+   phase without a JS ticker. The dash pattern sums to exactly one path length;
+   that is what keeps the head locked to the arc.
+3. **Row hover** — a work-table row shows its screenshot in the right margin
+   and an accent bar on the left. 150ms, no lift, no scale.
 
 Anything not on this list does not animate. No stagger, no parallax, no
 magnetic buttons, no tilt, no fade-up on every element.

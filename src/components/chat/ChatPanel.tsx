@@ -261,7 +261,7 @@ export function ChatPanel({
                 <button
                   type="button"
                   onClick={() => setConfirmingClose(false)}
-                  className="flex-1 rounded-sm border border-overlay/[0.28] px-3 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink transition-colors hover:bg-overlay/[0.07]"
+                  className="flex-1 rounded-sm border border-overlay/[0.28] px-3 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink transition-colors hover:bg-surface"
                 >
                   Cancel
                 </button>
@@ -352,7 +352,7 @@ function TabButton({
         "inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
         active
           ? "bg-overlay/10 text-ink"
-          : "text-faint hover:bg-overlay/[0.05] hover:text-ink",
+          : "text-faint hover:bg-surface hover:text-ink",
       )}
     >
       {icon}

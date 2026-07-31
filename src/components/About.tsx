@@ -118,7 +118,7 @@ export function About() {
           href={site.socials.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="group -mx-3 grid gap-2 border-b border-overlay/[0.14] px-3 py-5 transition-colors duration-150 hover:bg-overlay/[0.04] sm:grid-cols-[8.5rem_1fr] sm:gap-6"
+          className="group -mx-3 grid gap-2 border-b border-overlay/[0.14] px-3 py-5 transition-colors duration-150 hover:bg-surface sm:grid-cols-[8.5rem_1fr] sm:gap-6"
         >
           <span className="u-label sm:pt-[3px]">GitHub</span>
           <span className="flex items-center justify-between gap-4">

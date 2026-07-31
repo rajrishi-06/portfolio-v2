@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/data/site";
 import { Section } from "@/components/Section";
+import { Button } from "@/components/ui/button";
 
 /** Display form of a URL: no scheme, no www., no trailing slash. Derived so the
  *  row can never disagree with the href it links to. */
@@ -42,20 +43,20 @@ export function Contact() {
     >
       <div className="max-w-2xl">
         <div className="flex flex-wrap items-center gap-3">
-          {/* Primary: solid ink fill, paper text. The label is the address
-              itself, so it stays in its literal case rather than uppercased. */}
-          <a
-            href={`mailto:${site.email}`}
-            className="inline-flex h-11 items-center gap-2 rounded-sm bg-ink px-5 font-mono text-[0.8125rem] tracking-[0.02em] text-bg transition-colors duration-150 hover:bg-accent"
-          >
-            <Mail className="h-4 w-4" aria-hidden />
-            {site.email}
+          {/* The label is the address itself, so `normal-case` overrides the
+              shared button's uppercasing — an email is not a label. */}
+          <a href={`mailto:${site.email}`}>
+            <Button className="normal-case tracking-[0.02em]">
+              <Mail className="h-4 w-4" aria-hidden />
+              {site.email}
+            </Button>
           </a>
 
-          <button
+          <Button
             type="button"
+            variant="outline"
             onClick={copy}
-            className="inline-flex h-11 min-w-[150px] items-center justify-center gap-2 rounded-sm border border-overlay/[0.28] px-5 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink transition-colors duration-150 hover:bg-overlay/[0.04]"
+            className="min-w-[150px]"
           >
             {/* The checkmark springs in and the label crossfades in place —
                 confirmation you can feel without the button jumping. */}
@@ -97,7 +98,7 @@ export function Contact() {
                 {copied ? "Copied" : "Copy email"}
               </motion.span>
             </AnimatePresence>
-          </button>
+          </Button>
         </div>
 
         {/* Ordering information: the rest of the channels, as ruled rows. */}
@@ -108,7 +109,7 @@ export function Contact() {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 border-b border-overlay/[0.14] py-3 transition-colors duration-150 hover:bg-overlay/[0.03]"
+              className="group flex items-center gap-4 border-b border-overlay/[0.14] py-3 transition-colors duration-150 hover:bg-surface"
             >
               <Icon className="h-3.5 w-3.5 shrink-0 text-faint" aria-hidden />
               <span className="u-label w-20 shrink-0 text-ink">{label}</span>

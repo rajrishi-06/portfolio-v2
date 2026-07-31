@@ -1,11 +1,11 @@
 import { Github, Linkedin } from "lucide-react";
 import { journey, site } from "@/data/site";
 import { Button } from "@/components/ui/button";
-import me from "@/assets/me.webp";
+import { HeroFigure } from "@/components/HeroFigure";
 
 /**
  * Part identification — the header of the datasheet. Left-aligned, no card, no
- * halo: a mono identification strip, the headline, the specimen portrait and a
+ * halo: a mono identification strip, the headline, the plotted figure and a
  * spec block. The graph-paper ground is used here and nowhere else on the page.
  *
  * Nothing animates. The only accent on the sheet is the status dot and the
@@ -31,7 +31,7 @@ export function Hero() {
           </span>
         </div>
 
-        <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_260px] lg:items-start lg:gap-16">
+        <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-16">
           <div className="min-w-0">
             <h1 className="u-hero text-balance">
               {site.headline.map((line) => (
@@ -73,21 +73,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Specimen. The asset is an 886x886 circular cutout on transparency,
-              so the plate is round and filled — a square frame would leave the
-              circle floating on the graph paper. */}
-          <figure className="w-full max-w-[240px] lg:max-w-none">
-            <img
-              src={me}
-              alt={`Portrait of ${site.fullName}`}
-              width={886}
-              height={886}
-              className="aspect-square w-full rounded-full border border-overlay/[0.28] bg-surface object-cover"
-            />
-            <figcaption className="u-label mt-3">
-              {site.name} — {site.location}
-            </figcaption>
-          </figure>
+          <HeroFigure />
         </div>
 
         {/* Spec block */}
