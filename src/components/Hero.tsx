@@ -122,18 +122,20 @@ export function Hero() {
             }}
           />
 
-          {/* Gradient ring frame + portrait */}
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-accent/60 via-overlay/10 to-transparent p-px shadow-[0_40px_90px_-30px_rgb(var(--c-accent-glow)/0.45)]">
-            <div className="relative overflow-hidden rounded-[calc(2rem-1px)] bg-surface">
+          {/* Gradient ring frame + portrait. The asset is an 886x886 circular
+              cutout on transparency, so the frame is round to match it — a
+              rounded rect leaves the circle floating against visible surface. */}
+          <div className="relative aspect-square rounded-full bg-gradient-to-br from-accent/60 via-overlay/10 to-transparent p-px shadow-[0_40px_90px_-30px_rgb(var(--c-accent-glow)/0.45)]">
+            <div className="relative h-full w-full overflow-hidden rounded-full bg-surface">
               <img
                 src={me}
                 alt={site.fullName}
-                width={520}
-                height={620}
+                width={886}
+                height={886}
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent" />
-              <div className="pointer-events-none absolute inset-0 rounded-[calc(2rem-1px)] ring-1 ring-inset ring-white/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg/60 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
             </div>
           </div>
 
@@ -141,12 +143,12 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-4 bottom-10 flex items-center gap-2 rounded-2xl glass px-4 py-3 shadow-card sm:-left-8"
+            className="absolute -left-4 bottom-10 flex items-center gap-2 rounded-2xl glass-strong px-4 py-3 shadow-card sm:-left-8"
           >
             <Sparkles className="h-5 w-5 text-accent-bright" />
             <div className="leading-tight">
-              <div className="text-sm font-semibold text-ink">Always shipping</div>
-              <div className="text-xs text-faint">web · automation · AI</div>
+              <div className="text-sm font-semibold text-ink">Currently at NPCI</div>
+              <div className="text-xs text-faint">real-time payments</div>
             </div>
           </motion.div>
 
@@ -154,7 +156,7 @@ export function Hero() {
           <motion.div
             animate={{ y: [0, 9, 0] }}
             transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
-            className="absolute -right-3 top-7 flex items-center gap-1.5 rounded-2xl glass px-2.5 py-2 shadow-card sm:-right-6"
+            className="absolute -right-3 top-7 flex items-center gap-1.5 rounded-2xl glass-strong px-2.5 py-2 shadow-card sm:-right-6"
           >
             {heroStack.map((t) => (
               <span

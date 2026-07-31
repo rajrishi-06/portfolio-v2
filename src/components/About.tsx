@@ -13,7 +13,8 @@ export function About() {
         <Reveal>
           <span className="eyebrow">About</span>
           <h2 className="section-title mt-4 max-w-2xl">
-            A builder at heart, <span className="text-gradient">curious by default</span>
+            I like the parts most people{" "}
+            <span className="text-gradient">skip.</span>
           </h2>
         </Reveal>
 
@@ -23,13 +24,14 @@ export function About() {
             <div className="glass flex flex-col rounded-2xl p-7 sm:col-span-4 lg:col-span-2 lg:row-span-2">
               <Sparkles className="h-7 w-7 text-accent-bright" />
               <p className="mt-5 text-balance text-xl font-medium leading-relaxed text-ink/95">
-                I'm {site.fullName.split(" ").slice(0, 3).join(" ")} — a CS undergrad
-                who likes turning messy problems into clean, working software.
+                I'm {site.fullName.split(" ").slice(0, 3).join(" ")}, a CS undergrad
+                who would rather read the spec than guess at it.
               </p>
               <p className="mt-4 text-[15px] leading-relaxed text-muted">
-                From a database engine in C++ to AI task schedulers and browser
-                extensions, I bounce across the stack and enjoy the parts most people
-                avoid. I care about details, fast feedback loops, and shipping.
+                I bounce across the stack: a database engine in C++, an AI task
+                scheduler, browser extensions, and right now a payments pipeline
+                held together by Kafka and Cassandra. The unglamorous middle of a
+                system is usually where the interesting bugs live.
               </p>
               <div className="mt-auto flex items-center gap-2 pt-6 text-sm text-faint">
                 <MapPin className="h-4 w-4" /> {site.location} · available remotely
@@ -93,7 +95,8 @@ export function About() {
                   <span className="font-medium text-faint">· NIT Silchar</span>
                 </div>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                  Bridging the gap between students and the corporate world — campus to career.
+                  I put students in front of the companies hiring them, and chase the
+                  companies that haven't replied yet.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {["Campus placements", "Corporate outreach", "Student mentorship"].map(
@@ -123,7 +126,7 @@ export function About() {
               </div>
               <div>
                 <div className="text-lg font-semibold text-ink">@rajrishi-06</div>
-                <div className="mt-1 text-sm text-muted">30+ repos, always pushing</div>
+                <div className="mt-1 text-sm text-muted">30+ repos</div>
               </div>
             </a>
           </div>

@@ -1,13 +1,20 @@
 export const BASE = import.meta.env.BASE_URL;
 
+/** NPCI's channel avatar, used as the company mark in Journey and NowBuilding.
+ *  Remote and therefore rot-prone — every consumer must render a fallback. */
+export const NPCI_LOGO =
+  "https://yt3.googleusercontent.com/ytc/AIdro_mDt7ITa64-4jAN3IPWpbaqYbtLtiDfComrYNxhxK0AWyE=s900-c-k-c0x00ffffff-no-rj";
+
 export const site = {
   name: "Raj Rishi Reddy",
   fullName: "Kotha Raj Rishi Reddy",
   role: "Software Engineer",
-  // Short, punchy positioning — not a resume summary
-  headline: ["I build", "things that", "solve problems."],
+  // Short, punchy positioning, not a resume summary. Every line here should be
+  // something only he could write: no "solves problems", no "ships products".
+  // Three lines, each short enough to survive at text-7xl without wrapping.
+  headline: ["Systems, tools,", "and a database", "engine or two."],
   tagline:
-    "Software engineer who turns rough ideas into shipped products — web apps, automation tools and AI-powered experiments.",
+    "CS undergrad at NIT Silchar, currently building the real-time data pipeline behind AEPS at NPCI. Outside that: a database engine in C++, an AI task scheduler, and a pile of desktop tools.",
   location: "India",
   email: "rajrishireddyk@gmail.com",
   resume: `${BASE}resume.pdf`,
@@ -38,7 +45,9 @@ export type JourneyItem = {
   title: string;
   org: string;
   detail?: string;
-  kind: string;
+  /** Org logo. Optional — the card falls back to a monogram if absent or if the
+   *  image fails to load, so a dead remote URL never shows a broken icon. */
+  logo?: string;
 };
 
 export const journey: JourneyItem[] = [
@@ -47,20 +56,21 @@ export const journey: JourneyItem[] = [
     title: "Software / Automation Intern",
     org: "NPCI",
     detail: "Building and automating internal tooling and data workflows.",
-    kind: "https://yt3.googleusercontent.com/ytc/AIdro_mDt7ITa64-4jAN3IPWpbaqYbtLtiDfComrYNxhxK0AWyE=s900-c-k-c0x00ffffff-no-rj",
+    logo: NPCI_LOGO,
   },
   {
     period: "2023 — 2027",
     title: "B.Tech, Computer Science & Engineering",
     org: "National Institute of Technology, Silchar",
-    detail: "CGPA 8.45 / 10 · DSA, OOP, DBMS, Computer Organization.",
-    kind: "/images/nit-silchar.jpg",
+    detail: "CGPA 8.45 / 10. Coursework: DSA, OOP, DBMS, Computer Organization.",
+    logo: `${BASE}images/nit-silchar.jpg`,
   },
   {
     period: "2021 — 2023",
     title: "Higher Secondary (Class XII)",
     org: "Sri Chaitanya Junior College, Madhapur",
-    detail: "98.1% — Mathematics, Physics, Chemistry.",
-    kind: "https://images.jdmagicbox.com/v2/comp/hyderabad/b6/040pxx40.xx40.180531175910.z4b6/catalogue/sri-chaitanya-junior-college-chanda-nagar-hyderabad-colleges-g2tsgxdeqb.jpg",
+    detail: "98.1% in Mathematics, Physics and Chemistry.",
+    // No logo: the only image available was a third-party listing photo we have
+    // no licence to serve. The card renders a monogram instead.
   },
 ];

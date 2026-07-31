@@ -8,10 +8,14 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { Analytics } from '@vercel/analytics/react';
+import { MotionConfig } from "framer-motion";
 
 export default function App() {
   return (
-    <>
+    // reducedMotion="user" makes every framer-motion animation in the tree honour
+    // prefers-reduced-motion: transform/layout animations are dropped, opacity is
+    // kept. One wrapper instead of a check in each component.
+    <MotionConfig reducedMotion="user">
       {/* Global ambient backdrop — subtle depth over the deep-dark base */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute left-1/2 top-[-22%] h-[620px] w-[920px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(29,111,255,0.10),transparent)]" />
@@ -36,6 +40,6 @@ export default function App() {
 
       {/* Vercel Web Analytics*/}
       <Analytics />
-    </>
+    </MotionConfig>
   );
 }

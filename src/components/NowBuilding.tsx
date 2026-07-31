@@ -1,26 +1,7 @@
 import { useState } from "react";
+import { NPCI_LOGO } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
-import { TechIcon } from "@/components/TechIcon";
-
-// NPCI's channel avatar — used as the company logo. If it ever fails to load
-// we fall back to the original "N" monogram so the layout never breaks.
-const NPCI_LOGO =
-  "https://yt3.googleusercontent.com/ytc/AIdro_mDt7ITa64-4jAN3IPWpbaqYbtLtiDfComrYNxhxK0AWyE=s900-c-k-c0x00ffffff-no-rj";
-
-// The real stack behind the NPCI engagement — drives the auto-scroll marquee.
-const stack = [
-  "Java",
-  "Apache Kafka",
-  "Cassandra",
-  "KeyDB",
-  "Nginx",
-  "Elasticsearch",
-  "Logstash",
-  "Kibana",
-  "Grafana",
-  "Prometheus",
-  "Docker",
-];
+import { StackTopology } from "@/components/StackTopology";
 
 export function NowBuilding() {
   const [logoOk, setLogoOk] = useState(true);
@@ -58,36 +39,16 @@ export function NowBuilding() {
                 </div>
               </div>
               <p className="mt-5 max-w-md text-[15px] leading-relaxed text-muted">
-                Building a production-grade, real-time data pipeline for{" "}
-                <span className="font-medium text-ink">AEPS</span> — high-throughput
-                streaming, in-memory caching, distributed storage and full-stack
-                observability.
+                I work on the real-time data pipeline behind{" "}
+                <span className="font-medium text-ink">AEPS</span>, the system that
+                lets someone withdraw cash with a fingerprint instead of a card.
+                Every stage on the right is one an event actually passes through.
               </p>
             </div>
 
-            {/* Stack marquee */}
+            {/* Stack, drawn as the pipeline it is */}
             <div className="min-w-0">
-              <div className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-faint">
-                The stack I&rsquo;m working with
-              </div>
-              <div className="marquee relative">
-                <div className="marquee-track py-1">
-                  {[...stack, ...stack].map((t, i) => (
-                    <div
-                      key={`${t}-${i}`}
-                      className="group/logo flex shrink-0 items-center gap-2.5 rounded-xl border border-overlay/[0.07] bg-overlay/[0.02] px-4 py-2.5 transition-colors hover:border-overlay/15 hover:bg-overlay/[0.05]"
-                    >
-                      <TechIcon
-                        name={t}
-                        className="h-5 w-5 shrink-0 text-faint transition-colors group-hover/logo:text-ink"
-                      />
-                      <span className="whitespace-nowrap text-sm font-medium text-muted transition-colors group-hover/logo:text-ink">
-                        {t}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <StackTopology />
             </div>
           </div>
         </Reveal>

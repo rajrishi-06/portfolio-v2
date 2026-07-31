@@ -1,5 +1,6 @@
 import { Mail, Github, Linkedin, ArrowUpRight, Copy, Check } from "lucide-react";
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
@@ -27,11 +28,11 @@ export function Contact() {
             <div className="relative">
               <span className="eyebrow">Contact</span>
               <h2 className="mx-auto mt-5 max-w-2xl font-display text-4xl font-bold leading-tight sm:text-5xl">
-                Let's build something <span className="text-gradient">worth shipping.</span>
+                Got something you want <span className="text-gradient">built?</span>
               </h2>
               <p className="mx-auto mt-4 max-w-lg text-muted">
-                Open to internships, freelance work and collaborations. Drop a line — I
-                reply fast.
+                I'm looking for internships, and I'll take on freelance work if it's
+                interesting. Email is the fastest way to reach me.
               </p>
 
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -41,15 +42,46 @@ export function Contact() {
                   </Button>
                 </a>
                 <Button size="lg" variant="outline" onClick={copy} className="min-w-[150px]">
-                  {copied ? (
-                    <>
-                      <Check className="h-4 w-4 text-accent-bright" /> Copied
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-4 w-4" /> Copy email
-                    </>
-                  )}
+                  {/* The checkmark springs in and the label crossfades in place —
+                      confirmation you can feel without the button jumping. */}
+                  <span className="relative grid h-4 w-4 place-items-center">
+                    <AnimatePresence initial={false} mode="wait">
+                      {copied ? (
+                        <motion.span
+                          key="done"
+                          initial={{ scale: 0.4, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.4, opacity: 0 }}
+                          transition={{ type: "spring", stiffness: 520, damping: 24 }}
+                          className="absolute inset-0 grid place-items-center"
+                        >
+                          <Check className="h-4 w-4 text-accent-bright" />
+                        </motion.span>
+                      ) : (
+                        <motion.span
+                          key="idle"
+                          initial={{ scale: 0.4, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.4, opacity: 0 }}
+                          transition={{ type: "spring", stiffness: 520, damping: 24 }}
+                          className="absolute inset-0 grid place-items-center"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </span>
+                  <AnimatePresence initial={false} mode="wait">
+                    <motion.span
+                      key={copied ? "copied" : "copy"}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12 }}
+                    >
+                      {copied ? "Copied" : "Copy email"}
+                    </motion.span>
+                  </AnimatePresence>
                 </Button>
               </div>
 

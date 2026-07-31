@@ -122,9 +122,17 @@
   .glass-hover {
     transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   }
+  /* The card lifts toward the pointer. One card at a time, on a transition
+     rather than per-frame, so the backdrop-filter is only re-rasterised for the
+     duration of the hover — not continuously for every card on screen. */
   .glass-hover:hover {
     border-color: rgb(var(--c-accent-bright) / 0.45);
+    transform: translateY(-3px);
     box-shadow: 0 0 0 1px rgb(var(--c-accent-bright) / 0.2), 0 24px 60px -24px rgb(var(--c-accent-glow) / 0.5);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glass-hover { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .glass-hover:hover { transform: none; }
   }
 
   .eyebrow {

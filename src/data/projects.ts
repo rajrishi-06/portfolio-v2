@@ -38,7 +38,7 @@ export const projects: Project[] = [
     title: "Cp-Card",
     lang: "JavaScript",
     description:
-      "Generate a sleek profile card that pulls your competitive-programming handles into one shareable snapshot.",
+      "Pulls your competitive-programming handles from every judge into one shareable card.",
     tags: ["HTML", "CSS", "REST APIs"],
     github: "https://github.com/rajrishi-06/Cp-Card",
     icon: CreditCard,
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     title: "QR Code Generator",
     lang: "JavaScript",
     description:
-      "A from-scratch QR generator that turns any URL into a clean, downloadable code — no third-party API.",
+      "A QR generator written from scratch. Any URL becomes a downloadable code without calling a third-party API.",
     tags: ["Canvas", "HTML", "CSS"],
     github: "https://github.com/rajrishi-06/QR.Code.Generator",
     icon: QrCode,
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     title: "B2B Extension",
     lang: "JavaScript",
     description:
-      "A browser extension that pulls POC contact data straight from internal sources, cutting B2B lookup time.",
+      "A browser extension that pulls POC contact details out of internal sources so nobody has to look them up by hand.",
     tags: ["Chrome Extension", "DOM"],
     github: "https://github.com/rajrishi-06/B2B---Extension",
     icon: Puzzle,
@@ -98,7 +98,7 @@ export const projects: Project[] = [
     title: "Gol-Gol",
     lang: "JavaScript",
     description:
-      "A ride-hailing app concept — an Ola/Uber-style booking flow with live maps and our own spin.",
+      "A ride-hailing concept: an Ola/Uber-style booking flow with live maps, built to see how far we could get.",
     tags: ["Maps API", "Node"],
     github: "https://github.com/rajrishi-06/Gol-Gol",
     icon: Car,
@@ -110,7 +110,7 @@ export const projects: Project[] = [
     title: "Prod_Qilo",
     lang: "C++",
     description:
-      "The production engine behind QiloDB — a lightweight database built from the ground up in C++.",
+      "The storage engine behind QiloDB. A small database written in C++, no libraries doing the hard part.",
     tags: ["Systems", "Database"],
     github: "https://github.com/rajrishi-06/Prod_Qilo",
     icon: Database,
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     title: "Typing Speed Test",
     lang: "Python",
     description:
-      "A polished desktop typing-speed tester with a vivid, fully customizable on-screen keyboard.",
+      "A desktop typing test with an on-screen keyboard you can recolour key by key.",
     tags: ["Tkinter", "Desktop"],
     github: "https://github.com/rajrishi-06/Typing-Speed-Test",
     icon: Keyboard,

@@ -4,13 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07080d" />
-    <meta name="description" content="Kotha Raj Rishi Reddy — Software engineer & problem solver. Building web apps, automation tools and AI-powered products." />
+    <meta name="description" content="Kotha Raj Rishi Reddy, CS undergrad at NIT Silchar. Currently building the real-time data pipeline behind AEPS at NPCI." />
 
     <!-- Open Graph -->
+    <!-- TODO: og:url and og:image still point at the old GitHub Pages deploy.
+         Point both at the live Vercel domain or social previews stay broken. -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rajrishi-06.github.io/portfolio-v2/" />
     <meta property="og:title" content="Raj Rishi Reddy — Software Engineer" />
-    <meta property="og:description" content="Software engineer & problem solver. Web apps, automation tools and AI-powered products." />
+    <meta property="og:description" content="CS undergrad at NIT Silchar. Currently building the real-time data pipeline behind AEPS at NPCI." />
     <meta property="og:image" content="https://rajrishi-06.github.io/portfolio-v2/images/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
@@ -81,6 +83,14 @@
       .preloader.loaded { animation: preFade 0.6s ease forwards; }
       @keyframes preFade { to { opacity: 0; visibility: hidden; } }
       .no-scroll { overflow: hidden; }
+
+      /* The dragon still paints — it just holds still, and the name is legible
+         immediately instead of animating in. */
+      @media (prefers-reduced-motion: reduce) {
+        .face, .wing-l, .wing-r { animation: none; }
+        .name-text span { opacity: 1; animation: none; }
+        .preloader.loaded { animation-duration: 0.01ms; }
+      }
     </style>
   </head>
   <body class="no-scroll">
@@ -114,11 +124,14 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      // Hide the dragon once the app has mounted, but keep a minimum on-screen time.
+      // Hide the dragon as soon as the app has mounted. MIN only exists to stop a
+      // sub-frame flash on a warm cache — it is not a minimum viewing time. Anything
+      // above ~500ms is the visitor waiting on us for no reason.
       (function () {
-        var MIN = 2400, start = Date.now();
+        var MIN = 500, start = Date.now();
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         function hide() {
-          var wait = Math.max(0, MIN - (Date.now() - start));
+          var wait = reduce ? 0 : Math.max(0, MIN - (Date.now() - start));
           setTimeout(function () {
             var p = document.getElementById("preloader");
             if (p) p.classList.add("loaded");
@@ -128,7 +141,7 @@
         }
         window.addEventListener("app-ready", hide, { once: true });
         // Fallback in case the app never signals ready
-        window.addEventListener("load", function () { setTimeout(hide, 1200); });
+        window.addEventListener("load", function () { setTimeout(hide, 300); });
       })();
     </script>
   </body>

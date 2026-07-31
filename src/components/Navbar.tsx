@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Github, Linkedin, FileText } from "lucide-react";
 import { nav, site } from "@/data/site";
@@ -6,9 +6,45 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
+/**
+ * Which nav section is currently in view. Tracks the section whose top is
+ * closest to just under the navbar, so the indicator changes at the moment a
+ * heading reaches reading position rather than when it first peeks in.
+ */
+function useActiveSection(hrefs: string[]) {
+  const [active, setActive] = useState<string | null>(null);
+
+  useEffect(() => {
+    const ids = hrefs.map((h) => h.replace("#", ""));
+
+    const pick = () => {
+      // 88px ≈ navbar height + breathing room
+      const line = 88;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top - line <= 0) current = `#${id}`;
+      }
+      setActive(current);
+    };
+
+    pick();
+    window.addEventListener("scroll", pick, { passive: true });
+    window.addEventListener("resize", pick);
+    return () => {
+      window.removeEventListener("scroll", pick);
+      window.removeEventListener("resize", pick);
+    };
+  }, [hrefs]);
+
+  return active;
+}
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const active = useActiveSection(useMemo(() => nav.map((n) => n.href), []));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -52,8 +88,21 @@ export function Navbar() {
             <a
               key={n.href}
               href={n.href}
-              className="rounded-lg px-3.5 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-overlay/10 hover:text-ink"
+              aria-current={active === n.href ? "true" : undefined}
+              className={cn(
+                "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
+                active === n.href ? "text-ink" : "text-ink/80 hover:text-ink"
+              )}
             >
+              {/* The pill slides between items instead of cross-fading — it is
+                  one object moving, which is also what the scroll position is. */}
+              {active === n.href && (
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-0 -z-10 rounded-lg bg-overlay/10"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                />
+              )}
               {n.label}
             </a>
           ))}

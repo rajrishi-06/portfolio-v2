@@ -49,6 +49,17 @@ export const techBrand: Record<string, string> = {
   Selenium: "#43B02A",
   Linux: "#FCC624",
   Figma: "#F24E1E",
+  // NPCI pipeline stack. Kafka's real mark is near-black, which disappears on the
+  // dark theme — these are the brand hues nudged to stay legible on both.
+  "Apache Kafka": "#8E93A6",
+  Cassandra: "#1287B1",
+  KeyDB: "#FF4438",
+  Nginx: "#009639",
+  Elasticsearch: "#43A047",
+  Logstash: "#FEC514",
+  Kibana: "#E7478B",
+  Grafana: "#F46800",
+  Prometheus: "#E6522C",
 };
 
 /**
