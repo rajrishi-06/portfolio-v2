@@ -1,59 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Menu, X, Github, Linkedin, FileText } from "lucide-react";
 import { nav, site } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { cn } from "@/lib/utils";
 
 /**
- * Which nav section is currently in view. Tracks the section whose top is
- * closest to just under the navbar, so the indicator changes at the moment a
- * heading reaches reading position rather than when it first peeks in.
+ * Running header: flush to the top edge, full width, one hairline beneath it.
+ * No float, no radius, no shadow, no blur.
+ *
+ * Deliberately dumb — there is no scroll-spy indicator and no scroll listener.
+ * Every section carries a sticky numbered rail that does the wayfinding
+ * (DESIGN.md § Layout), so a second, fragile position readout in the nav would
+ * only say the same thing twice.
  */
-function useActiveSection(hrefs: string[]) {
-  const [active, setActive] = useState<string | null>(null);
-
-  useEffect(() => {
-    const ids = hrefs.map((h) => h.replace("#", ""));
-
-    const pick = () => {
-      // 88px ≈ navbar height + breathing room
-      const line = 88;
-      let current: string | null = null;
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top - line <= 0) current = `#${id}`;
-      }
-      setActive(current);
-    };
-
-    pick();
-    window.addEventListener("scroll", pick, { passive: true });
-    window.addEventListener("resize", pick);
-    return () => {
-      window.removeEventListener("scroll", pick);
-      window.removeEventListener("resize", pick);
-    };
-  }, [hrefs]);
-
-  return active;
-}
-
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const active = useActiveSection(useMemo(() => nav.map((n) => n.href), []));
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Lock scroll when the mobile sheet is open
+  // Lock scroll while the mobile sheet is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -62,126 +25,117 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5">
-      <div
-        className={cn(
-          "relative mx-auto mt-3 flex h-16 max-w-[1200px] items-center justify-between rounded-2xl px-4 transition-all duration-300 sm:px-5",
-          scrolled
-            ? "glass-strong shadow-[0_18px_50px_-22px_rgba(0,0,0,0.95)]"
-            : "border border-transparent bg-transparent"
-        )}
-      >
-        {/* Logo */}
-        <a href="#top" className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent font-display text-lg font-bold text-white shadow-[0_6px_20px_-6px_rgb(var(--c-accent-glow)/0.6)]">
-            R
-          </span>
-          <span className="font-display text-[15px] font-semibold tracking-tight">
-            Raj <span className="text-accent-bright">Rishi</span>
-          </span>
-        </a>
-
-        {/* Desktop links — absolutely centered so they stay dead-center
-            regardless of the logo / action widths on either side */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
-          {nav.map((n) => (
-            <a
-              key={n.href}
-              href={n.href}
-              aria-current={active === n.href ? "true" : undefined}
-              className={cn(
-                "relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
-                active === n.href ? "text-ink" : "text-ink/80 hover:text-ink"
-              )}
-            >
-              {/* The pill slides between items instead of cross-fading — it is
-                  one object moving, which is also what the scroll position is. */}
-              {active === n.href && (
-                <motion.span
-                  layoutId="nav-active"
-                  className="absolute inset-0 -z-10 rounded-lg bg-overlay/10"
-                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                />
-              )}
-              {n.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Right actions */}
-        <div className="hidden items-center gap-2 md:flex">
-          <ThemeToggle />
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div className="border-b border-overlay/[0.14] bg-bg">
+        <div className="container-wide flex h-14 items-center justify-between gap-4">
+          {/* Wordmark: type, not a badge. The accent appears exactly once. */}
           <a
-            href={site.socials.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="grid h-9 w-9 place-items-center rounded-lg text-ink/80 transition-colors hover:bg-overlay/10 hover:text-ink"
+            href="#top"
+            className="font-mono text-[0.8125rem] leading-none tracking-[0.18em] text-ink"
           >
-            <Github className="h-[18px] w-[18px]" />
+            RAJ RISHI<span className="text-accent">.</span>
           </a>
-          <a href={site.resume} target="_blank" rel="noopener noreferrer">
-            <Button size="default" className="h-9 px-4">
-              <FileText className="h-4 w-4" /> Resume
-            </Button>
-          </a>
-        </div>
 
-        {/* Mobile actions — the theme toggle stays permanently on the bar so it's
-            always visible and one tap away; only the nav links collapse into the sheet */}
-        <div className="flex items-center gap-1.5 md:hidden">
-          <ThemeToggle className="h-10 w-10 rounded-xl glass-strong" />
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            className="grid h-10 w-10 place-items-center rounded-xl glass-strong text-ink"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          <div className="hidden items-center gap-6 md:flex">
+            <nav className="flex items-center gap-6">
+              {nav.map((n) => (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  className="u-label border-b border-transparent pb-0.5 text-muted transition-colors duration-150 hover:border-accent hover:text-ink"
+                >
+                  {n.label}
+                </a>
+              ))}
+            </nav>
+
+            <span aria-hidden className="h-4 w-px bg-overlay/[0.28]" />
+
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <a
+                href={site.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="grid h-8 w-8 place-items-center text-muted transition-colors duration-150 hover:bg-overlay/[0.06] hover:text-ink"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+              <a href={site.resume} target="_blank" rel="noopener noreferrer">
+                <Button className="h-8 px-3.5">
+                  <FileText className="h-3.5 w-3.5" /> Resume
+                </Button>
+              </a>
+            </div>
+          </div>
+
+          {/* Mobile: the theme toggle stays on the bar so it is always one tap
+              away; only the links collapse into the sheet. */}
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggle />
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label="Toggle menu"
+              aria-expanded={open}
+              className="grid h-9 w-9 place-items-center text-ink"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile sheet */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="mt-2 overflow-hidden rounded-2xl glass-strong p-2 md:hidden"
-          >
+      {/* Mobile sheet — a flat continuation of the header, not a floating card. */}
+      {open && (
+        <div className="border-b border-overlay/[0.28] bg-bg md:hidden">
+          <nav className="container-wide flex flex-col divide-y divide-overlay/[0.14]">
             {nav.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-xl px-4 py-3 text-base font-medium text-ink/90 hover:bg-overlay/10 hover:text-ink"
+                className="py-3.5 font-mono text-sm uppercase tracking-label text-muted transition-colors duration-150 hover:text-ink"
               >
                 {n.label}
               </a>
             ))}
-            <div className="mt-1 flex items-center gap-2 px-2 pb-1 pt-2">
-              <a href={site.resume} target="_blank" rel="noopener noreferrer" className="flex-1" onClick={() => setOpen(false)}>
+            <div className="flex items-center gap-2 py-4">
+              <a
+                href={site.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+                onClick={() => setOpen(false)}
+              >
                 <Button className="w-full">
                   <FileText className="h-4 w-4" /> Resume
                 </Button>
               </a>
-              <a href={site.socials.github} target="_blank" rel="noopener noreferrer">
+              <a
+                href={site.socials.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
                 <Button variant="outline" size="icon">
                   <Github className="h-5 w-5" />
                 </Button>
               </a>
-              <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer">
+              <a
+                href={site.socials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <Button variant="outline" size="icon">
                   <Linkedin className="h-5 w-5" />
                 </Button>
               </a>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

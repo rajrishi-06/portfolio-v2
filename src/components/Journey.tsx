@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { journey, type JourneyItem } from "@/data/site";
-import { Reveal } from "@/components/Reveal";
+import { Section } from "@/components/Section";
 
 /** Org mark: the logo when it loads, the org's initials when it doesn't. Remote
  *  logos rot, so the fallback is the default state rather than an error path. */
@@ -16,7 +16,7 @@ function OrgMark({ item }: { item: JourneyItem }) {
     .toUpperCase();
 
   return (
-    <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-overlay/10 bg-overlay/[0.03]">
+    <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden border border-overlay/[0.14] bg-surface">
       {ok && item.logo ? (
         <img
           src={item.logo}
@@ -26,52 +26,53 @@ function OrgMark({ item }: { item: JourneyItem }) {
           className="h-full w-full object-cover"
         />
       ) : (
-        <span className="font-display text-sm font-bold tracking-tight text-accent-bright">
-          {initials}
-        </span>
+        <span className="u-data text-muted">{initials}</span>
       )}
     </div>
   );
 }
 
+/**
+ * §04 — the revision history. A dated log, newest first: period is the key
+ * column and sits hard-left, the record sits beside it. Hairline rules, no
+ * cards.
+ */
 export function Journey() {
   return (
-    <section
-      id="journey"
-      className="relative scroll-mt-24 border-y border-overlay/[0.06] py-20 sm:py-28"
-    >
-      <div className="container-wide max-w-4xl">
-        <Reveal>
-          <span className="eyebrow">Journey</span>
-          <h2 className="section-title mt-4">Where I've been</h2>
-        </Reveal>
+    <Section id="journey" index={4} label="HISTORY" title="Where I've been">
+      {/* Top edge: the head row's rule on md+, the container's own below it. */}
+      <div className="border-b border-t border-b-overlay/[0.14] border-t-overlay/[0.28] md:border-t-0">
+        <div className="hidden grid-cols-[9.5rem_1fr] gap-x-8 border-b border-overlay/[0.28] pb-2 md:grid">
+          <span className="u-label">Period</span>
+          <span className="u-label">Record</span>
+        </div>
 
-        <div className="mt-12 space-y-3">
-          {journey.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.08}>
-              <div className="glass glass-hover group flex gap-5 rounded-2xl p-5 sm:p-6">
+        <ol>
+          {journey.map((item) => (
+            <li
+              key={item.title}
+              className="grid gap-x-8 gap-y-3 border-t border-overlay/[0.14] py-6 first:border-t-0 md:grid-cols-[9.5rem_1fr]"
+            >
+              <div className="u-data text-ink">{item.period}</div>
+
+              <div className="flex min-w-0 gap-4">
                 <OrgMark item={item} />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                    <h3 className="font-display text-lg font-semibold text-ink">
-                      {item.title}
-                    </h3>
-                    <span className="shrink-0 text-sm font-medium text-faint">
-                      {item.period}
-                    </span>
-                  </div>
-                  <div className="mt-0.5 text-[15px] font-medium text-accent-bright/90">
-                    {item.org}
-                  </div>
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg leading-snug text-ink">
+                    {item.title}
+                  </h3>
+                  <div className="u-data mt-1 text-muted">{item.org}</div>
                   {item.detail && (
-                    <p className="mt-2 text-sm leading-relaxed text-muted">{item.detail}</p>
+                    <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-muted">
+                      {item.detail}
+                    </p>
                   )}
                 </div>
               </div>
-            </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
-    </section>
+    </Section>
   );
 }

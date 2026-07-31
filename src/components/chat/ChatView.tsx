@@ -112,10 +112,10 @@ export function ChatView({
       >
         {/* Boot greeting (always shown) */}
         <div className="flex items-start gap-2.5">
-          <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-overlay/[0.06] ring-1 ring-overlay/10">
+          <span className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center border border-overlay/[0.14] bg-surface">
             <RobotHead className="w-[22px]" />
           </span>
-          <div className="max-w-[82%] rounded-2xl rounded-tl-sm border border-overlay/10 bg-overlay/[0.03] px-3.5 py-2.5">
+          <div className="max-w-[82%] border border-overlay/[0.14] bg-surface px-3.5 py-2.5">
             <Markdown text={assistantConfig.greeting} />
           </div>
         </div>
@@ -140,8 +140,8 @@ export function ChatView({
         )}
 
         {error && (
-          <div className="flex items-start gap-2 rounded-xl border border-red-500/20 bg-red-500/[0.06] px-3 py-2.5 text-xs text-red-300">
-            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+          <div className="flex items-start gap-2 border-l-2 border-red-500 bg-surface px-3 py-2.5 font-mono text-[0.8125rem] leading-snug text-ink">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
             <span>{error}</span>
           </div>
         )}
@@ -149,8 +149,8 @@ export function ChatView({
 
       {/* Composer */}
       <div className="border-t border-overlay/10 p-3">
-        <div className="flex items-end gap-2 rounded-xl border border-overlay/10 bg-overlay/[0.03] px-3 py-2 transition-colors focus-within:border-accent-bright/50">
-          <span className="select-none whitespace-nowrap pb-1.5 font-mono text-xs text-accent-bright/70">
+        <div className="flex items-end gap-2 border border-overlay/[0.14] bg-surface px-3 py-2 transition-colors focus-within:border-overlay/40">
+          <span className="select-none whitespace-nowrap pb-1.5 font-mono text-xs text-accent">
             {/* Short prefix on phones (more room for the typed text), full on sm+. */}
             <span className="sm:hidden">{assistantConfig.promptShort}</span>
             <span className="hidden sm:inline">{assistantConfig.prompt}</span>
@@ -171,7 +171,7 @@ export function ChatView({
               type="button"
               onClick={stop}
               aria-label="Stop"
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-overlay/10 text-ink transition-colors hover:bg-overlay/20"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-sm bg-overlay/10 text-ink transition-colors hover:bg-overlay/20"
             >
               <Square className="h-3.5 w-3.5" />
             </button>
@@ -181,13 +181,13 @@ export function ChatView({
               onClick={() => send(input)}
               disabled={!input.trim()}
               aria-label="Send"
-              className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent text-white transition-all hover:bg-accent-glow disabled:opacity-40"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-sm bg-ink text-bg transition-colors hover:bg-accent disabled:opacity-40"
             >
               <ArrowUp className="h-4 w-4" />
             </button>
           )}
         </div>
-        <p className="mt-1.5 px-1 text-center text-[10px] text-faint">
+        <p className="u-label mt-1.5 px-1 text-center">
           AI twin · answers only about Raj's work · can be imperfect
         </p>
       </div>

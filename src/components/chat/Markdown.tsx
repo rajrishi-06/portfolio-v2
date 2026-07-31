@@ -23,7 +23,7 @@ function renderInline(text: string, keyBase: string): ReactNode[] {
       nodes.push(
         <code
           key={`${keyBase}-c${i}`}
-          className="rounded bg-overlay/10 px-1.5 py-0.5 font-mono text-[0.85em] text-accent-bright"
+          className="bg-surface px-1.5 py-0.5 font-mono text-[0.85em] text-accent"
         >
           {part.slice(1, -1)}
         </code>,
@@ -54,7 +54,7 @@ export function Markdown({ text }: { text: string }) {
           {items}
         </ol>
       ) : (
-        <ul key={key++} className="my-1.5 list-disc space-y-1 pl-5 marker:text-accent-bright/70">
+        <ul key={key++} className="my-1.5 list-disc space-y-1 pl-5 marker:text-accent">
           {items}
         </ul>
       ),

@@ -19,12 +19,8 @@ export function ChatMessage({
       {/* Avatar */}
       <span
         className={cn(
-          "mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-lg",
-          isUser
-            ? "bg-overlay/[0.06] text-faint"
-            // Neutral tile on purpose — the bot brings its own blue, and an
-            // accent-tinted square behind it just muddies both.
-            : "bg-overlay/[0.06] ring-1 ring-overlay/10",
+          "mt-0.5 grid h-7 w-7 shrink-0 place-items-center border border-overlay/[0.14] bg-surface",
+          isUser && "text-faint",
         )}
       >
         {isUser ? (
@@ -37,10 +33,10 @@ export function ChatMessage({
       {/* Bubble */}
       <div
         className={cn(
-          "max-w-[82%] rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-relaxed",
+          "max-w-[82%] px-3.5 py-2.5 text-[13.5px] leading-relaxed",
           isUser
-            ? "rounded-tr-sm bg-accent text-white"
-            : "rounded-tl-sm border border-overlay/10 bg-overlay/[0.03] text-muted",
+            ? "bg-ink text-bg"
+            : "border border-overlay/[0.14] bg-surface text-muted",
         )}
       >
         {isUser ? (
@@ -51,7 +47,7 @@ export function ChatMessage({
           <TypingDots />
         )}
         {!isUser && streaming && content && (
-          <span className="ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 animate-pulse bg-accent-bright/80 align-middle" />
+          <span className="ml-0.5 inline-block h-3.5 w-1.5 translate-y-0.5 animate-pulse bg-accent align-middle" />
         )}
       </div>
     </div>
@@ -64,7 +60,7 @@ function TypingDots() {
       {[0, 0.15, 0.3].map((d) => (
         <span
           key={d}
-          className="h-1.5 w-1.5 animate-bounce rounded-full bg-faint"
+          className="h-1.5 w-1.5 animate-bounce bg-faint"
           style={{ animationDelay: `${d}s` }}
         />
       ))}

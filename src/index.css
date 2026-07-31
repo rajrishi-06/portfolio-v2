@@ -2,246 +2,190 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Design system: see DESIGN.md. Cool bone paper, cool ink, one flat
+   ultramarine. No gradients, no blur, no shadows anywhere in this file. */
+
 @layer base {
-  /* ===== Light theme (default) ===== */
+  /* ===== Light — drafting stock =====
+     All three text tiers clear 4.5:1 on both `bg` and `surface`. `faint` is
+     the quietest text on the page and it still carries information (rail
+     labels, table heads, row numbers), so it is held to the same floor as
+     body copy rather than treated as decoration. */
   :root {
     color-scheme: light;
-    --c-bg: 255 255 255;
-    --c-surface: 246 247 249;
-    --c-surface-2: 236 238 242;
-    --c-ink: 24 27 34; /* near-black (not pure) */
-    --c-muted: 90 97 112;
-    --c-faint: 140 147 162;
-    --c-overlay: 17 20 28; /* black-ish overlay on light surfaces */
-    --c-accent: 37 99 235; /* blue-600 — white text reads on it */
-    --c-accent-bright: 29 78 216; /* deeper blue for text/icons on light */
-    --c-accent-glow: 37 99 235;
-    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.6) inset,
-      0 18px 40px -24px rgb(17 20 28 / 0.22);
+    --c-bg: 239 240 236;
+    --c-surface: 231 233 227;
+    --c-ink: 22 24 26; /* 15.6:1 */
+    --c-muted: 72 77 83; /* 7.5:1 */
+    --c-faint: 96 103 110; /* 4.9:1 */
+    --c-overlay: 22 24 26; /* ink-derived rules on paper */
+    --c-accent: 27 52 232; /* 6.8:1 */
   }
-  /* ===== Dark theme — the original deep-dark / electric-blue ===== */
+
+  /* ===== Dark — the negative of the same sheet ===== */
   .dark {
     color-scheme: dark;
-    --c-bg: 7 8 13;
-    --c-surface: 14 16 24;
-    --c-surface-2: 20 23 34;
-    --c-ink: 244 246 251;
-    --c-muted: 170 178 197;
-    --c-faint: 107 115 136;
-    --c-overlay: 255 255 255; /* white overlay on dark surfaces */
-    --c-accent: 59 130 246;
-    --c-accent-bright: 91 157 255;
-    --c-accent-glow: 29 111 255;
-    --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.05) inset,
-      0 20px 50px -20px rgb(0 0 0 / 0.8);
+    --c-bg: 16 18 20;
+    --c-surface: 24 27 30;
+    --c-ink: 237 238 234; /* 16.1:1 */
+    --c-muted: 178 184 190; /* 9.4:1 */
+    --c-faint: 126 133 141; /* 5.0:1 */
+    --c-overlay: 237 238 234;
+    --c-accent: 92 116 255; /* 4.8:1 */
   }
+
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
+
   body {
     background-color: rgb(var(--c-bg));
     color: rgb(var(--c-ink));
     @apply font-sans antialiased;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.9375rem;
+    line-height: 1.65;
   }
-  ::selection {
-    background: rgb(var(--c-accent) / 0.3);
-    color: rgb(var(--c-ink));
-  }
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: rgb(var(--c-bg)); }
-  ::-webkit-scrollbar-thumb { background: rgb(var(--c-overlay) / 0.18); border-radius: 99px; border: 2px solid rgb(var(--c-bg)); }
-  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-overlay) / 0.3); }
 
-  h1, h2, h3, h4 { @apply font-display tracking-tight; }
+  h1, h2, h3, h4 { @apply font-display; }
+
+  ::selection {
+    background: rgb(var(--c-accent));
+    color: rgb(var(--c-bg));
+  }
+
+  /* Focus is never removed. Square, accent, offset — matches the rules. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 2px;
+  }
+
+  /* Square scrollbar to match. */
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--c-bg)); }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--c-overlay) / 0.2);
+    border: 4px solid rgb(var(--c-bg));
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-overlay) / 0.35); }
 }
 
 @layer components {
-  .container-wide { @apply mx-auto w-full max-w-[1200px] px-6; }
+  .container-wide { @apply mx-auto w-full max-w-[1160px] px-6; }
 
-  /* Glass surface used across cards (adapts via the overlay token) */
-  .glass {
-    background: linear-gradient(180deg, rgb(var(--c-overlay) / 0.045), rgb(var(--c-overlay) / 0.018));
-    border: 1px solid rgb(var(--c-overlay) / 0.09);
-    backdrop-filter: blur(10px);
-  }
-  /* Heavier frosted surface — used for the floating navbar / mobile sheet so
-     text stays legible over whatever content scrolls behind it. */
-  .glass-strong {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.7));
-    border: 1px solid rgb(var(--c-overlay) / 0.1);
-    backdrop-filter: blur(16px) saturate(160%);
-  }
-  .dark .glass-strong {
-    background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
+  /* ===== Type roles ===== */
+
+  /* Small uppercase mono. Rail labels, table heads, eyebrows, captions. */
+  .u-label {
+    @apply font-mono text-[0.6875rem] uppercase leading-tight tracking-label text-faint;
   }
 
-  /* AI-twin launcher + chat panel: render in the OPPOSITE theme of the site —
-     dark on the light site, light on the dark site. Pure CSS, so it flips
-     instantly with the theme toggle. Apply `.chat-invert` to a subtree root and
-     the full token set below (mirroring the :root / .dark blocks) inverts for
-     everything inside it. Keep these values in sync if the palette moves. */
+  /* Mono data. Cell values, tags, periods, specs. */
+  .u-data {
+    @apply font-mono text-[0.8125rem] leading-snug;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .u-hero {
+    @apply font-display font-normal;
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+  }
+
+  .u-title {
+    @apply font-display font-normal;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+
+  .u-sub {
+    @apply font-display text-xl leading-relaxed text-muted;
+  }
+
+  /* ===== Structure ===== */
+
+  /* Structural divider between sections. Full strength. */
+  .rule-strong { border-color: rgb(var(--c-overlay) / 0.28); }
+
+  /* Inline link: accent, underlined on the baseline, no colour change on hover
+     (the underline thickens instead — quieter, and it survives on paper). */
+  .link {
+    @apply text-accent underline decoration-1 underline-offset-[3px] transition-[text-decoration-thickness] duration-150;
+  }
+  .link:hover { text-decoration-thickness: 2px; }
+
+  /* Square interactive chip: tags, filters, language pills. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-sm border border-overlay/[0.14] px-2 py-[3px] font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-muted transition-colors duration-150;
+  }
+  a.chip:hover, button.chip:hover {
+    @apply border-overlay/40 text-ink;
+  }
+
+  /* ===== Chat overlay =====
+     The assistant renders as an annotation layer over the sheet: it inverts to
+     the opposite theme so it reads as something laid on top rather than part
+     of the document. Values mirror the :root / .dark blocks above — keep in
+     sync if the palette moves. */
   .chat-invert {
     color-scheme: dark;
-    --c-bg: 7 8 13;
-    --c-surface: 14 16 24;
-    --c-surface-2: 20 23 34;
-    --c-ink: 244 246 251;
-    --c-muted: 170 178 197;
-    --c-faint: 107 115 136;
-    --c-overlay: 255 255 255;
-    --c-accent: 59 130 246;
-    --c-accent-bright: 91 157 255;
-    --c-accent-glow: 29 111 255;
-  }
-  .chat-invert.glass-strong,
-  .chat-invert .glass-strong {
-    background: linear-gradient(180deg, rgb(18 21 31 / 0.88), rgb(11 13 20 / 0.82));
+    --c-bg: 16 18 20;
+    --c-surface: 24 27 30;
+    --c-ink: 237 238 234;
+    --c-muted: 154 160 166;
+    --c-faint: 102 108 115;
+    --c-overlay: 237 238 234;
+    --c-accent: 92 116 255;
   }
   .dark .chat-invert {
     color-scheme: light;
-    --c-bg: 255 255 255;
-    --c-surface: 246 247 249;
-    --c-surface-2: 236 238 242;
-    --c-ink: 24 27 34;
-    --c-muted: 90 97 112;
-    --c-faint: 140 147 162;
-    --c-overlay: 17 20 28;
-    --c-accent: 37 99 235;
-    --c-accent-bright: 29 78 216;
-    --c-accent-glow: 37 99 235;
-  }
-  .dark .chat-invert.glass-strong,
-  .dark .chat-invert .glass-strong {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.7));
+    --c-bg: 239 240 236;
+    --c-surface: 231 233 227;
+    --c-ink: 22 24 26;
+    --c-muted: 88 93 99;
+    --c-faint: 139 144 151;
+    --c-overlay: 22 24 26;
+    --c-accent: 27 52 232;
   }
 
-  .glass-hover {
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  /* Old design's surfaces, kept as flat no-ops so any straggler class in the
+     chat subtree renders as paper instead of frosted glass. */
+  .glass, .glass-strong {
+    background: rgb(var(--c-bg));
+    border: 1px solid rgb(var(--c-overlay) / 0.14);
   }
-  /* The card lifts toward the pointer. One card at a time, on a transition
-     rather than per-frame, so the backdrop-filter is only re-rasterised for the
-     duration of the hover — not continuously for every card on screen. */
-  .glass-hover:hover {
-    border-color: rgb(var(--c-accent-bright) / 0.45);
-    transform: translateY(-3px);
-    box-shadow: 0 0 0 1px rgb(var(--c-accent-bright) / 0.2), 0 24px 60px -24px rgb(var(--c-accent-glow) / 0.5);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .glass-hover { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-    .glass-hover:hover { transform: none; }
-  }
-
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-overlay/10 bg-overlay/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-muted;
-  }
-
-  .text-gradient {
-    background-image: linear-gradient(120deg, #14161c 0%, #3257c9 52%, #2563eb 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .dark .text-gradient {
-    background-image: linear-gradient(120deg, #ffffff 0%, #cdd9f5 40%, #5b9dff 100%);
-  }
-
-  .accent-link {
-    @apply inline-flex items-center gap-1.5 text-accent-bright transition-colors hover:text-ink;
-  }
-
-  /* Section title block */
-  .section-title { @apply font-display text-3xl font-bold sm:text-4xl md:text-5xl; }
+  .glass-hover { transition: border-color 0.15s ease; }
+  .glass-hover:hover { border-color: rgb(var(--c-overlay) / 0.4); }
 }
 
 @layer utilities {
-  /* Faint grid backdrop */
-  .grid-backdrop {
+  /* Graph-paper ground. Used once, behind the identification block. */
+  .grid-paper {
     background-image:
-      linear-gradient(to right, rgb(var(--c-overlay) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--c-overlay) / 0.05) 1px, transparent 1px);
-    background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
-  }
-  .glow-radial {
-    background: radial-gradient(closest-side, rgb(var(--c-accent-glow) / 0.3), transparent);
+      linear-gradient(to right, rgb(var(--c-overlay) / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--c-overlay) / 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
-  /* Fine film grain — keeps the deep-dark from looking flat/empty */
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 160px 160px;
-  }
-
-  /* Soft conic halo used behind the hero portrait */
-  .conic-halo {
-    background: conic-gradient(
-      from 180deg at 50% 50%,
-      rgb(var(--c-accent-glow) / 0.28),
-      rgb(var(--c-accent-bright) / 0.14),
-      rgb(var(--c-accent) / 0.22),
-      rgb(var(--c-accent-glow) / 0.28)
-    );
-  }
-  .animate-spin-slow {
-    animation: spin 22s linear infinite;
-  }
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .animate-spin-slow {
-      animation: none;
-    }
-  }
+  .tnum { font-variant-numeric: tabular-nums; }
 }
 
-/* ===== Logo marquee ===== */
-.marquee {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 12px;
-  animation: marquee 32s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-@keyframes marquee {
-  to {
-    transform: translateX(calc(-50% - 6px));
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
-}
+/* ===== Motion =====
+   Three behaviours on the whole site (DESIGN.md). The rule draw is CSS because
+   it is decoration on a static page; the signal pulse and row hover live in
+   their components. */
 
-/* ===== react-masonry-css ===== */
-.masonry-grid {
-  display: flex;
-  margin-left: -20px;
-  width: auto;
+.rule-draw {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-.masonry-grid_column {
-  padding-left: 20px;
-  background-clip: padding-box;
-}
-.masonry-grid_column > * {
-  margin-bottom: 20px;
-}
+.rule-draw[data-in="true"] { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .rule-draw { transition: none; transform: scaleX(1); }
 }

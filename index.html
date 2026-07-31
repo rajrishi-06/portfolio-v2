@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#07080d" />
+    <meta name="theme-color" content="#eff0ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101214" media="(prefers-color-scheme: dark)" />
     <meta name="description" content="Kotha Raj Rishi Reddy, CS undergrad at NIT Silchar. Currently building the real-time data pipeline behind AEPS at NPCI." />
 
     <!-- Open Graph -->
@@ -19,130 +20,32 @@
     <title>Raj Rishi Reddy — Software Engineer</title>
 
     <style>
-      /* Critical: paint dark immediately, no white flash */
-      html { background-color: #07080d; }
+      /* Critical: paint the sheet immediately, in the right theme, so there is
+         no flash before the app mounts. The script below sets the `dark` class
+         from storage / system preference before first paint, which is why this
+         keys off the class rather than a media query — an explicit choice in
+         localStorage has to win over the system preference. */
+      html { background-color: #eff0ec; }
+      html.dark { background-color: #101214; }
       * { box-sizing: border-box; }
-
-      /* ===== Dragon preloader (instant paint, no JS dependency) ===== */
-      .preloader {
-        position: fixed; inset: 0;
-        background-color: #07080d;
-        z-index: 9999;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        gap: 40px;
-      }
-      .dragon-container { height: 25em; width: 31.25em; position: relative; margin-bottom: 3em; font-size: 13px; }
-      @media (min-width: 700px) { .dragon-container { font-size: 20px; } }
-      .face { position: absolute; background-color: #2c3e50; height: 6.87em; width: 5.31em; margin: auto; left: 0; right: 0; top: 3.12em; border-radius: 5.31em 5.31em 0 0; animation: pulsate 2s infinite alternate; }
-      .face:before { position: absolute; content: ""; background-color: #1a2530; height: 3.12em; width: 100%; top: 5.62em; border-radius: 5em; z-index: -1; }
-      .face:after { position: absolute; content: ""; background-color: #3498db; width: 6.56em; height: 4.68em; top: 3.43em; left: -0.62em; border-radius: 4em; }
-      .eye { position: absolute; background-color: #fff; height: 0.62em; width: 0.62em; border-radius: 50%; top: 1.87em; left: 1.12em; box-shadow: 2.5em 0 #fff; }
-      .nostril, .nostril:after { position: absolute; background-color: #1a2530; height: 1em; width: 1em; border-radius: 50%; border: 0.62em solid #0d0d0d; z-index: 1; }
-      .nostril { top: 4.25em; }
-      .nostril:after { content: ""; top: -0.62em; left: 3.75em; }
-      .ear, .ear:before { position: absolute; background-color: #1a2530; height: 3.12em; width: 0.68em; border-radius: 1.37em; border: 0.56em solid #2c3e50; }
-      .ear { z-index: -1; top: -1.87em; left: -0.93em; transform: rotate(-40deg); }
-      .ear:before { content: ""; left: 3.75em; top: 3em; transform: rotate(80deg); }
-      .horn { position: absolute; background-color: #1a2530; height: 4.25em; width: 1.25em; z-index: -1; top: -2.81em; border-radius: 1.25em; }
-      .horn-l { left: 0.62em; }
-      .horn-r { left: 3.43em; }
-      .horn-l:before, .horn-r:before { position: absolute; content: ""; background-color: #2c3e50; height: 0.25em; width: 70%; border-radius: 0.2em; margin: auto; left: 0; right: 0; top: 0.62em; box-shadow: 0 0.5em #2c3e50, 0 1em #2c3e50, 0 1.5em #2c3e50, 0 2em #2c3e50, 0 2.5em #2c3e50; }
-      .body { position: absolute; width: 2.93em; height: 5.62em; background-color: #2c3e50; margin: auto; left: 0; right: 0; top: 11.81em; z-index: -2; }
-      .stomach { height: 8.75em; width: 8.75em; background-color: #2c3e50; border-radius: 50%; position: relative; top: 3.12em; right: 3em; }
-      .stomach:before { position: absolute; content: ""; background-color: #3498db; height: 3.75em; width: 3.75em; border-radius: 50%; top: 4.37em; left: 2.5em; }
-      .body:after { position: absolute; content: ""; background-color: #1a2530; height: 0.5em; width: 70%; border-radius: 0.5em; top: 0.62em; margin: auto; left: 0; right: 0; box-shadow: 0 0.9em #1a2530, 0 1.8em #1a2530, 0 2.7em #1a2530, 0 3.6em #1a2530, 0 4.5em #1a2530, 0 5.4em #1a2530; }
-      .wing { height: 7.5em; width: 15em; background-color: #3498db; border-radius: 12.5em 12.5em 0 0; position: absolute; top: 12.5em; z-index: -3; }
-      .wing-l { left: 1.25em; transform: rotate(25deg); animation: wing-1 1.5s infinite; }
-      @keyframes wing-1 { 50% { transform: rotate(15deg); } }
-      .wing-r { left: 15em; transform: rotateY(-180deg) rotate(25deg); animation: wing-2 1.5s infinite; }
-      @keyframes wing-2 { 50% { transform: rotateY(-180deg) rotate(15deg); } }
-      .wing-l:before, .wing-r:before, .wing-l:after, .wing-r:after { position: absolute; content: ""; background-color: #07080d; height: 2.18em; width: 4.37em; border-radius: 4.37em 4.37em 0 0; }
-      .wing-l:before, .wing-r:before { bottom: -0.1em; left: 0; }
-      .wing-l:after, .wing-r:after { bottom: -0.1em; left: 4.37em; }
-      .arm { background-color: #1a2530; height: 5.62em; width: 2.92em; border-radius: 3.12em; position: absolute; z-index: -3; top: 14.37em; }
-      .arm-l { transform: rotate(45deg); left: 9.06em; }
-      .arm-r { transform: rotate(-45deg); left: 19.06em; }
-      .forearm { position: absolute; height: 2.81em; width: 6.25em; background-color: #3498db; border-radius: 5.62em; top: 17.5em; }
-      .forearm-l { left: 7.37em; }
-      .forearm-r { transform: rotate(180deg); left: 17.5em; }
-      .forearm-l:after, .forearm-r:after { position: absolute; content: ""; background-color: #fff; height: 0.43em; width: 1.06em; border-radius: 0.31em; left: 5.43em; top: 0.43em; box-shadow: 0 0.75em #fff, 0 1.5em #fff; }
-      .leg { background-color: #1a2530; height: 5.62em; width: 5.62em; position: absolute; z-index: -3; border-radius: 3.12em; top: 18.12em; }
-      .leg-l { left: 8.12em; }
-      .leg-r { left: 16.87em; transform: rotateY(180deg); }
-      .leg-l:after, .leg-r:after { position: absolute; content: ""; background-color: #3498db; height: 2.81em; width: 5.62em; top: 2.81em; right: 2.5em; border-radius: 5.62em 5.62em 0 0; }
-      .shadow { width: 21.87em; height: 0.5em; background-color: rgba(255,255,255,0.2); position: absolute; margin: auto; left: 0; right: 0; top: 23.7em; border-radius: 0.5em; }
-      @keyframes pulsate { 0% { filter: drop-shadow(0 0 5px rgba(52,152,219,0.5)); } 100% { filter: drop-shadow(0 0 15px rgba(52,152,219,0.8)); } }
-      .name-text { display: flex; gap: 8px; margin-top: 1em; }
-      .name-text span { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 2px; color: #fff; opacity: 0; animation: textReveal 1s forwards; }
-      .name-text span:nth-child(1) { animation-delay: 0.3s; }
-      .name-text span:nth-child(2) { animation-delay: 0.5s; }
-      .name-text span:nth-child(3) { animation-delay: 0.7s; }
-      .name-text span:nth-child(4) { animation-delay: 0.9s; }
-      @keyframes textReveal { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-      .preloader.loaded { animation: preFade 0.6s ease forwards; }
-      @keyframes preFade { to { opacity: 0; visibility: hidden; } }
-      .no-scroll { overflow: hidden; }
-
-      /* The dragon still paints — it just holds still, and the name is legible
-         immediately instead of animating in. */
-      @media (prefers-reduced-motion: reduce) {
-        .face, .wing-l, .wing-r { animation: none; }
-        .name-text span { opacity: 1; animation: none; }
-        .preloader.loaded { animation-duration: 0.01ms; }
-      }
     </style>
-  </head>
-  <body class="no-scroll">
-    <!-- Dragon preloader: paints instantly, removed once the app is ready -->
-    <div class="preloader" id="preloader">
-      <div class="dragon-container">
-        <div class="face">
-          <div class="eye"></div>
-          <div class="nostril"></div>
-          <div class="ear"></div>
-          <div class="horn horn-l"></div>
-          <div class="horn horn-r"></div>
-        </div>
-        <div class="body"><div class="stomach"></div></div>
-        <div class="wing wing-l"></div>
-        <div class="wing wing-r"></div>
-        <div class="arm arm-l"></div>
-        <div class="arm arm-r"></div>
-        <div class="forearm forearm-l"></div>
-        <div class="forearm forearm-r"></div>
-        <div class="leg leg-l"></div>
-        <div class="leg leg-r"></div>
-        <div class="shadow"></div>
-      </div>
-      <div class="name-text">
-        <span>KOTHA</span><span>RAJ</span><span>RISHI</span><span>REDDY</span>
-      </div>
-    </div>
-
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      // Hide the dragon as soon as the app has mounted. MIN only exists to stop a
-      // sub-frame flash on a warm cache — it is not a minimum viewing time. Anything
-      // above ~500ms is the visitor waiting on us for no reason.
+      // Theme, resolved before first paint. Must stay ahead of the stylesheet
+      // so the correct ground colour is the first thing painted.
       (function () {
-        var MIN = 500, start = Date.now();
-        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        function hide() {
-          var wait = reduce ? 0 : Math.max(0, MIN - (Date.now() - start));
-          setTimeout(function () {
-            var p = document.getElementById("preloader");
-            if (p) p.classList.add("loaded");
-            document.body.classList.remove("no-scroll");
-            setTimeout(function () { if (p && p.parentNode) p.parentNode.removeChild(p); }, 650);
-          }, wait);
-        }
-        window.addEventListener("app-ready", hide, { once: true });
-        // Fallback in case the app never signals ready
-        window.addEventListener("load", function () { setTimeout(hide, 300); });
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored ? stored === "dark"
+                            : matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
       })();
     </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

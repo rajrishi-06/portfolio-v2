@@ -1,27 +1,27 @@
+import { ArrowUp } from "lucide-react";
 import { site } from "@/data/site";
+import { DrawnRule } from "@/components/Section";
 
+/** The colophon. Same drawn rule that separates every other section, then the
+ *  document's own metadata — nothing that isn't already true. */
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-overlay/[0.06]">
-      <div className="container-wide flex flex-col items-center gap-4 py-12 text-center">
-        {/* Brand mark doubles as a back-to-top */}
+    <footer>
+      <DrawnRule />
+      <div className="container-wide flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-10">
+        <p className="u-data text-muted">
+          © {year} {site.fullName}
+        </p>
         <a
           href="#top"
           aria-label="Back to top"
-          className="grid h-10 w-10 place-items-center rounded-xl bg-accent font-display text-lg font-bold text-white shadow-[0_6px_20px_-6px_rgb(var(--c-accent-glow)/0.6)] transition-transform hover:-translate-y-0.5"
+          className="u-label inline-flex items-center gap-1.5 text-ink transition-colors duration-150 hover:text-accent"
         >
-          R
+          Back to top
+          <ArrowUp className="h-3 w-3" aria-hidden />
         </a>
-
-        {/* Slogan */}
-        <p className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-          Build. Ship. <span className="text-gradient">Solve.</span>
-        </p>
-
-        {/* Trademark */}
-        <p className="text-sm text-muted">
-          © {new Date().getFullYear()} {site.fullName} · All rights reserved.
-        </p>
       </div>
     </footer>
   );

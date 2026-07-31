@@ -6,58 +6,49 @@ export default {
     container: {
       center: true,
       padding: "1.5rem",
-      screens: { "2xl": "1200px" },
+      screens: { "2xl": "1160px" },
     },
     extend: {
       colors: {
-        // Theme-aware tokens — values come from CSS vars in index.css
-        // (dark = the original deep-dark/electric-blue, light = its counterpart).
+        // Theme-aware tokens — values come from CSS vars in index.css.
+        // See DESIGN.md for what each one is for.
         bg: "rgb(var(--c-bg) / <alpha-value>)",
         surface: "rgb(var(--c-surface) / <alpha-value>)",
-        "surface-2": "rgb(var(--c-surface-2) / <alpha-value>)",
         ink: "rgb(var(--c-ink) / <alpha-value>)",
         muted: "rgb(var(--c-muted) / <alpha-value>)",
         faint: "rgb(var(--c-faint) / <alpha-value>)",
-        // Adaptive overlay: white in dark mode, black in light mode.
-        // Used for glass / borders / hover fills so they flip with the theme.
+        // Adaptive overlay: black in light mode, white in dark. Every rule and
+        // hover fill is built from this so it flips with the theme.
         overlay: "rgb(var(--c-overlay) / <alpha-value>)",
-        border: "rgb(var(--c-overlay) / 0.1)",
-        accent: {
-          DEFAULT: "rgb(var(--c-accent) / <alpha-value>)",
-          bright: "rgb(var(--c-accent-bright) / <alpha-value>)",
-          glow: "rgb(var(--c-accent-glow) / <alpha-value>)",
-        },
+        // One accent. There is deliberately no accent-bright / accent-glow —
+        // this design has no glow to tint.
+        accent: "rgb(var(--c-accent) / <alpha-value>)",
       },
       fontFamily: {
-        display: ['"Space Grotesk"', "system-ui", "sans-serif"],
+        display: ['"Spectral"', "Georgia", "serif"],
         sans: ['"Inter"', "system-ui", "sans-serif"],
+        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
       },
-      boxShadow: {
-        glow: "0 0 0 1px rgb(var(--c-accent-bright) / 0.25), 0 8px 40px -8px rgb(var(--c-accent-glow) / 0.55)",
-        card: "var(--shadow-card)",
+      borderColor: {
+        DEFAULT: "rgb(var(--c-overlay) / 0.14)",
       },
-      keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        float: {
-          "0%,100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
-        },
-        "grid-pan": {
-          "0%": { backgroundPosition: "0 0" },
-          "100%": { backgroundPosition: "40px 40px" },
-        },
+      // Squaring the whole scale rather than hand-editing every call site:
+      // any leftover rounded-2xl from the old design flattens on its own.
+      // rounded-full is left alone — the portrait and status dots need it.
+      borderRadius: {
+        none: "0",
+        sm: "2px",
+        DEFAULT: "0",
+        md: "2px",
+        lg: "2px",
+        xl: "2px",
+        "2xl": "0",
+        "3xl": "0",
       },
-      animation: {
-        "fade-up": "fade-up 0.6s ease forwards",
-        float: "float 6s ease-in-out infinite",
+      letterSpacing: {
+        label: "0.14em",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 };

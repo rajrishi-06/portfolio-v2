@@ -1,10 +1,151 @@
-import { useRef } from "react";
-import { Github, ArrowUpRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, ChevronDown, Github } from "lucide-react";
 import type { Project } from "@/data/projects";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-export function ProjectCard({
+/**
+ * Column template for the work selection table. The head row in Projects.tsx
+ * uses the same string, so head and cells stay in one grid.
+ *
+ * Mobile drops to three columns (№ / name+lang / links); LANG moves under the
+ * name and TAGS leave the row entirely — they live in the expanded panel.
+ */
+export const ROW_COLS =
+  "grid grid-cols-[2.25rem_minmax(0,1fr)_4rem] items-center gap-x-3 gap-y-1 px-3 md:grid-cols-[2.75rem_minmax(0,1fr)_6.5rem_minmax(0,11rem)_4rem]";
+
+/**
+ * A project as a datasheet record: number, name, language, tags, links.
+ *
+ * Hover/focus is one of the site's three permitted motions — a flat surface
+ * fill and a 2px accent bar, 150ms, no lift. On wide screens that also drives
+ * the preview pane in the margin. Touch has no hover, so every row opens: the
+ * name is a disclosure button revealing the description, the full tag set and
+ * the screenshot where one exists.
+ */
+export function ProjectRow({
+  project,
+  no,
+  onPreview,
+  className,
+}: {
+  project: Project;
+  /** Stable part number — position in projects.ts, not in the filtered view. */
+  no: string;
+  onPreview: (p: Project | null) => void;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const panelId = `work-${no}-detail`;
+
+  return (
+    <li className={className}>
+      <div
+        className="group relative border-b border-overlay/[0.14] transition-colors duration-150 hover:bg-surface focus-within:bg-surface"
+        onMouseEnter={() => onPreview(project)}
+        onMouseLeave={() => onPreview(null)}
+        onFocus={() => onPreview(project)}
+        // Tabbing name → links stays inside the row, so don't clear between them.
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) onPreview(null);
+        }}
+      >
+        <span
+          aria-hidden
+          className={cn(
+            "absolute inset-y-0 left-0 w-[2px] bg-accent opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100",
+            open && "opacity-100"
+          )}
+        />
+
+        <div className={cn(ROW_COLS, "py-3")}>
+          <span className="u-data tnum col-start-1 row-start-1 text-faint">
+            {no}
+          </span>
+
+          <h3 className="col-start-2 row-start-1 min-w-0">
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls={panelId}
+              className="flex w-full items-center gap-2 text-left font-display text-base leading-snug text-ink md:text-[1.0625rem]"
+            >
+              <span className="truncate">{project.title}</span>
+              <ChevronDown
+                aria-hidden
+                className={cn(
+                  "h-3.5 w-3.5 shrink-0 text-faint",
+                  open && "rotate-180"
+                )}
+              />
+            </button>
+          </h3>
+
+          <span className="u-data col-start-2 row-start-2 text-muted md:col-start-3 md:row-start-1">
+            {project.lang}
+          </span>
+
+          <div className="col-start-4 row-start-1 hidden gap-1 md:flex">
+            {project.tags.slice(0, 2).map((t) => (
+              <span key={t} className="chip whitespace-nowrap">
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="col-start-3 row-span-2 row-start-1 flex items-center justify-end gap-1 md:col-start-5 md:row-span-1">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${project.title} source code on GitHub`}
+              title="Code"
+              className="grid h-7 w-7 place-items-center text-muted transition-colors duration-150 hover:text-ink"
+            >
+              <Github className="h-4 w-4" />
+            </a>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${project.title} live demo`}
+                title="Live"
+                className="grid h-7 w-7 place-items-center text-accent transition-colors duration-150 hover:text-ink"
+              >
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </div>
+
+        {open && (
+          <div id={panelId} className="pb-5 pl-3 pr-3 md:pl-[4.25rem]">
+            <p className="max-w-prose text-sm leading-relaxed text-muted">
+              {project.description}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-1">
+              {project.tags.map((t) => (
+                <span key={t} className="chip">
+                  {t}
+                </span>
+              ))}
+            </div>
+            {/* The margin pane already carries the screenshot from xl up. */}
+            <ProjectPreview project={project} className="mt-4 max-w-sm xl:hidden" />
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
+/**
+ * Screenshot at its own aspect ratio inside a hairline box — never cropped.
+ * Projects without an image fall back to their mark, so the preview pane keeps
+ * a shape either way.
+ */
+export function ProjectPreview({
   project,
   className,
 }: {
@@ -12,126 +153,21 @@ export function ProjectCard({
   className?: string;
 }) {
   const Icon = project.icon;
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const onEnter = () => videoRef.current?.play().catch(() => {});
-  const onLeave = () => {
-    const v = videoRef.current;
-    if (v) {
-      v.pause();
-      v.currentTime = 0;
-    }
-  };
 
   return (
-    <article
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl glass glass-hover",
-        className
+    <div className={cn("border border-overlay/[0.14] bg-surface", className)}>
+      {project.image ? (
+        <img
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          loading="lazy"
+          className="block w-full"
+        />
+      ) : (
+        <div className="grid aspect-[4/3] place-items-center">
+          <Icon className="h-6 w-6 text-faint" strokeWidth={1.25} aria-hidden />
+        </div>
       )}
-    >
-      {/* Thumbnail (image / hover-video / gradient placeholder) */}
-      <a
-        href={project.demo || project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="relative block w-full overflow-hidden"
-        // A real screenshot drives its own height (intrinsic ratio, shown whole).
-        // Video + the gradient placeholder have no intrinsic size, so they fall
-        // back to the reserved `ratio` box.
-        style={
-          project.image && !project.video
-            ? undefined
-            : { paddingTop: `${project.ratio * 100}%` }
-        }
-        aria-label={`${project.title} preview`}
-      >
-        {project.video ? (
-          <video
-            ref={videoRef}
-            src={project.video}
-            poster={project.image}
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-          />
-        ) : project.image ? (
-          // No fixed box and no object-cover: the image keeps its own aspect
-          // ratio, scaled to the column width — fit to size, never cropped or
-          // stretched (like Shift-resizing in Word). The card height follows it
-          // and the masonry reflows, so each card can differ in height.
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.04]"
-          />
-        ) : (
-          // Designed placeholder — swap in real media via project.image / project.video
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(120% 120% at 0% 0%, ${project.grad[0]} 0%, ${project.grad[1]} 55%, #0b0e17 100%)`,
-            }}
-          >
-            <div
-              className="absolute inset-0 opacity-[0.12]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)",
-                backgroundSize: "26px 26px",
-              }}
-            />
-            <Icon className="absolute -bottom-4 -right-3 h-32 w-32 text-white/15" strokeWidth={1.25} />
-            <div className="absolute left-4 top-4 grid h-11 w-11 place-items-center rounded-xl bg-black/30 backdrop-blur-sm ring-1 ring-white/20">
-              <Icon className="h-5 w-5 text-white" />
-            </div>
-          </div>
-        )}
-        <span className="absolute right-3 top-3 rounded-md bg-black/45 px-2 py-1 text-[11px] font-semibold text-white backdrop-blur-sm ring-1 ring-white/15">
-          {project.lang}
-        </span>
-        <span className="absolute bottom-3 right-3 grid h-9 w-9 translate-y-2 place-items-center rounded-full bg-accent text-white opacity-0 shadow-glow transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-          <ArrowUpRight className="h-4.5 w-4.5" />
-        </span>
-      </a>
-
-      {/* Body */}
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold text-ink">{project.title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{project.description}</p>
-
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.tags.map((t) => (
-            <Badge key={t}>{t}</Badge>
-          ))}
-        </div>
-
-        <div className="mt-5 flex items-center gap-4 pt-1">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-ink"
-          >
-            <Github className="h-4 w-4" /> Code
-          </a>
-          {project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="accent-link text-sm font-medium"
-            >
-              Live <ArrowUpRight className="h-4 w-4" />
-            </a>
-          )}
-        </div>
-      </div>
-    </article>
+    </div>
   );
 }

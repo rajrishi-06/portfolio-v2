@@ -19,3 +19,6 @@ _legacy
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# Playwright MCP scratch output (screenshots, snapshots, console logs)
+.playwright-mcp/

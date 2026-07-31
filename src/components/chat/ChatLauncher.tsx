@@ -5,11 +5,11 @@ import { RobotMascot } from "./RobotMascot";
 /**
  * The quiet entry point: the assistant's robot, standing in the corner.
  *
- * No glass chip around it — the bot is the button. Affordance comes from the
- * soft halo that blooms on hover, the wave it gives back, and the fact that it
- * has been watching the cursor the whole time. Wrapped in a draggable container
- * by ChatWidget, so it's movable; it fades out while the panel is open, and the
- * click handler is no-op'd mid-drag by the parent.
+ * No chip, no halo — the bot is the button. Affordance comes from the wave it
+ * gives back and the fact that it has been watching the cursor the whole time.
+ * Wrapped in a draggable container by ChatWidget, so it's movable; it fades out
+ * while the panel is open, and the click handler is no-op'd mid-drag by the
+ * parent.
  */
 export function ChatLauncher({
   onClick,
@@ -38,24 +38,18 @@ export function ChatLauncher({
       onPointerDown={() => setPressed(true)}
       onPointerUp={() => setPressed(false)}
       onPointerCancel={() => setPressed(false)}
-      // The bot does its own reacting — the button only handles focus styling,
-      // so nothing here fights the rig for the same transform.
-      className="group relative block h-16 w-16 rounded-[28px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-4 focus-visible:ring-offset-bg"
+      // The bot does its own reacting — the button carries no chrome of its
+      // own, so nothing here fights the rig for the same transform. Focus is
+      // the global square accent outline.
+      className="group relative block h-16 w-16"
     >
-      {/* Halo — the only "this is a control" chrome, and only on approach. */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -inset-2 rounded-full bg-accent-glow/0 blur-xl transition-colors duration-300 group-hover:bg-accent-glow/25 group-focus-visible:bg-accent-glow/25"
-      />
       <RobotMascot
         vx={vx}
         vy={vy}
         dragging={dragging}
         hovered={hovered && !dragging}
         pressed={pressed && !dragging}
-        // Cast a shadow on the light site; on the dark one there's nothing to
-        // cast onto, so the same offset becomes a faint azure bloom instead.
-        className="relative h-16 w-16 drop-shadow-[0_10px_18px_rgba(8,12,28,0.28)] dark:drop-shadow-[0_8px_22px_rgba(59,130,246,0.22)]"
+        className="relative h-16 w-16"
       />
     </motion.button>
   );

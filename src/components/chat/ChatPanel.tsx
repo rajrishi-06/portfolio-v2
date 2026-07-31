@@ -155,14 +155,16 @@ export function ChatPanel({
         role="dialog"
         aria-label="Raj's AI assistant"
         className={cn(
-          "chat-invert absolute flex flex-col overflow-hidden rounded-2xl glass-strong shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95)]",
+          // Annotation layer over the sheet: inverted theme, flat fill, one
+          // structural rule instead of a shadow.
+          "chat-invert absolute flex flex-col overflow-hidden border border-overlay/[0.28] bg-bg",
           open ? "pointer-events-auto" : "pointer-events-none",
         )}
       >
         {/* Terminal title bar — drag handle + macOS controls */}
         <div
           onPointerDown={startDrag}
-          className="flex touch-none cursor-grab select-none items-center justify-between gap-2 border-b border-overlay/10 px-3.5 py-2.5 active:cursor-grabbing"
+          className="flex touch-none cursor-grab select-none items-center justify-between gap-2 border-b border-overlay/[0.14] px-3.5 py-2.5 active:cursor-grabbing"
         >
           <div className="group flex items-center gap-2.5">
             <div className="flex items-center gap-2">
@@ -191,15 +193,13 @@ export function ChatPanel({
               {assistantConfig.title}
             </span>
           </div>
-          <span className="hidden font-mono text-[10px] text-faint/60 sm:inline">
-            ⠿ drag
-          </span>
+          <span className="u-label hidden sm:inline">⠿ drag</span>
         </div>
 
         {/* Body */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Mode tabs */}
-          <div className="flex gap-1 border-b border-overlay/10 px-2 py-2">
+          <div className="flex gap-1 border-b border-overlay/[0.14] px-2 py-2">
             <TabButton
               active={mode === "chat"}
               onClick={() => setMode("chat")}
@@ -238,22 +238,22 @@ export function ChatPanel({
         {/* Delete-confirm overlay (red dot, only when there's something to lose) */}
         {confirmingClose && (
           <div
-            className="absolute inset-0 z-20 flex items-center justify-center bg-bg/80 p-5 backdrop-blur-sm"
+            className="absolute inset-0 z-20 flex items-center justify-center bg-bg/90 p-5"
             onClick={() => setConfirmingClose(false)}
           >
             <div
               role="alertdialog"
               aria-label="Confirm close"
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-[280px] rounded-2xl border border-overlay/10 bg-surface p-5 text-center shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]"
+              className="w-full max-w-[280px] border border-overlay/[0.28] bg-surface p-5 text-center"
             >
-              <span className="mx-auto grid h-10 w-10 place-items-center rounded-full bg-red-500/15 text-red-400">
+              <span className="mx-auto grid h-10 w-10 place-items-center border border-overlay/[0.14] text-red-500">
                 <Trash2 className="h-5 w-5" />
               </span>
               <p className="mt-3 text-sm font-semibold text-ink">
                 Delete this conversation?
               </p>
-              <p className="mt-1 text-xs leading-relaxed text-muted">
+              <p className="mt-1 text-[13px] leading-relaxed text-muted">
                 Closing clears your chat and analysis. Use the yellow dot to
                 minimize and keep them instead.
               </p>
@@ -261,7 +261,7 @@ export function ChatPanel({
                 <button
                   type="button"
                   onClick={() => setConfirmingClose(false)}
-                  className="flex-1 rounded-xl border border-overlay/15 bg-overlay/[0.03] px-3 py-2 text-xs font-semibold text-ink transition-colors hover:bg-overlay/[0.07]"
+                  className="flex-1 rounded-sm border border-overlay/[0.28] px-3 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink transition-colors hover:bg-overlay/[0.07]"
                 >
                   Cancel
                 </button>
@@ -271,7 +271,7 @@ export function ChatPanel({
                     setConfirmingClose(false);
                     onClose();
                   }}
-                  className="flex-1 rounded-xl bg-red-500 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-red-600"
+                  className="flex-1 rounded-sm bg-red-600 px-3 py-2 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-white transition-colors hover:bg-red-700"
                 >
                   Delete &amp; close
                 </button>
@@ -321,7 +321,9 @@ function TrafficLight({
       onPointerDown={(e) => e.stopPropagation()}
       // 14px dot, with a transparent ::before pad extending the hit target to
       // ~30px (WCAG 2.5.8) without changing the visual or the row layout.
-      className="relative grid h-3.5 w-3.5 place-items-center rounded-full transition before:absolute before:-inset-2 before:content-[''] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-1 focus-visible:ring-offset-bg"
+      // Focus is the global :focus-visible rule in index.css — a local ring
+      // here would only duplicate it, and the accent-bright token is gone.
+      className="relative grid h-3.5 w-3.5 place-items-center rounded-full transition before:absolute before:-inset-2 before:content-[''] hover:brightness-110"
       style={{ backgroundColor: color }}
     >
       {glyph}
@@ -356,7 +358,7 @@ function TabButton({
       {icon}
       {label}
       {badge && (
-        <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-accent-bright">
+        <span className="bg-accent/20 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wide text-accent">
           {badge}
         </span>
       )}

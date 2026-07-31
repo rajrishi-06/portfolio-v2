@@ -3,22 +3,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // active:scale-[0.98] is the whole press interaction: the control yields under
-  // the pointer and returns. No magnetic pull — moving a target toward the cursor
-  // makes it harder to hit, and it signifies nothing.
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.98] motion-reduce:active:scale-100 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bright focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:pointer-events-none disabled:opacity-50",
+  // A datasheet control: square (2px so it reads as interactive), 1px rule,
+  // mono uppercase label. active:scale-[0.98] is the whole press interaction —
+  // the control yields under the pointer and returns. No lift, no shadow.
+  // Focus is the global :focus-visible rule in index.css; nothing here.
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm border font-mono text-xs font-medium uppercase tracking-[0.08em] transition-all duration-150 active:scale-[0.98] motion-reduce:active:scale-100 motion-reduce:transition-none disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary:
-          "bg-accent text-white shadow-[0_8px_30px_-8px_rgb(var(--c-accent-glow)/0.5)] hover:bg-accent-glow hover:-translate-y-0.5",
-        outline:
-          "border border-overlay/15 bg-overlay/[0.02] text-ink hover:border-accent-bright/60 hover:bg-overlay/[0.05]",
-        ghost: "text-muted hover:text-ink hover:bg-overlay/[0.05]",
+        primary: "border-ink bg-ink text-bg hover:border-accent hover:bg-accent",
+        outline: "border-overlay/[0.28] text-ink hover:border-ink",
+        // Transparent rule keeps ghost the same height as the other two.
+        ghost: "border-transparent text-muted hover:bg-overlay/[0.06] hover:text-ink",
       },
       size: {
         default: "h-11 px-5",
-        lg: "h-12 px-7 text-base",
+        lg: "h-12 px-7 text-sm",
         icon: "h-11 w-11",
       },
     },
